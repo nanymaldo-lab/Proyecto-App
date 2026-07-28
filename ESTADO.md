@@ -1,7 +1,7 @@
 # ESTADO — AmorPropio & SOS
 Última actualización: 2026-07-28 | Sesión actual: 1 (Constitución del Producto — completa, arrancando validación técnica)
 
-⏸️ CHECKPOINT — Última acción completada: Constitución del Producto cerrada (nombre, promesa, MVP, regla "nunca", formato web) / Siguiente acción exacta: presentar Plan Maestro (B5) y esperar OK del usuario para arrancar Sesión 1 completa (avatar + monetización + arquitectura).
+⏸️ CHECKPOINT — Última acción completada: Sesión 1 cerrada (FICHA-AVATAR.md creada, monetización, arquitectura y auth decididas) / Siguiente acción exacta: mostrar resumen simple al usuario, confirmar avatar, y esperar OK para arrancar Sesión 2 (identidad visual — FICHA-ARTE.md, 3 opciones A/B/C).
 
 ## Qué es esta app (3 líneas máximo)
 App web de bienestar emocional para mujeres hispanohablantes: botón SOS de auxilio inmediato en crisis de pánico + hábito diario de afirmaciones y ejercicios de amor propio. Modelo freemium por suscripción (Hotmart), pendiente de refinar en Sesión 1.
@@ -25,15 +25,18 @@ App web de bienestar emocional para mujeres hispanohablantes: botón SOS de auxi
 - ¿Hubo referencia visual del usuario?: NO — usuario pidió usar criterio propio ("atractivo, llamativo")
 - Camino a seguir: REFERENCIA-INVESTIGACIÓN — derivar de líderes del nicho (I am, Rootd) + PASO 0 de 16-DIRECCION-DE-ARTE (tabla de líderes, fusión, NO clon del look oscuro+neón genérico)
 
-## Avatar y venta (Sesión 1 — pendiente FICHA-AVATAR.md formal)
-- FICHA-AVATAR.md: NO existe aún (crear con datos ya recolectados en el informe del usuario)
-- Resumen: mujer 18-38 años, LATAM/España, autocrítica y baja autoestima + picos esporádicos de pánico · dolor #1: diálogo interno negativo diario · deseo #1: mensajes que reprogramen su mente + botón SOS de auxilio inmediato
+## Avatar y venta (Sesión 1 — NO cambiar sin validar)
+- FICHA-AVATAR.md: existe, creada 2026-07-28 con base en el informe de mercado del usuario (hace de Fuente 2) — pendiente de aprobación explícita del usuario
+- Resumen: "Vale", 18-38 años, LATAM/España, diálogo interno "no soy suficiente" + miedo a crisis de pánico en soledad · dolor #1: "no soy suficiente" · deseo #1: "que algo me hable a mí, no frases genéricas" · consciencia nivel 3 · sofisticación etapa 3
 - Landing: sigue la ESTRUCTURA CANÓNICA de 10 secciones del 19 — pendiente de construir (Sesión 3)
 
-## Estrategia de monetización (Sesión 1 — pendiente de definir en detalle con 02C)
-- Modelo preliminar: Freemium con suscripción — a confirmar Hard paywall vs Onboarding-first en Sesión 1 con la matriz A-F
-- Pricing de referencia: $3.99 USD/mes o $24.99 USD/año (validado por el propio informe del usuario)
-- Plan gratuito (preliminar): botón SOS + 3 afirmaciones/día · Plan premium: itinerarios ilimitados, diario, audios, ejercicios guiados
+## Estrategia de monetización (Sesión 1 — NO cambiar sin validar)
+- Modelo: **Modelo 2 — Onboarding + Paywall de prueba** (decidido con la matriz A-F de 02C-PRICING: nicho Bienestar → "primera sesión corta, tono suave/emocional, paywall tras mini-experiencia, trial + anual, rutina diaria")
+- Variante: preview anónimo (sin cuenta) → paywall → login/auth al convertir — NO registro gratis previo (evita el bug de cuentas duplicadas de Hotmart)
+- Justificación: apps de bienestar convierten hasta +234% con onboarding antes del paywall vs paywall sin onboarding (dato 02C); además calza con que el "aha" (primera afirmación personalizada) se vive gratis y sin fricción antes de pedir pago
+- Excepción ética (decisión de producto, alineada a la regla "nunca"): el **botón SOS de auxilio en crisis queda SIEMPRE accesible sin pago** — un botón de auxilio en pánico no se paywallea. No compite con la retención de pago porque el driver de suscripción es el hábito diario (afirmaciones + diario + itinerarios), no el SOS.
+- Trial: 3 días gratis del plan Premium tras el onboarding, luego $3.99 USD/mes o $24.99 USD/año (~$2.08/mes) — precios validados por el informe de mercado del usuario
+- Plan Premium incluye: afirmaciones/itinerarios ilimitados por tema, diario privado, audios para dormir, ejercicios guiados de reencuadre
 
 ## Reglas "nunca" del producto (decidido — Sesión 1)
 Nunca reemplaza ayuda profesional ni diagnostica · nunca comparte el diario privado de la usuaria · nunca presiona con culpa/miedo para retener o vender · nunca cobra nada oculto sin avisar antes.
@@ -45,6 +48,11 @@ Nunca reemplaza ayuda profesional ni diagnostica · nunca comparte el diario pri
 ## Decisiones técnicas (NO re-discutir sin pedirlo el usuario)
 - Framework: Next.js App Router (landing con SEO + páginas públicas + futuros API routes/webhooks de Hotmart) — decidido el 2026-07-28
 - Stack: React + TypeScript + Tailwind v4 + shadcn/ui + Lucide + Supabase (auth/datos) + Vercel + Hotmart (venta) + Resend (emails)
+- Auth: Supabase Auth con magic link (passwordless) como método principal + Google OAuth opcional — jerarquía de 26, apropiado por ser datos sensibles (diario personal) sin fricción de password
+- Tipo de app (arquitectura, 04): tracking/hábitos/bienestar → requiere vista "Hoy" (acción inmediata) + vista de histórico/racha + ≥2 tipos de logro + celebración en hitos reales
+- App interna (borrador de secciones, 3-5 máx): Hoy (afirmación + SOS) · Diario · Progreso/racha · Perfil
+- Contenido de afirmaciones/ejercicios: MVP usa un BANCO CURADO de contenido (~200-500 piezas) escrito por tema/estado de ánimo con selección algorítmica personalizada — NO generación por LLM en tiempo real (más barato, sin costo de IA por uso, sin riesgo de que "invente" algo inapropiado en un tema sensible). V2 podría sumar personalización con IA real sobre este banco.
+- Modelo de datos (borrador, se detalla en Sesión 6 con 25): profiles, entradas_diario (privadas, RLS por user_id), afirmaciones_banco (contenido, no sensible), user_progress (racha, RLS por user_id), suscripciones (estado Hotmart)
 
 ## Sesiones completadas ✅
 (ninguna aún — Constitución del Producto completa dentro de la conversación inicial)
