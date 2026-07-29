@@ -25,6 +25,12 @@ const CTA_HREF = "/onboarding";
 export default function Home() {
   return (
     <>
+      <a
+        href="#contenido"
+        className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:left-4 focus-visible:top-4 focus-visible:z-50 focus-visible:rounded-lg focus-visible:bg-brand-primary focus-visible:px-4 focus-visible:py-2 focus-visible:text-sm focus-visible:font-semibold focus-visible:text-txt-inverse"
+      >
+        Saltar al contenido principal
+      </a>
       {/* ============ HEADER ============ */}
       <header className="sticky top-0 z-40 border-b border-border-default/70 bg-surface-base/90 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
@@ -36,16 +42,24 @@ export default function Home() {
               AmorPropio &amp; SOS
             </span>
           </Link>
-          <Link
-            href="/login"
-            className="text-sm font-medium text-txt-secondary hover:text-txt-primary"
-          >
-            Entrar
-          </Link>
+          <div className="flex items-center gap-4">
+            <a
+              href="#precios"
+              className="hidden text-sm font-medium text-txt-secondary hover:text-txt-primary sm:inline"
+            >
+              Ver precios
+            </a>
+            <Link
+              href="/login"
+              className="text-sm font-medium text-txt-secondary hover:text-txt-primary"
+            >
+              Entrar
+            </Link>
+          </div>
         </div>
       </header>
 
-      <main className="flex-1 pb-24 md:pb-0">
+      <main id="contenido" className="flex-1 pb-24 md:pb-0">
         {/* ============ 1. HERO ============ */}
         <section className="mx-auto max-w-5xl px-4 pt-12 pb-16 md:pt-20 md:pb-24">
           <div className="grid items-center gap-10 md:grid-cols-2">
@@ -84,11 +98,11 @@ export default function Home() {
                 </p>
                 <p
                   aria-hidden
-                  className="mt-2 font-display text-4xl leading-none text-brand-secondary"
+                  className="mt-1 font-display text-3xl leading-none text-brand-secondary"
                 >
                   &ldquo;
                 </p>
-                <p className="-mt-3 font-display text-xl font-semibold leading-snug text-txt-primary">
+                <p className="mt-1 font-display text-xl font-semibold leading-snug text-txt-primary">
                   No soy el desastre que mi cabeza dice que soy.
                 </p>
                 <div className="mt-5 flex items-center gap-2 rounded-xl bg-brand-primary px-4 py-3 text-sm font-semibold text-txt-inverse">
@@ -145,7 +159,7 @@ export default function Home() {
           <div className="mx-auto max-w-2xl">
             <Reveal>
               <div className="rounded-xl border border-border-default bg-surface-primary p-6 text-center shadow-sm md:p-8">
-                <p aria-hidden className="-mb-3 font-display text-3xl leading-none text-brand-secondary">
+                <p aria-hidden className="mb-1 font-display text-3xl leading-none text-brand-secondary">
                   &ldquo;
                 </p>
                 <h2 className="text-balance font-display text-xl font-semibold text-txt-primary md:text-2xl">
@@ -431,7 +445,7 @@ export default function Home() {
           <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
             <Reveal>
               <IconChip icon={ShieldCheck} />
-              <p aria-hidden className="-mb-3 font-display text-3xl leading-none text-brand-secondary">
+              <p aria-hidden className="mb-1 font-display text-3xl leading-none text-brand-secondary">
                 &ldquo;
               </p>
               <h2 className="mt-4 text-balance font-display text-xl font-semibold text-txt-primary md:text-2xl">
@@ -520,7 +534,7 @@ export default function Home() {
       </main>
 
       {/* ============ 10. FOOTER LEGAL ============ */}
-      <footer className="border-t border-border-default/60 bg-surface-secondary/60 px-4 py-10">
+      <footer className="border-t border-border-default/60 bg-surface-secondary/60 px-4 py-10 pb-28 md:pb-10">
         <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 text-center">
           <div className="flex items-center gap-2">
             <span className="flex h-6 w-6 items-center justify-center rounded-md bg-brand-primary text-txt-inverse">

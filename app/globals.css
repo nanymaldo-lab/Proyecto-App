@@ -32,7 +32,7 @@
      no un cambio de dirección de arte. */
   --brand-primary: #A85434;
   --brand-primary-hover: #8F4527;
-  --brand-primary-soft: rgba(168, 84, 52, 0.16);
+  --brand-primary-soft: rgba(168, 84, 52, 0.22);
   --brand-primary-text: #FFF8F2;
   --brand-secondary: #B0473A; /* 2ª nota: detalle editorial (comilla, tag) — nunca en CTAs */
 
