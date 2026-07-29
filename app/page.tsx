@@ -17,6 +17,7 @@ import { Reveal, RevealStagger, RevealItem } from "@/components/app/Reveal";
 import { AccordionItem } from "@/components/app/Accordion";
 import { AnimatedNumber } from "@/components/app/AnimatedNumber";
 import { RachaDots } from "@/components/app/RachaDots";
+import { CTALink } from "@/components/app/CTALink";
 
 const CTA_LABEL = "Quiero mi ritual gratis";
 const CTA_HREF = "/onboarding";
@@ -60,12 +61,12 @@ export default function Home() {
                 frases sueltas: un ritual diario hecho para ti.
               </p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <Link
+                <CTALink
                   href={CTA_HREF}
                   className="inline-flex h-12 items-center justify-center rounded-lg bg-brand-primary px-7 text-base font-semibold text-txt-inverse shadow-md transition hover:bg-brand-primary-hover active:scale-[0.98]"
                 >
                   {CTA_LABEL}
-                </Link>
+                </CTALink>
               </div>
               <p className="mt-4 text-sm text-txt-tertiary">
                 Sin tarjeta para tu primera afirmación · El botón SOS es
@@ -90,7 +91,7 @@ export default function Home() {
                 <p className="-mt-3 font-display text-xl font-semibold leading-snug text-txt-primary">
                   No soy el desastre que mi cabeza dice que soy.
                 </p>
-                <div className="mt-5 flex items-center gap-2 rounded-xl bg-brand-primary-soft px-4 py-3 text-sm font-semibold text-brand-primary">
+                <div className="mt-5 flex items-center gap-2 rounded-xl bg-brand-primary px-4 py-3 text-sm font-semibold text-txt-inverse">
                   <LifeBuoy className="h-4 w-4 shrink-0" />
                   SOS · Estoy en crisis, ayúdame ahora
                 </div>
@@ -141,23 +142,28 @@ export default function Home() {
 
         {/* ============ 3. AGITACIÓN ============ */}
         <section className="px-4 py-16 md:py-20">
-          <div className="mx-auto max-w-2xl text-center">
+          <div className="mx-auto max-w-2xl">
             <Reveal>
-              <h2 className="text-balance font-display text-xl font-semibold text-txt-primary md:text-2xl">
-                Nada de esto se arregla solo
-              </h2>
-              <p className="mt-5 text-base leading-relaxed text-txt-secondary md:text-lg">
-                Cada día que sigues sin un ritual real, ese diálogo negativo
-                se afianza un poco más — y la próxima crisis te va a
-                encontrar exactamente igual de desprevenida que la última.
-                En un año, ese patrón no se rompe solo: se vuelve más
-                difícil de cambiar.
-              </p>
-              <p className="mt-4 text-base leading-relaxed text-txt-secondary md:text-lg">
-                Las apps de afirmaciones que ya probaste fallan por lo
-                mismo: mandan una notificación y ya. Ninguna te da algo que
-                hacer cuando de verdad lo necesitas.
-              </p>
+              <div className="rounded-xl border border-border-default bg-surface-primary p-6 text-center shadow-sm md:p-8">
+                <p aria-hidden className="-mb-3 font-display text-3xl leading-none text-brand-secondary">
+                  &ldquo;
+                </p>
+                <h2 className="text-balance font-display text-xl font-semibold text-txt-primary md:text-2xl">
+                  Nada de esto se arregla solo
+                </h2>
+                <p className="mt-5 text-base leading-relaxed text-txt-secondary md:text-lg">
+                  Cada día que sigues sin un ritual real, ese diálogo negativo
+                  se afianza un poco más — y la próxima crisis te va a
+                  encontrar exactamente igual de desprevenida que la última.
+                  En un año, ese patrón no se rompe solo: se vuelve más
+                  difícil de cambiar.
+                </p>
+                <p className="mt-4 text-base leading-relaxed text-txt-secondary md:text-lg">
+                  Las apps de afirmaciones que ya probaste fallan por lo
+                  mismo: mandan una notificación y ya. Ninguna te da algo que
+                  hacer cuando de verdad lo necesitas.
+                </p>
+              </div>
             </Reveal>
           </div>
         </section>
@@ -290,15 +296,22 @@ export default function Home() {
               muy pronto.
             </p>
             <div className="mt-8 flex justify-center">
-              <Link
+              <CTALink
                 href={CTA_HREF}
                 className="inline-flex h-12 items-center justify-center rounded-lg bg-brand-primary px-7 text-base font-semibold text-txt-inverse shadow-md transition hover:bg-brand-primary-hover active:scale-[0.98]"
               >
                 {CTA_LABEL}
-              </Link>
+              </CTALink>
             </div>
 
-            <div className="mx-auto mt-14 max-w-lg rounded-xl border border-border-default bg-surface-secondary p-5">
+            <div
+              className="mx-auto mt-14 max-w-lg rounded-xl border border-border-default bg-surface-tertiary p-5"
+              style={{
+                backgroundImage:
+                  "radial-gradient(color-mix(in oklab, var(--text-primary) 6%, transparent) 1px, transparent 1px)",
+                backgroundSize: "14px 14px",
+              }}
+            >
               <p className="text-xs font-semibold uppercase tracking-wide text-txt-tertiary">
                 Por qué es distinto
               </p>
@@ -338,7 +351,7 @@ export default function Home() {
                     <span className="text-sm text-txt-primary">{text}</span>
                   </div>
                 ))}
-                <p className="rounded-xl bg-brand-primary-soft px-4 py-3 text-center text-sm font-medium text-brand-primary">
+                <p className="rounded-xl bg-brand-primary px-4 py-3 text-center text-sm font-medium text-txt-inverse">
                   El botón SOS es gratis siempre, tengas o no Premium — eso
                   nunca te lo vamos a cobrar.
                 </p>
@@ -381,12 +394,12 @@ export default function Home() {
                   <p className="mt-1 text-xs text-txt-tertiary">
                     Se cobra $24.99/año · 2 meses gratis vs. el mensual
                   </p>
-                  <Link
+                  <CTALink
                     href={`${CTA_HREF}?plan=annual`}
                     className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-lg bg-brand-primary text-base font-semibold text-txt-inverse transition hover:bg-brand-primary-hover active:scale-[0.98]"
                   >
                     {CTA_LABEL}
-                  </Link>
+                  </CTALink>
                 </div>
               </RevealItem>
               <RevealItem>
@@ -401,12 +414,12 @@ export default function Home() {
                   <p className="mt-1 text-xs text-txt-tertiary">
                     3 días gratis, luego $3.99/mes
                   </p>
-                  <Link
+                  <CTALink
                     href={`${CTA_HREF}?plan=monthly`}
                     className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-lg border border-border-strong text-base font-semibold text-txt-primary transition hover:bg-surface-secondary active:scale-[0.98]"
                   >
                     {CTA_LABEL}
-                  </Link>
+                  </CTALink>
                 </div>
               </RevealItem>
             </RevealStagger>
@@ -487,12 +500,12 @@ export default function Home() {
                 la persona que se cuida y se habla bonito — y puede
                 empezar hoy, en 2 minutos.
               </p>
-              <Link
+              <CTALink
                 href={CTA_HREF}
                 className="mt-7 inline-flex h-12 items-center justify-center rounded-lg bg-brand-primary px-8 text-base font-semibold text-txt-inverse shadow-md transition hover:bg-brand-primary-hover active:scale-[0.98]"
               >
                 {CTA_LABEL}
-              </Link>
+              </CTALink>
               <p className="mx-auto mt-8 max-w-md text-left text-xs leading-relaxed text-txt-tertiary">
                 <strong className="text-txt-secondary">PD:</strong>{" "}
                 AmorPropio &amp; SOS te da tu Ritual de 2 Minutos cada día —
@@ -548,12 +561,12 @@ export default function Home() {
 
       {/* ============ CTA STICKY MOBILE ============ */}
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border-default bg-surface-primary/95 p-3 backdrop-blur md:hidden">
-        <Link
+        <CTALink
           href={CTA_HREF}
           className="flex h-12 w-full items-center justify-center rounded-lg bg-brand-primary text-base font-semibold text-txt-inverse shadow-md active:scale-[0.98]"
         >
           {CTA_LABEL}
-        </Link>
+        </CTALink>
       </div>
     </>
   );

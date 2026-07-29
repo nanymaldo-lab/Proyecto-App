@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useInView, useMotionValue, useSpring } from "motion/react";
+import { useInView, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 
 export function AnimatedNumber({
   value,
@@ -16,12 +16,18 @@ export function AnimatedNumber({
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
+  const prefersReducedMotion = useReducedMotion();
   const motionValue = useMotionValue(0);
   const spring = useSpring(motionValue, { duration: 700, bounce: 0 });
 
   useEffect(() => {
-    if (inView) motionValue.set(value);
-  }, [inView, value, motionValue]);
+    if (!inView) return;
+    if (prefersReducedMotion) {
+      motionValue.jump(value);
+    } else {
+      motionValue.set(value);
+    }
+  }, [inView, value, motionValue, prefersReducedMotion]);
 
   useEffect(() => {
     return spring.on("change", (v) => {
