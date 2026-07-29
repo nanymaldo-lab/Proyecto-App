@@ -23,7 +23,7 @@
 
 ## Brand kit final (los valores que viven en globals.css/@theme)
 - Fondo: #FBF3EC · Superficie: #FFFBF6 · Hundido (texturas/journal): #F3E4D6 · Texto 1º/2º: #2E2420 / #6B5D4F
-- Acento: #D9704F terracota-coral (SOLO en: CTA primario, botón SOS, dato de racha) · 2ª nota: #B0473A ink-rojo (razón funcional: distinguir el detalle editorial/firma —comilla, tag de tema— del CTA de acción, sin salir de la familia cálida)
+- Acento: #A85434 terracota-coral (SOLO en: CTA primario, botón SOS, dato de racha) — corregido desde #D9704F el 2026-07-29 por falla de contraste AA (~3.13:1 con texto blanco en botones); el nuevo valor cumple ≥4.5:1 · 2ª nota: #B0473A ink-rojo (razón funcional: distinguir el detalle editorial/firma —comilla, tag de tema— del CTA de acción, sin salir de la familia cálida)
 - Semánticos: éxito #7FA98A (salvia calmo) · error #C24C42 · aviso #D9A441
 - Display: Zilla Slab (pesos 500/600/700) · Body: Plus Jakarta Sans (pesos 400/500/600/700) · Escala: display 26-32px / title 18-20px / body 15-16px / label 12-13px
 - Radio: 18px tendencial (cards 18-20px, botones 14-16px, chips 8px) · Profundidad: sombras suaves 3 niveles (base/elevado con `0 2px 8px rgba(120,80,40,.06)`/hundido con textura de puntos sutil) · Espaciado base: escala 4·8·12·16·24·32·48·64

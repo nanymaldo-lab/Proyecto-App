@@ -10,7 +10,6 @@ import {
   ShieldCheck,
   BookHeart,
   Moon,
-  ChevronRight,
 } from "lucide-react";
 import { IconChip } from "@/components/app/IconChip";
 import { Check } from "@/components/app/Check";
@@ -91,7 +90,8 @@ export default function Home() {
                 <p className="-mt-3 font-display text-xl font-semibold leading-snug text-txt-primary">
                   No soy el desastre que mi cabeza dice que soy.
                 </p>
-                <div className="mt-5 rounded-xl border-2 border-brand-primary bg-surface-primary px-4 py-3 text-center text-sm font-semibold text-brand-primary">
+                <div className="mt-5 flex items-center gap-2 rounded-xl bg-brand-primary-soft px-4 py-3 text-sm font-semibold text-brand-primary">
+                  <LifeBuoy className="h-4 w-4 shrink-0" />
                   SOS · Estoy en crisis, ayúdame ahora
                 </div>
               </div>
@@ -241,7 +241,7 @@ export default function Home() {
                     &ldquo;Hoy elijo hablarme con calma.&rdquo;
                   </p>
                   <div className="mt-4 flex items-center gap-1.5">
-                    <RachaDots filled={3} />
+                    <RachaDots filled={3} total={7} />
                     <span className="ml-1 text-xs text-txt-tertiary">
                       3 días de racha
                     </span>
@@ -270,7 +270,7 @@ export default function Home() {
                     &ldquo;Hoy me costó empezar el día, pero respiré antes de
                     reaccionar…&rdquo;
                   </p>
-                  <span className="mt-3 inline-block -rotate-2 rounded-md bg-brand-primary px-2 py-1 text-xs font-semibold text-txt-inverse">
+                  <span className="mt-3 inline-block -rotate-2 rounded-sm bg-brand-primary px-2 py-1 text-xs font-semibold text-txt-inverse">
                     + nueva entrada
                   </span>
                 </div>
@@ -339,33 +339,19 @@ export default function Home() {
             <Reveal delay={0.08}>
               <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
                 {[
-                  {
-                    icon: ShieldCheck,
-                    text: "Precio siempre visible antes de pagar",
-                    href: "/terminos",
-                  },
-                  {
-                    icon: Heart,
-                    text: "Cero cargos escondidos, nunca",
-                    href: "/disclaimer",
-                  },
-                  {
-                    icon: LifeBuoy,
-                    text: "Cancelas cuando quieras, sin llamadas",
-                    href: "/reembolso",
-                  },
+                  { icon: ShieldCheck, text: "Precio siempre visible antes de pagar" },
+                  { icon: Heart, text: "Cero cargos escondidos, nunca" },
+                  { icon: LifeBuoy, text: "Cancelas cuando quieras, sin llamadas" },
                 ].map((t, i) => (
-                  <Link
+                  <div
                     key={i}
-                    href={t.href}
-                    className="flex items-center gap-2.5 rounded-xl border border-border-default bg-surface-primary px-3 py-2.5 transition hover:border-brand-primary hover:bg-brand-primary-soft"
+                    className="flex items-center gap-2.5 rounded-xl border border-border-default bg-surface-primary px-3 py-2.5"
                   >
                     <t.icon className="h-4 w-4 shrink-0 text-brand-primary" />
                     <span className="flex-1 text-xs font-medium text-txt-secondary">
                       {t.text}
                     </span>
-                    <ChevronRight className="h-3.5 w-3.5 shrink-0 text-brand-primary" />
-                  </Link>
+                  </div>
                 ))}
               </div>
             </Reveal>

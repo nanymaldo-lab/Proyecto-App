@@ -26,9 +26,13 @@
   --border-focus: var(--brand-primary);
 
   /* ====== MARCA ====== */
-  --brand-primary: #D9704F;
-  --brand-primary-hover: #C25E3F;
-  --brand-primary-soft: rgba(217, 112, 79, 0.10);
+  /* Oscurecido desde #D9704F (fallaba AA: ~3.13:1 con texto blanco) a un
+     terracota más rico que sí cumple 4.5:1 tanto en botones (texto blanco)
+     como en texto sobre superficies claras — corrección de accesibilidad,
+     no un cambio de dirección de arte. */
+  --brand-primary: #A85434;
+  --brand-primary-hover: #8F4527;
+  --brand-primary-soft: rgba(168, 84, 52, 0.10);
   --brand-primary-text: #FFF8F2;
   --brand-secondary: #B0473A; /* 2ª nota: detalle editorial (comilla, tag) — nunca en CTAs */
 
