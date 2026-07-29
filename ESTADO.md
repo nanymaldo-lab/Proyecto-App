@@ -1,7 +1,7 @@
 # ESTADO — AmorPropio & SOS
 Última actualización: 2026-07-28 | Sesión actual: 1 (Constitución del Producto — completa, arrancando validación técnica)
 
-⏸️ CHECKPOINT — Última acción completada: Sesión 2 cerrada (FICHA-ARTE.md creada y aprobada — dirección "Carta cálida", combinación A+C) / Siguiente acción exacta: cerrar Sesión 1 pendiente de aprobación explícita del avatar (mostrar resumen simple y confirmar FICHA-AVATAR.md) y luego arrancar Sesión 3 (página de ventas).
+⏸️ CHECKPOINT — Última acción completada: Sesión 3 (landing) construida con las 10 secciones canónicas, tsc/build limpios, screenshot 375px tomado, subagente revisor-visual lanzado / Siguiente acción exacta: leer veredicto del revisor-visual, corregir lo que pida el gate (≥36/40 usabilidad, ≥16/20 craft, ≥16/20 copy), y recién entonces reportar la landing como lista al usuario.
 
 ## Qué es esta app (3 líneas máximo)
 App web de bienestar emocional para mujeres hispanohablantes: botón SOS de auxilio inmediato en crisis de pánico + hábito diario de afirmaciones y ejercicios de amor propio. Modelo freemium por suscripción (Hotmart), pendiente de refinar en Sesión 1.
@@ -45,8 +45,17 @@ App web de bienestar emocional para mujeres hispanohablantes: botón SOS de auxi
 Nunca reemplaza ayuda profesional ni diagnostica · nunca comparte el diario privado de la usuaria · nunca presiona con culpa/miedo para retener o vender · nunca cobra nada oculto sin avisar antes.
 
 ## Secuencia maestra de construcción (NO saltar)
-- Estado de la secuencia: aún no iniciada — Plan Maestro presentado, pendiente OK del usuario
+- Estado de la secuencia: Landing en construcción (Sesión 3) — resto pendiente
 - Ruta aprobada: `/` → `/onboarding` → `/paywall` → `/login` → `/app`
+- Landing: CONSTRUIDA (10 secciones canónicas de 19-PAGINA-DE-VENTAS.md), pendiente veredicto del revisor-visual antes de declararla verificada. Mecanismo bautizado: "el Ritual de 2 Minutos". CTA lleva a `/onboarding` (Modelo 2, preview anónimo — sin registro previo).
+- `/onboarding` y `/login`: placeholders honestos (no 404) — se construyen de verdad en Sesión 4.
+- Carrusel de la sección 5 (la app por dentro): PLACEHOLDERS rotulados (app aún no existe) — pendiente reemplazar por capturas reales cuando la app interna esté construida (Sesión 5).
+- Páginas legales del footer: privacidad, términos, reembolso, disclaimer — CREADAS con contenido real (no relleno), basadas en 47-LEGAL-FISCAL-Y-PRIVACIDAD.md. Revisar con más detalle antes de vender de verdad (fiscal LATAM específico por país).
+- Onboarding: pendiente (diseñado/construido/verificado)
+- Paywall: pendiente
+- Login/Auth: pendiente
+- App interna: pendiente
+- Servicios externos: pendiente
 
 ## Decisiones técnicas (NO re-discutir sin pedirlo el usuario)
 - Framework: Next.js App Router (landing con SEO + páginas públicas + futuros API routes/webhooks de Hotmart) — decidido el 2026-07-28

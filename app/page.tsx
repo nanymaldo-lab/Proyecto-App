@@ -1,0 +1,513 @@
+import Link from "next/link";
+import {
+  Brain,
+  MessageSquareOff,
+  Siren,
+  RotateCcw,
+  Sparkles,
+  LifeBuoy,
+  Heart,
+  ShieldCheck,
+  BookHeart,
+  Moon,
+  ChevronDown,
+} from "lucide-react";
+import { IconChip } from "@/components/app/IconChip";
+import { Check } from "@/components/app/Check";
+import { Reveal, RevealStagger, RevealItem } from "@/components/app/Reveal";
+
+const CTA_LABEL = "Empezar mi ritual gratis";
+const CTA_HREF = "/onboarding";
+
+export default function Home() {
+  return (
+    <>
+      {/* ============ HEADER ============ */}
+      <header className="sticky top-0 z-40 border-b border-border-default/70 bg-surface-base/90 backdrop-blur">
+        <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
+          <Link href="/" className="flex items-center gap-2">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-primary text-txt-inverse">
+              <Heart className="h-4 w-4" fill="currentColor" strokeWidth={0} />
+            </span>
+            <span className="font-display text-lg font-semibold text-txt-primary">
+              AmorPropio &amp; SOS
+            </span>
+          </Link>
+          <Link
+            href="/login"
+            className="text-sm font-medium text-txt-secondary hover:text-txt-primary"
+          >
+            Entrar
+          </Link>
+        </div>
+      </header>
+
+      <main className="flex-1 pb-24 md:pb-0">
+        {/* ============ 1. HERO ============ */}
+        <section className="mx-auto max-w-5xl px-4 pt-12 pb-16 md:pt-20 md:pb-24">
+          <div className="grid items-center gap-10 md:grid-cols-2">
+            <Reveal>
+              <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+                Para mujeres que se exigen demasiado
+              </p>
+              <h1 className="text-balance font-display text-3xl font-semibold leading-tight text-txt-primary md:text-4xl">
+                Tu ritual de amor propio en 2 minutos
+              </h1>
+              <p className="mt-4 max-w-md text-base leading-relaxed text-txt-secondary md:text-lg">
+                Un botón SOS te calma al instante si el pánico llega. Sin
+                frases sueltas: un ritual diario hecho para ti.
+              </p>
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <Link
+                  href={CTA_HREF}
+                  className="inline-flex h-12 items-center justify-center rounded-lg bg-brand-primary px-7 text-base font-semibold text-txt-inverse shadow-md transition hover:bg-brand-primary-hover active:scale-[0.98]"
+                >
+                  {CTA_LABEL}
+                </Link>
+              </div>
+              <p className="mt-4 text-sm text-txt-tertiary">
+                Sin tarjeta para tu primera afirmación · El botón SOS es
+                gratis siempre
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <div className="mx-auto w-full max-w-xs overflow-hidden rounded-xl border border-border-default bg-surface-primary p-5 shadow-lg">
+                <p className="text-xs font-semibold uppercase tracking-wide text-brand-secondary">
+                  Tu afirmación de hoy
+                </p>
+                <p className="mt-3 font-display text-xl font-semibold leading-snug text-txt-primary">
+                  &ldquo;No soy el desastre que mi cabeza dice que soy.&rdquo;
+                </p>
+                <div className="mt-5 rounded-xl border-2 border-brand-primary bg-surface-primary px-4 py-3 text-center text-sm font-semibold text-brand-secondary">
+                  SOS · Estoy en crisis, ayúdame ahora
+                </div>
+                <div className="mt-4 flex items-center gap-1.5">
+                  {[1, 1, 1, 1, 0].map((on, i) => (
+                    <span
+                      key={i}
+                      className={`h-2.5 w-2.5 rounded-full ${on ? "bg-brand-primary" : "bg-surface-tertiary"}`}
+                    />
+                  ))}
+                  <span className="ml-1 text-xs text-txt-tertiary">
+                    12 días de racha
+                  </span>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* ============ 2. PROBLEMA ============ */}
+        <section className="border-t border-border-default/60 bg-surface-secondary/60 px-4 py-16 md:py-20">
+          <div className="mx-auto max-w-3xl">
+            <Reveal>
+              <h2 className="text-balance text-center font-display text-2xl font-semibold text-txt-primary md:text-3xl">
+                ¿Te suena alguna de estas?
+              </h2>
+            </Reveal>
+            <RevealStagger className="mt-10 space-y-4">
+              {[
+                {
+                  icon: Brain,
+                  text: "¿Te descubres pensando “no soy suficiente” más seguido de lo que admites en voz alta?",
+                },
+                {
+                  icon: MessageSquareOff,
+                  text: "¿Todo lo que probaste para esto era solo frases sueltas que no cambiaban nada de verdad?",
+                },
+                {
+                  icon: Siren,
+                  text: "¿Te da miedo que te agarre una crisis de pánico y no saber qué hacer, estando sola?",
+                },
+                {
+                  icon: RotateCcw,
+                  text: "¿Empezaste apps de afirmaciones o meditación… y las dejaste antes de la semana 2?",
+                },
+              ].map((item, i) => (
+                <RevealItem key={i}>
+                  <div className="flex items-start gap-4 rounded-xl border border-border-default bg-surface-primary p-4 shadow-sm">
+                    <IconChip icon={item.icon} tone={i % 2 === 0 ? "accent" : "secondary"} />
+                    <p className="pt-2 text-base leading-relaxed text-txt-primary">
+                      {item.text}
+                    </p>
+                  </div>
+                </RevealItem>
+              ))}
+            </RevealStagger>
+          </div>
+        </section>
+
+        {/* ============ 3. AGITACIÓN ============ */}
+        <section className="px-4 py-16 md:py-20">
+          <div className="mx-auto max-w-2xl text-center">
+            <Reveal>
+              <h2 className="text-balance font-display text-2xl font-semibold text-txt-primary md:text-3xl">
+                Nada de esto se arregla solo
+              </h2>
+              <p className="mt-5 text-base leading-relaxed text-txt-secondary md:text-lg">
+                Cada día que sigues sin un ritual real, ese diálogo negativo
+                se afianza un poco más — y la próxima crisis te va a
+                encontrar exactamente igual de desprevenida que la última.
+                En un año, ese patrón no se rompe solo: se vuelve más
+                difícil de cambiar.
+              </p>
+              <p className="mt-4 text-base leading-relaxed text-txt-secondary md:text-lg">
+                Las apps de afirmaciones que ya probaste fallan por lo
+                mismo: mandan una notificación y ya. Ninguna te da algo que
+                hacer cuando de verdad lo necesitas.
+              </p>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* ============ 4. SOLUCIÓN ============ */}
+        <section className="border-t border-border-default/60 bg-surface-secondary/60 px-4 py-16 md:py-20">
+          <div className="mx-auto max-w-3xl">
+            <Reveal>
+              <p className="text-center text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+                El mecanismo
+              </p>
+              <h2 className="mt-2 text-balance text-center font-display text-2xl font-semibold text-txt-primary md:text-3xl">
+                No te falta fuerza de voluntad — te falta el Ritual de 2
+                Minutos
+              </h2>
+              <p className="mx-auto mt-4 max-w-xl text-center text-base leading-relaxed text-txt-secondary">
+                No es que no lo intentes. Es que nunca tuviste algo hecho
+                para tu día real, solo frases sueltas. El Ritual de 2
+                Minutos te acompaña todos los días — y en el momento exacto
+                de una crisis, también.
+              </p>
+            </Reveal>
+
+            <RevealStagger className="mt-10 grid gap-4 md:grid-cols-3">
+              {[
+                {
+                  n: "1",
+                  icon: Heart,
+                  title: "Nos contás cómo te sentís hoy",
+                  text: "Un check-in de 10 segundos, nada de formularios largos.",
+                },
+                {
+                  n: "2",
+                  icon: Sparkles,
+                  title: "Tu afirmación + ejercicio de 2 min",
+                  text: "Pensada para tu día, con un ejercicio real de reencuadre.",
+                },
+                {
+                  n: "3",
+                  icon: LifeBuoy,
+                  title: "Si hay pánico, un toque y listo",
+                  text: "El mismo botón te lleva directo a tu respiración guiada.",
+                },
+              ].map((step) => (
+                <RevealItem key={step.n}>
+                  <div className="h-full rounded-xl border border-border-default bg-surface-primary p-5 shadow-sm">
+                    <div className="flex items-center gap-3">
+                      <IconChip icon={step.icon} />
+                      <span className="font-display text-2xl font-semibold text-brand-secondary">
+                        {step.n}
+                      </span>
+                    </div>
+                    <h3 className="mt-4 text-base font-semibold text-txt-primary">
+                      {step.title}
+                    </h3>
+                    <p className="mt-1.5 text-sm leading-relaxed text-txt-secondary">
+                      {step.text}
+                    </p>
+                  </div>
+                </RevealItem>
+              ))}
+            </RevealStagger>
+          </div>
+        </section>
+
+        {/* ============ 5. LA APP POR DENTRO ============ */}
+        <section className="px-4 py-16 md:py-20">
+          <div className="mx-auto max-w-5xl">
+            <Reveal>
+              <h2 className="text-balance text-center font-display text-2xl font-semibold text-txt-primary md:text-3xl">
+                Así se siente por dentro
+              </h2>
+            </Reveal>
+            <RevealStagger className="mt-10 grid gap-5 sm:grid-cols-3">
+              {[
+                { label: "Tu Hoy: afirmación + racha" },
+                { label: "Tu SOS: respiración guiada" },
+                { label: "Tu diario: para desahogarte sin que nadie lea" },
+              ].map((s, i) => (
+                <RevealItem key={i}>
+                  <div className="flex aspect-[9/16] flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-border-strong bg-surface-secondary p-6 text-center">
+                    <Sparkles className="h-6 w-6 text-txt-tertiary" />
+                    <p className="text-sm font-medium text-txt-secondary">
+                      {s.label}
+                    </p>
+                    <p className="text-xs text-txt-tertiary">
+                      Captura real — próximamente
+                    </p>
+                  </div>
+                </RevealItem>
+              ))}
+            </RevealStagger>
+            <p className="mt-6 text-center text-xs text-txt-tertiary">
+              Estamos construyendo la app — estas pantallas se reemplazan por
+              capturas reales antes del lanzamiento.
+            </p>
+            <div className="mt-8 flex justify-center">
+              <Link
+                href={CTA_HREF}
+                className="inline-flex h-12 items-center justify-center rounded-lg bg-brand-primary px-7 text-base font-semibold text-txt-inverse shadow-md transition hover:bg-brand-primary-hover active:scale-[0.98]"
+              >
+                {CTA_LABEL}
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ============ 6. OFERTA ============ */}
+        <section
+          id="precios"
+          className="border-t border-border-default/60 bg-surface-secondary/60 px-4 py-16 md:py-20"
+        >
+          <div className="mx-auto max-w-3xl">
+            <Reveal>
+              <h2 className="text-balance text-center font-display text-2xl font-semibold text-txt-primary md:text-3xl">
+                Todo lo que incluye tu Ritual Premium
+              </h2>
+            </Reveal>
+
+            <Reveal delay={0.05}>
+              <div className="mt-8 space-y-3 rounded-xl border border-border-default bg-surface-primary p-6 shadow-sm">
+                {[
+                  {
+                    text: "Afirmaciones y ejercicios ilimitados por tema, todo el año",
+                    value: "$120",
+                  },
+                  {
+                    text: "Diario privado ilimitado con seguimiento de tu progreso",
+                    value: "$30",
+                  },
+                  {
+                    text: "Audios para dormir y calmarte antes de una crisis",
+                    value: "$25",
+                  },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start justify-between gap-4">
+                    <div className="flex items-start gap-3">
+                      <Check />
+                      <span className="text-sm text-txt-primary">{item.text}</span>
+                    </div>
+                    <span className="shrink-0 text-sm tabular text-txt-tertiary">
+                      {item.value}
+                    </span>
+                  </div>
+                ))}
+                <div className="flex items-center justify-between border-t border-border-default pt-3 text-sm">
+                  <span className="text-txt-secondary">Valor total</span>
+                  <span className="tabular text-txt-tertiary line-through">
+                    $175
+                  </span>
+                </div>
+                <p className="rounded-xl bg-brand-primary-soft px-4 py-3 text-center text-sm font-medium text-brand-secondary">
+                  El botón SOS es gratis siempre, tengas o no Premium — eso
+                  nunca te lo vamos a cobrar.
+                </p>
+              </div>
+            </Reveal>
+
+            <RevealStagger className="mt-6 grid gap-4 sm:grid-cols-2">
+              <RevealItem>
+                <div className="relative h-full rounded-xl border-2 border-brand-primary bg-surface-primary p-6 shadow-md">
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-primary px-3 py-1 text-xs font-semibold text-txt-inverse">
+                    Recomendado · 3 días gratis
+                  </span>
+                  <p className="mt-2 text-sm font-medium text-txt-secondary">
+                    Plan anual
+                  </p>
+                  <p className="mt-1 font-display text-3xl font-semibold text-txt-primary">
+                    $2.08<span className="text-lg text-txt-tertiary">/mes</span>
+                  </p>
+                  <p className="mt-1 text-xs text-txt-tertiary">
+                    Se cobra $24.99/año · 2 meses gratis vs. el mensual
+                  </p>
+                  <Link
+                    href={CTA_HREF}
+                    className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-lg bg-brand-primary text-base font-semibold text-txt-inverse transition hover:bg-brand-primary-hover active:scale-[0.98]"
+                  >
+                    {CTA_LABEL}
+                  </Link>
+                </div>
+              </RevealItem>
+              <RevealItem>
+                <div className="h-full rounded-xl border border-border-default bg-surface-primary p-6">
+                  <p className="text-sm font-medium text-txt-secondary">
+                    Plan mensual
+                  </p>
+                  <p className="mt-1 font-display text-3xl font-semibold text-txt-primary">
+                    $3.99<span className="text-lg text-txt-tertiary">/mes</span>
+                  </p>
+                  <p className="mt-1 text-xs text-txt-tertiary">
+                    3 días gratis, luego $3.99/mes
+                  </p>
+                  <Link
+                    href={CTA_HREF}
+                    className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-lg border border-border-strong text-base font-semibold text-txt-primary transition hover:bg-surface-secondary active:scale-[0.98]"
+                  >
+                    {CTA_LABEL}
+                  </Link>
+                </div>
+              </RevealItem>
+            </RevealStagger>
+          </div>
+        </section>
+
+        {/* ============ 7. GARANTÍA ============ */}
+        <section className="px-4 py-16 md:py-20">
+          <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
+            <Reveal>
+              <IconChip icon={ShieldCheck} />
+              <h2 className="mt-4 text-balance font-display text-2xl font-semibold text-txt-primary md:text-3xl">
+                La Garantía de tu Primera Semana Distinta
+              </h2>
+              <p className="mt-4 max-w-lg text-base leading-relaxed text-txt-secondary">
+                Si en tus primeros 7 días sientes que nada cambió en cómo te
+                hablas a ti misma, escríbenos y te devolvemos todo. Un
+                correo, sin preguntas, sin formularios. Es la garantía de 7
+                días de Hotmart — la misma plataforma que procesa tu pago.
+              </p>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* ============ 8. FAQ ============ */}
+        <section className="border-t border-border-default/60 bg-surface-secondary/60 px-4 py-16 md:py-20">
+          <div className="mx-auto max-w-2xl">
+            <Reveal>
+              <h2 className="text-balance text-center font-display text-2xl font-semibold text-txt-primary md:text-3xl">
+                Preguntas frecuentes
+              </h2>
+            </Reveal>
+            <RevealStagger className="mt-8 space-y-3">
+              {[
+                {
+                  q: "¿Necesito mucho tiempo para esto?",
+                  a: "No. El ritual diario toma 2-3 minutos, y el SOS actúa en segundos cuando lo necesitas.",
+                },
+                {
+                  q: "Ya probé apps de afirmaciones y las abandoné, ¿por qué esta sería distinta?",
+                  a: "Las abandonaste porque solo mandaban frases sueltas. Esta te da un ejercicio real de 2 minutos con cada afirmación, y un botón para el momento en que de verdad lo necesitas.",
+                },
+                {
+                  q: "¿Esto reemplaza terapia?",
+                  a: "No. Es un acompañamiento diario de bienestar, no tratamiento clínico. Si vives una crisis de salud mental severa, contactar a un profesional o a una línea de emergencia sigue siendo lo primero.",
+                },
+                {
+                  q: "¿Es cara? ¿Y si no la uso lo suficiente?",
+                  a: "Cuesta menos que un café al mes. Tienes 3 días gratis para probarla, y la Garantía de tu Primera Semana Distinta si no sientes ningún cambio.",
+                },
+                {
+                  q: "¿Me van a cobrar algo escondido?",
+                  a: "No. El precio y lo que incluye están siempre visibles antes de pedirte la tarjeta. Cero cargos ocultos.",
+                },
+              ].map((item, i) => (
+                <RevealItem key={i}>
+                  <details className="group rounded-xl border border-border-default bg-surface-primary p-4 open:shadow-sm">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold text-txt-primary">
+                      {item.q}
+                      <ChevronDown className="h-4 w-4 shrink-0 text-txt-tertiary transition group-open:rotate-180" />
+                    </summary>
+                    <p className="mt-3 text-sm leading-relaxed text-txt-secondary">
+                      {item.a}
+                    </p>
+                  </details>
+                </RevealItem>
+              ))}
+            </RevealStagger>
+          </div>
+        </section>
+
+        {/* ============ 9. CTA FINAL EMOCIONAL ============ */}
+        <section className="px-4 py-16 md:py-24">
+          <div className="mx-auto max-w-xl text-center">
+            <Reveal>
+              <BookHeart className="mx-auto h-8 w-8 text-brand-secondary" />
+              <h2 className="mt-4 text-balance font-display text-2xl font-semibold text-txt-primary md:text-3xl">
+                Imagina abrir el día hablándote como mereces
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-txt-secondary">
+                Sin ese peso del diálogo negativo, y con la tranquilidad de
+                saber que si el pánico llega, no vas a estar perdida. Esa es
+                la persona que se cuida y se habla bonito — y puede
+                empezar hoy, en 2 minutos.
+              </p>
+              <Link
+                href={CTA_HREF}
+                className="mt-7 inline-flex h-12 items-center justify-center rounded-lg bg-brand-primary px-8 text-base font-semibold text-txt-inverse shadow-md transition hover:bg-brand-primary-hover active:scale-[0.98]"
+              >
+                {CTA_LABEL}
+              </Link>
+              <p className="mx-auto mt-8 max-w-md text-left text-xs leading-relaxed text-txt-tertiary">
+                <strong className="text-txt-secondary">PD:</strong>{" "}
+                AmorPropio &amp; SOS te da tu Ritual de 2 Minutos cada día —
+                afirmación personalizada, ejercicio real y diario privado —
+                más un botón SOS que siempre es gratis. Hoy entras con 3
+                días de prueba, $2.08/mes en el plan anual, y la Garantía de
+                tu Primera Semana Distinta.
+              </p>
+            </Reveal>
+          </div>
+        </section>
+      </main>
+
+      {/* ============ 10. FOOTER LEGAL ============ */}
+      <footer className="border-t border-border-default/60 bg-surface-secondary/60 px-4 py-10">
+        <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 text-center">
+          <div className="flex items-center gap-2">
+            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-brand-primary text-txt-inverse">
+              <Heart className="h-3 w-3" fill="currentColor" strokeWidth={0} />
+            </span>
+            <span className="font-display text-sm font-semibold text-txt-primary">
+              AmorPropio &amp; SOS
+            </span>
+          </div>
+          <nav className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs text-txt-secondary">
+            <Link href="/privacidad" className="hover:text-txt-primary">
+              Privacidad
+            </Link>
+            <Link href="/terminos" className="hover:text-txt-primary">
+              Términos
+            </Link>
+            <Link href="/reembolso" className="hover:text-txt-primary">
+              Reembolsos
+            </Link>
+            <Link href="/disclaimer" className="hover:text-txt-primary">
+              Aviso importante
+            </Link>
+            <a href="mailto:hola@amorpropiosos.app" className="hover:text-txt-primary">
+              hola@amorpropiosos.app
+            </a>
+          </nav>
+          <p className="flex items-center gap-1.5 text-xs text-txt-tertiary">
+            <Moon className="h-3.5 w-3.5" />
+            AmorPropio &amp; SOS no reemplaza tratamiento psicológico o
+            psiquiátrico profesional.
+          </p>
+          <p className="text-xs text-txt-tertiary">
+            © {new Date().getFullYear()} AmorPropio &amp; SOS. Todos los
+            derechos reservados.
+          </p>
+        </div>
+      </footer>
+
+      {/* ============ CTA STICKY MOBILE ============ */}
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border-default bg-surface-primary/95 p-3 backdrop-blur md:hidden">
+        <Link
+          href={CTA_HREF}
+          className="flex h-12 w-full items-center justify-center rounded-lg bg-brand-primary text-base font-semibold text-txt-inverse shadow-md active:scale-[0.98]"
+        >
+          {CTA_LABEL}
+        </Link>
+      </div>
+    </>
+  );
+}
