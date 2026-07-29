@@ -93,7 +93,7 @@ export default function Home() {
                 <div className="mt-5 rounded-xl border-2 border-brand-primary bg-surface-primary px-4 py-3 text-center text-sm font-semibold text-brand-secondary">
                   SOS · Estoy en crisis, ayúdame ahora
                 </div>
-                <div className="mt-4 flex items-center justify-between gap-1.5">
+                <div className="mt-4 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex items-center gap-1.5">
                     {[1, 1, 1, 1, 0].map((on, i) => (
                       <span
@@ -118,7 +118,7 @@ export default function Home() {
         <section className="border-t border-border-default/60 bg-surface-secondary/60 px-4 py-16 md:py-20">
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <h2 className="text-balance text-center font-display text-2xl font-semibold text-txt-primary md:text-3xl">
+              <h2 className="text-balance text-center font-display text-xl font-semibold text-txt-primary md:text-2xl">
                 ¿Te suena alguna de estas?
               </h2>
             </Reveal>
@@ -143,7 +143,7 @@ export default function Home() {
               ].map((item, i) => (
                 <RevealItem key={i}>
                   <div className="flex items-start gap-4 rounded-xl border border-border-default bg-surface-primary p-4 shadow-sm">
-                    <IconChip icon={item.icon} tone={i % 2 === 0 ? "accent" : "secondary"} />
+                    <IconChip icon={item.icon} />
                     <p className="pt-2 text-base leading-relaxed text-txt-primary">
                       {item.text}
                     </p>
@@ -158,7 +158,7 @@ export default function Home() {
         <section className="px-4 py-16 md:py-20">
           <div className="mx-auto max-w-2xl text-center">
             <Reveal>
-              <h2 className="text-balance font-display text-2xl font-semibold text-txt-primary md:text-3xl">
+              <h2 className="text-balance font-display text-xl font-semibold text-txt-primary md:text-2xl">
                 Nada de esto se arregla solo
               </h2>
               <p className="mt-5 text-base leading-relaxed text-txt-secondary md:text-lg">
@@ -242,7 +242,7 @@ export default function Home() {
         <section className="px-4 py-16 md:py-20">
           <div className="mx-auto max-w-5xl">
             <Reveal>
-              <h2 className="text-balance text-center font-display text-2xl font-semibold text-txt-primary md:text-3xl">
+              <h2 className="text-balance text-center font-display text-xl font-semibold text-txt-primary md:text-2xl">
                 Así se siente por dentro
               </h2>
             </Reveal>
@@ -336,7 +336,7 @@ export default function Home() {
         >
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <h2 className="text-balance text-center font-display text-2xl font-semibold text-txt-primary md:text-3xl">
+              <h2 className="text-balance text-center font-display text-xl font-semibold text-txt-primary md:text-2xl">
                 Todo lo que incluye tu Ritual Premium
               </h2>
             </Reveal>
@@ -344,35 +344,15 @@ export default function Home() {
             <Reveal delay={0.05}>
               <div className="mt-8 space-y-3 rounded-xl border border-border-default bg-surface-primary p-6 shadow-sm">
                 {[
-                  {
-                    text: "Afirmaciones y ejercicios ilimitados por tema, todo el año",
-                    value: "$120",
-                  },
-                  {
-                    text: "Diario privado ilimitado con seguimiento de tu progreso",
-                    value: "$30",
-                  },
-                  {
-                    text: "Audios para dormir y calmarte antes de una crisis",
-                    value: "$25",
-                  },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start justify-between gap-4">
-                    <div className="flex items-start gap-3">
-                      <Check />
-                      <span className="text-sm text-txt-primary">{item.text}</span>
-                    </div>
-                    <span className="shrink-0 text-sm tabular text-txt-tertiary">
-                      {item.value}
-                    </span>
+                  "Afirmaciones y ejercicios ilimitados por tema, todo el año",
+                  "Diario privado ilimitado con seguimiento de tu progreso",
+                  "Audios para dormir y calmarte antes de una crisis",
+                ].map((text, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <Check />
+                    <span className="text-sm text-txt-primary">{text}</span>
                   </div>
                 ))}
-                <div className="flex items-center justify-between border-t border-border-default pt-3 text-sm">
-                  <span className="text-txt-secondary">Valor total</span>
-                  <span className="tabular text-txt-tertiary line-through">
-                    $175
-                  </span>
-                </div>
                 <p className="rounded-xl bg-brand-primary-soft px-4 py-3 text-center text-sm font-medium text-brand-secondary">
                   El botón SOS es gratis siempre, tengas o no Premium — eso
                   nunca te lo vamos a cobrar.
@@ -402,10 +382,10 @@ export default function Home() {
                   <Link
                     key={i}
                     href={t.href}
-                    className="flex items-center gap-2.5 rounded-xl border border-border-default bg-surface-primary px-3 py-2.5 transition hover:border-border-strong"
+                    className="flex items-center gap-2.5 rounded-xl border border-border-default bg-surface-primary px-3 py-2.5 transition hover:border-brand-primary hover:bg-brand-primary-soft"
                   >
                     <t.icon className="h-4 w-4 shrink-0 text-brand-secondary" />
-                    <span className="flex-1 text-xs font-medium text-brand-secondary underline decoration-brand-secondary/50 underline-offset-2">
+                    <span className="flex-1 text-xs font-medium text-txt-secondary">
                       {t.text}
                     </span>
                     <ChevronRight className="h-3.5 w-3.5 shrink-0 text-brand-secondary" />
@@ -467,7 +447,7 @@ export default function Home() {
           <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
             <Reveal>
               <IconChip icon={ShieldCheck} />
-              <h2 className="mt-4 text-balance font-display text-2xl font-semibold text-txt-primary md:text-3xl">
+              <h2 className="mt-4 text-balance font-display text-xl font-semibold text-txt-primary md:text-2xl">
                 La Garantía de tu Primera Semana Distinta
               </h2>
               <p className="mt-4 max-w-lg text-base leading-relaxed text-txt-secondary">
@@ -484,7 +464,7 @@ export default function Home() {
         <section className="border-t border-border-default/60 bg-surface-secondary/60 px-4 py-16 md:py-20">
           <div className="mx-auto max-w-2xl">
             <Reveal>
-              <h2 className="text-balance text-center font-display text-2xl font-semibold text-txt-primary md:text-3xl">
+              <h2 className="text-balance text-center font-display text-xl font-semibold text-txt-primary md:text-2xl">
                 Preguntas frecuentes
               </h2>
             </Reveal>
