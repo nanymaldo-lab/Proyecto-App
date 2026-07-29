@@ -32,7 +32,7 @@
      no un cambio de dirección de arte. */
   --brand-primary: #A85434;
   --brand-primary-hover: #8F4527;
-  --brand-primary-soft: rgba(168, 84, 52, 0.10);
+  --brand-primary-soft: rgba(168, 84, 52, 0.16);
   --brand-primary-text: #FFF8F2;
   --brand-secondary: #B0473A; /* 2ª nota: detalle editorial (comilla, tag) — nunca en CTAs */
 
@@ -158,6 +158,14 @@
 
 .tabular {
   font-variant-numeric: tabular-nums;
+}
+
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--brand-primary-hover);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
 }
 
 @media (prefers-reduced-motion: reduce) {

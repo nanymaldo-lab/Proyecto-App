@@ -2,29 +2,23 @@
 
 import { motion } from "motion/react";
 
-export function RachaDots({ filled, total = 5 }: { filled: number; total?: number }) {
+export function RachaDots({ filled, total = 7 }: { filled: number; total?: number }) {
+  const pct = Math.round((filled / total) * 100);
+
   return (
-    <motion.div
-      className="flex items-center gap-1.5"
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ staggerChildren: 0.09, delayChildren: 0.1 }}
-    >
-      {Array.from({ length: total }).map((_, i) => (
-        <motion.span
-          key={i}
-          variants={{
-            hidden: { scale: 0.4, opacity: 0 },
-            show: {
-              scale: 1,
-              opacity: 1,
-              transition: { duration: 0.3, ease: [0.34, 1.35, 0.64, 1] },
-            },
-          }}
-          className={`h-2 w-2 rounded-full ${i < filled ? "bg-brand-primary" : "bg-surface-tertiary"}`}
+    <div className="flex w-full items-center gap-2">
+      <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-surface-tertiary">
+        <motion.div
+          className="h-full rounded-full bg-brand-primary"
+          initial={{ width: 0 }}
+          whileInView={{ width: `${pct}%` }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
         />
-      ))}
-    </motion.div>
+      </div>
+      <span className="shrink-0 text-xs tabular text-txt-tertiary">
+        {filled}/{total}
+      </span>
+    </div>
   );
 }

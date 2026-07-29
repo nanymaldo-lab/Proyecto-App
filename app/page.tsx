@@ -240,11 +240,11 @@ export default function Home() {
                   <p className="mt-2 font-display text-base font-semibold leading-snug text-txt-primary">
                     &ldquo;Hoy elijo hablarme con calma.&rdquo;
                   </p>
-                  <div className="mt-4 flex items-center gap-1.5">
+                  <p className="mt-4 text-xs font-medium text-txt-secondary">
+                    3 días de racha esta semana
+                  </p>
+                  <div className="mt-1.5">
                     <RachaDots filled={3} total={7} />
-                    <span className="ml-1 text-xs text-txt-tertiary">
-                      3 días de racha
-                    </span>
                   </div>
                 </div>
               </RevealItem>
@@ -266,10 +266,19 @@ export default function Home() {
                   <p className="text-xs font-semibold uppercase tracking-wide text-txt-secondary">
                     Tu diario
                   </p>
-                  <p className="mt-2 text-sm leading-relaxed text-txt-secondary">
-                    &ldquo;Hoy me costó empezar el día, pero respiré antes de
-                    reaccionar…&rdquo;
-                  </p>
+                  <div
+                    className="mt-2 rounded-md bg-surface-tertiary p-3"
+                    style={{
+                      backgroundImage:
+                        "radial-gradient(color-mix(in oklab, var(--text-primary) 7%, transparent) 1px, transparent 1px)",
+                      backgroundSize: "14px 14px",
+                    }}
+                  >
+                    <p className="text-sm leading-relaxed text-txt-secondary">
+                      &ldquo;Hoy me costó empezar el día, pero respiré antes
+                      de reaccionar…&rdquo;
+                    </p>
+                  </div>
                   <span className="mt-3 inline-block -rotate-2 rounded-sm bg-brand-primary px-2 py-1 text-xs font-semibold text-txt-inverse">
                     + nueva entrada
                   </span>
