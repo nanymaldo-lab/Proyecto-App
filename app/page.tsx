@@ -45,7 +45,7 @@ export default function Home() {
           <div className="flex items-center gap-4">
             <a
               href="#precios"
-              className="hidden text-sm font-medium text-txt-secondary hover:text-txt-primary sm:inline"
+              className="text-sm font-medium text-txt-secondary hover:text-txt-primary"
             >
               Ver precios
             </a>
@@ -308,10 +308,6 @@ export default function Home() {
                 </div>
               </RevealItem>
             </RevealStagger>
-            <p className="mt-6 text-center text-xs text-txt-tertiary">
-              Así se ve tu ritual todos los días — capturas reales de la app
-              muy pronto.
-            </p>
             <div className="mt-8 flex justify-center">
               <CTALink
                 href={CTA_HREF}
