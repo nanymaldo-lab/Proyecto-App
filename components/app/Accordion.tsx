@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ChevronDown } from "lucide-react";
 
@@ -12,6 +12,7 @@ export function AccordionItem({
   answer: string;
 }) {
   const [open, setOpen] = useState(false);
+  const panelId = useId();
 
   return (
     <div className="rounded-xl border border-border-default bg-surface-primary p-4">
@@ -19,6 +20,7 @@ export function AccordionItem({
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
+        aria-controls={panelId}
         className="flex w-full items-center justify-between gap-4 text-left text-sm font-semibold text-txt-primary"
       >
         {question}
@@ -29,6 +31,9 @@ export function AccordionItem({
       <AnimatePresence initial={false}>
         {open && (
           <motion.div
+            id={panelId}
+            role="region"
+            aria-live="polite"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}

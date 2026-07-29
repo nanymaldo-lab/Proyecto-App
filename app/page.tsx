@@ -18,7 +18,7 @@ import { Reveal, RevealStagger, RevealItem } from "@/components/app/Reveal";
 import { AccordionItem } from "@/components/app/Accordion";
 import { AnimatedNumber } from "@/components/app/AnimatedNumber";
 
-const CTA_LABEL = "Empezar mi ritual gratis";
+const CTA_LABEL = "Quiero mi ritual gratis";
 const CTA_HREF = "/onboarding";
 
 export default function Home() {
@@ -317,7 +317,8 @@ export default function Home() {
                 &ldquo;Todo lo que hace es mandar notificaciones. No me da
                 herramientas reales cuando de verdad me siento mal.&rdquo;
                 <footer className="mt-1 text-xs not-italic text-txt-tertiary">
-                  — reseña real de una app de afirmaciones en inglés
+                  — queja habitual sobre apps de afirmaciones, según reseñas
+                  públicas
                 </footer>
               </blockquote>
               <p className="mt-4 text-sm leading-relaxed text-txt-secondary">
@@ -384,11 +385,11 @@ export default function Home() {
                     href={t.href}
                     className="flex items-center gap-2.5 rounded-xl border border-border-default bg-surface-primary px-3 py-2.5 transition hover:border-brand-primary hover:bg-brand-primary-soft"
                   >
-                    <t.icon className="h-4 w-4 shrink-0 text-brand-secondary" />
+                    <t.icon className="h-4 w-4 shrink-0 text-brand-primary" />
                     <span className="flex-1 text-xs font-medium text-txt-secondary">
                       {t.text}
                     </span>
-                    <ChevronRight className="h-3.5 w-3.5 shrink-0 text-brand-secondary" />
+                    <ChevronRight className="h-3.5 w-3.5 shrink-0 text-brand-primary" />
                   </Link>
                 ))}
               </div>
@@ -447,6 +448,9 @@ export default function Home() {
           <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
             <Reveal>
               <IconChip icon={ShieldCheck} />
+              <p aria-hidden className="-mb-3 font-display text-3xl leading-none text-brand-primary">
+                &ldquo;
+              </p>
               <h2 className="mt-4 text-balance font-display text-xl font-semibold text-txt-primary md:text-2xl">
                 La Garantía de tu Primera Semana Distinta
               </h2>
