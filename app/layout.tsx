@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Zilla_Slab, Plus_Jakarta_Sans } from "next/font/google";
+import { MotionProvider } from "@/components/app/MotionProvider";
 import "./globals.css";
 
 const zillaSlab = Zilla_Slab({
@@ -32,7 +33,7 @@ export default function RootLayout({
       className={`${zillaSlab.variable} ${plusJakarta.variable} h-full antialiased`}
     >
       <body className="min-h-dvh flex flex-col bg-surface-base text-txt-primary font-body">
-        {children}
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   );

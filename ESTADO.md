@@ -1,7 +1,7 @@
 # ESTADO — AmorPropio & SOS
 Última actualización: 2026-07-28 | Sesión actual: 1 (Constitución del Producto — completa, arrancando validación técnica)
 
-⏸️ CHECKPOINT — Última acción completada: Sesión 3 (landing) construida con las 10 secciones canónicas, tsc/build limpios, screenshot 375px tomado, subagente revisor-visual lanzado / Siguiente acción exacta: leer veredicto del revisor-visual, corregir lo que pida el gate (≥36/40 usabilidad, ≥16/20 craft, ≥16/20 copy), y recién entonces reportar la landing como lista al usuario.
+⏸️ CHECKPOINT — Última acción completada: 1ª pasada del revisor-visual = NO LISTA (26/40 usabilidad, 12/20 craft, copy 18/20 con eje bajo) → corregidos los 5 defectos (mockups reales en vez de placeholders vacíos, dispositivo ownable añadido, fila de confianza honesta, FAQ animado con Accordion, MotionConfig reducedMotion="user") → build limpio → 2ª pasada del revisor-visual lanzada / Siguiente acción exacta: leer veredicto de la 2ª pasada; si pasa el gate (≥36/40, ≥16/20, ≥16/20) reportar a el usuario con evidencia; si no, iterar de nuevo.
 
 ## Qué es esta app (3 líneas máximo)
 App web de bienestar emocional para mujeres hispanohablantes: botón SOS de auxilio inmediato en crisis de pánico + hábito diario de afirmaciones y ejercicios de amor propio. Modelo freemium por suscripción (Hotmart), pendiente de refinar en Sesión 1.

@@ -10,11 +10,11 @@ import {
   ShieldCheck,
   BookHeart,
   Moon,
-  ChevronDown,
 } from "lucide-react";
 import { IconChip } from "@/components/app/IconChip";
 import { Check } from "@/components/app/Check";
 import { Reveal, RevealStagger, RevealItem } from "@/components/app/Reveal";
+import { AccordionItem } from "@/components/app/Accordion";
 
 const CTA_LABEL = "Empezar mi ritual gratis";
 const CTA_HREF = "/onboarding";
@@ -76,21 +76,32 @@ export default function Home() {
                 <p className="text-xs font-semibold uppercase tracking-wide text-brand-secondary">
                   Tu afirmación de hoy
                 </p>
-                <p className="mt-3 font-display text-xl font-semibold leading-snug text-txt-primary">
-                  &ldquo;No soy el desastre que mi cabeza dice que soy.&rdquo;
+                <p
+                  aria-hidden
+                  className="mt-2 font-display text-4xl leading-none text-brand-primary"
+                >
+                  &ldquo;
+                </p>
+                <p className="-mt-3 font-display text-xl font-semibold leading-snug text-txt-primary">
+                  No soy el desastre que mi cabeza dice que soy.
                 </p>
                 <div className="mt-5 rounded-xl border-2 border-brand-primary bg-surface-primary px-4 py-3 text-center text-sm font-semibold text-brand-secondary">
                   SOS · Estoy en crisis, ayúdame ahora
                 </div>
-                <div className="mt-4 flex items-center gap-1.5">
-                  {[1, 1, 1, 1, 0].map((on, i) => (
-                    <span
-                      key={i}
-                      className={`h-2.5 w-2.5 rounded-full ${on ? "bg-brand-primary" : "bg-surface-tertiary"}`}
-                    />
-                  ))}
-                  <span className="ml-1 text-xs text-txt-tertiary">
-                    12 días de racha
+                <div className="mt-4 flex items-center justify-between gap-1.5">
+                  <div className="flex items-center gap-1.5">
+                    {[1, 1, 1, 1, 0].map((on, i) => (
+                      <span
+                        key={i}
+                        className={`h-2.5 w-2.5 rounded-full ${on ? "bg-brand-primary" : "bg-surface-tertiary"}`}
+                      />
+                    ))}
+                    <span className="ml-1 text-xs text-txt-tertiary">
+                      12 días de racha
+                    </span>
+                  </div>
+                  <span className="-rotate-2 rounded-md bg-brand-primary px-2 py-1 text-xs font-semibold text-txt-inverse">
+                    + nueva entrada
                   </span>
                 </div>
               </div>
@@ -231,27 +242,59 @@ export default function Home() {
               </h2>
             </Reveal>
             <RevealStagger className="mt-10 grid gap-5 sm:grid-cols-3">
-              {[
-                { label: "Tu Hoy: afirmación + racha" },
-                { label: "Tu SOS: respiración guiada" },
-                { label: "Tu diario: para desahogarte sin que nadie lea" },
-              ].map((s, i) => (
-                <RevealItem key={i}>
-                  <div className="flex aspect-[9/16] flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-border-strong bg-surface-secondary p-6 text-center">
-                    <Sparkles className="h-6 w-6 text-txt-tertiary" />
-                    <p className="text-sm font-medium text-txt-secondary">
-                      {s.label}
-                    </p>
-                    <p className="text-xs text-txt-tertiary">
-                      Captura real — próximamente
-                    </p>
+              <RevealItem>
+                <div className="h-full rounded-xl border border-border-default bg-surface-primary p-5 shadow-sm">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-brand-secondary">
+                    Tu Hoy
+                  </p>
+                  <p className="mt-2 font-display text-base font-semibold leading-snug text-txt-primary">
+                    &ldquo;Hoy elijo hablarme con calma.&rdquo;
+                  </p>
+                  <div className="mt-4 flex items-center gap-1.5">
+                    {[1, 1, 1, 0, 0].map((on, i) => (
+                      <span
+                        key={i}
+                        className={`h-2 w-2 rounded-full ${on ? "bg-brand-primary" : "bg-surface-tertiary"}`}
+                      />
+                    ))}
+                    <span className="ml-1 text-xs text-txt-tertiary">
+                      3 días de racha
+                    </span>
                   </div>
-                </RevealItem>
-              ))}
+                </div>
+              </RevealItem>
+              <RevealItem>
+                <div className="flex h-full flex-col items-center justify-center rounded-xl border border-border-default bg-surface-primary p-5 text-center shadow-sm">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-brand-secondary">
+                    Tu SOS
+                  </p>
+                  <div className="mt-3 flex h-16 w-16 items-center justify-center rounded-full border-2 border-brand-primary">
+                    <LifeBuoy className="h-6 w-6 text-brand-primary" />
+                  </div>
+                  <p className="mt-3 text-sm text-txt-secondary">
+                    Respira conmigo. No eres tu peor momento.
+                  </p>
+                </div>
+              </RevealItem>
+              <RevealItem>
+                <div className="h-full rounded-xl border border-border-default bg-surface-primary p-5 shadow-sm">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-brand-secondary">
+                    Tu diario
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-txt-secondary">
+                    &ldquo;Hoy me costó empezar el día, pero respiré antes de
+                    reaccionar…&rdquo;
+                  </p>
+                  <span className="mt-3 inline-block -rotate-2 rounded-md bg-brand-primary px-2 py-1 text-xs font-semibold text-txt-inverse">
+                    + nueva entrada
+                  </span>
+                </div>
+              </RevealItem>
             </RevealStagger>
             <p className="mt-6 text-center text-xs text-txt-tertiary">
-              Estamos construyendo la app — estas pantallas se reemplazan por
-              capturas reales antes del lanzamiento.
+              Mockups del mecanismo real de la app — estamos construyéndola;
+              estas pantallas se reemplazan por capturas reales antes del
+              lanzamiento.
             </p>
             <div className="mt-8 flex justify-center">
               <Link
@@ -312,6 +355,26 @@ export default function Home() {
                   El botón SOS es gratis siempre, tengas o no Premium — eso
                   nunca te lo vamos a cobrar.
                 </p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.08}>
+              <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                {[
+                  { icon: ShieldCheck, text: "Precio siempre visible antes de pagar" },
+                  { icon: Heart, text: "Cero cargos escondidos, nunca" },
+                  { icon: LifeBuoy, text: "Cancelas cuando quieras, sin llamadas" },
+                ].map((t, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-2.5 rounded-xl border border-border-default bg-surface-primary px-3 py-2.5"
+                  >
+                    <t.icon className="h-4 w-4 shrink-0 text-brand-secondary" />
+                    <span className="text-xs font-medium text-txt-secondary">
+                      {t.text}
+                    </span>
+                  </div>
+                ))}
               </div>
             </Reveal>
 
@@ -411,15 +474,7 @@ export default function Home() {
                 },
               ].map((item, i) => (
                 <RevealItem key={i}>
-                  <details className="group rounded-xl border border-border-default bg-surface-primary p-4 open:shadow-sm">
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold text-txt-primary">
-                      {item.q}
-                      <ChevronDown className="h-4 w-4 shrink-0 text-txt-tertiary transition group-open:rotate-180" />
-                    </summary>
-                    <p className="mt-3 text-sm leading-relaxed text-txt-secondary">
-                      {item.a}
-                    </p>
-                  </details>
+                  <AccordionItem question={item.q} answer={item.a} />
                 </RevealItem>
               ))}
             </RevealStagger>
