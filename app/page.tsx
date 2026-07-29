@@ -17,6 +17,7 @@ import { Check } from "@/components/app/Check";
 import { Reveal, RevealStagger, RevealItem } from "@/components/app/Reveal";
 import { AccordionItem } from "@/components/app/Accordion";
 import { AnimatedNumber } from "@/components/app/AnimatedNumber";
+import { RachaDots } from "@/components/app/RachaDots";
 
 const CTA_LABEL = "Quiero mi ritual gratis";
 const CTA_HREF = "/onboarding";
@@ -49,7 +50,7 @@ export default function Home() {
         <section className="mx-auto max-w-5xl px-4 pt-12 pb-16 md:pt-20 md:pb-24">
           <div className="grid items-center gap-10 md:grid-cols-2">
             <Reveal>
-              <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+              <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-txt-secondary">
                 Para mujeres que se exigen demasiado
               </p>
               <h1 className="text-balance font-display text-3xl font-semibold leading-tight text-txt-primary md:text-4xl">
@@ -78,36 +79,20 @@ export default function Home() {
                 <span className="absolute right-4 top-4 rounded-full bg-surface-tertiary px-2 py-0.5 text-xs font-medium text-txt-secondary">
                   Vista previa
                 </span>
-                <p className="pr-24 text-xs font-semibold uppercase tracking-wide text-brand-secondary">
+                <p className="pr-24 text-xs font-semibold uppercase tracking-wide text-txt-secondary">
                   Tu afirmación de hoy
                 </p>
                 <p
                   aria-hidden
-                  className="mt-2 font-display text-4xl leading-none text-brand-primary"
+                  className="mt-2 font-display text-4xl leading-none text-brand-secondary"
                 >
                   &ldquo;
                 </p>
                 <p className="-mt-3 font-display text-xl font-semibold leading-snug text-txt-primary">
                   No soy el desastre que mi cabeza dice que soy.
                 </p>
-                <div className="mt-5 rounded-xl border-2 border-brand-primary bg-surface-primary px-4 py-3 text-center text-sm font-semibold text-brand-secondary">
+                <div className="mt-5 rounded-xl border-2 border-brand-primary bg-surface-primary px-4 py-3 text-center text-sm font-semibold text-brand-primary">
                   SOS · Estoy en crisis, ayúdame ahora
-                </div>
-                <div className="mt-4 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="flex items-center gap-1.5">
-                    {[1, 1, 1, 1, 0].map((on, i) => (
-                      <span
-                        key={i}
-                        className={`h-2.5 w-2.5 rounded-full ${on ? "bg-brand-primary" : "bg-surface-tertiary"}`}
-                      />
-                    ))}
-                    <span className="ml-1 text-xs text-txt-tertiary">
-                      12 días de racha
-                    </span>
-                  </div>
-                  <span className="-rotate-2 rounded-md bg-brand-primary px-2 py-1 text-xs font-semibold text-txt-inverse">
-                    + nueva entrada
-                  </span>
                 </div>
               </div>
             </Reveal>
@@ -181,7 +166,7 @@ export default function Home() {
         <section className="border-t border-border-default/60 bg-surface-secondary/60 px-4 py-16 md:py-20">
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <p className="text-center text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+              <p className="text-center text-sm font-semibold uppercase tracking-wide text-txt-secondary">
                 El mecanismo
               </p>
               <h2 className="mt-2 text-balance text-center font-display text-2xl font-semibold text-txt-primary md:text-3xl">
@@ -221,7 +206,7 @@ export default function Home() {
                   <div className="h-full rounded-xl border border-border-default bg-surface-primary p-5 shadow-sm">
                     <div className="flex items-center gap-3">
                       <IconChip icon={step.icon} />
-                      <span className="font-display text-2xl font-semibold text-brand-secondary">
+                      <span className="font-display text-2xl font-semibold text-brand-primary">
                         {step.n}
                       </span>
                     </div>
@@ -249,19 +234,14 @@ export default function Home() {
             <RevealStagger className="mt-10 grid gap-5 sm:grid-cols-3">
               <RevealItem>
                 <div className="h-full rounded-xl border border-border-default bg-surface-primary p-5 shadow-sm">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-brand-secondary">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-txt-secondary">
                     Tu Hoy
                   </p>
                   <p className="mt-2 font-display text-base font-semibold leading-snug text-txt-primary">
                     &ldquo;Hoy elijo hablarme con calma.&rdquo;
                   </p>
                   <div className="mt-4 flex items-center gap-1.5">
-                    {[1, 1, 1, 0, 0].map((on, i) => (
-                      <span
-                        key={i}
-                        className={`h-2 w-2 rounded-full ${on ? "bg-brand-primary" : "bg-surface-tertiary"}`}
-                      />
-                    ))}
+                    <RachaDots filled={3} />
                     <span className="ml-1 text-xs text-txt-tertiary">
                       3 días de racha
                     </span>
@@ -270,7 +250,7 @@ export default function Home() {
               </RevealItem>
               <RevealItem>
                 <div className="flex h-full flex-col items-center justify-center rounded-xl border border-border-default bg-surface-primary p-5 text-center shadow-sm">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-brand-secondary">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-txt-secondary">
                     Tu SOS
                   </p>
                   <div className="mt-3 flex h-16 w-16 items-center justify-center rounded-full border-2 border-brand-primary">
@@ -283,7 +263,7 @@ export default function Home() {
               </RevealItem>
               <RevealItem>
                 <div className="h-full rounded-xl border border-border-default bg-surface-primary p-5 shadow-sm">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-brand-secondary">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-txt-secondary">
                     Tu diario
                   </p>
                   <p className="mt-2 text-sm leading-relaxed text-txt-secondary">
@@ -311,20 +291,15 @@ export default function Home() {
 
             <div className="mx-auto mt-14 max-w-lg rounded-xl border border-border-default bg-surface-secondary p-5">
               <p className="text-xs font-semibold uppercase tracking-wide text-txt-tertiary">
-                Lo que ya se dice de las apps de afirmaciones
+                Por qué es distinto
               </p>
-              <blockquote className="mt-3 border-l-2 border-brand-primary pl-3 text-sm italic leading-relaxed text-txt-secondary">
-                &ldquo;Todo lo que hace es mandar notificaciones. No me da
-                herramientas reales cuando de verdad me siento mal.&rdquo;
-                <footer className="mt-1 text-xs not-italic text-txt-tertiary">
-                  — queja habitual sobre apps de afirmaciones, según reseñas
-                  públicas
-                </footer>
-              </blockquote>
-              <p className="mt-4 text-sm leading-relaxed text-txt-secondary">
-                Por eso cada afirmación de AmorPropio &amp; SOS viene con un
-                ejercicio real de 2 minutos, y un botón que hace algo cuando
-                el pánico llega — no solo una frase en la pantalla.
+              <p className="mt-3 text-sm leading-relaxed text-txt-secondary">
+                La queja más común sobre las apps de afirmaciones es siempre
+                la misma: mandan una notificación y ya, sin nada real que
+                hacer cuando de verdad te sientes mal. Por eso cada
+                afirmación de AmorPropio &amp; SOS viene con un ejercicio
+                real de 2 minutos, y un botón que hace algo cuando el pánico
+                llega — no solo una frase en la pantalla.
               </p>
             </div>
           </div>
@@ -337,7 +312,7 @@ export default function Home() {
         >
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <h2 className="text-balance text-center font-display text-xl font-semibold text-txt-primary md:text-2xl">
+              <h2 className="text-balance text-center font-display text-2xl font-semibold text-txt-primary md:text-3xl">
                 Todo lo que incluye tu Ritual Premium
               </h2>
             </Reveal>
@@ -354,7 +329,7 @@ export default function Home() {
                     <span className="text-sm text-txt-primary">{text}</span>
                   </div>
                 ))}
-                <p className="rounded-xl bg-brand-primary-soft px-4 py-3 text-center text-sm font-medium text-brand-secondary">
+                <p className="rounded-xl bg-brand-primary-soft px-4 py-3 text-center text-sm font-medium text-brand-primary">
                   El botón SOS es gratis siempre, tengas o no Premium — eso
                   nunca te lo vamos a cobrar.
                 </p>
@@ -448,7 +423,7 @@ export default function Home() {
           <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
             <Reveal>
               <IconChip icon={ShieldCheck} />
-              <p aria-hidden className="-mb-3 font-display text-3xl leading-none text-brand-primary">
+              <p aria-hidden className="-mb-3 font-display text-3xl leading-none text-brand-secondary">
                 &ldquo;
               </p>
               <h2 className="mt-4 text-balance font-display text-xl font-semibold text-txt-primary md:text-2xl">
@@ -507,7 +482,7 @@ export default function Home() {
         <section className="px-4 py-16 md:py-24">
           <div className="mx-auto max-w-xl text-center">
             <Reveal>
-              <BookHeart className="mx-auto h-8 w-8 text-brand-secondary" />
+              <BookHeart className="mx-auto h-8 w-8 text-brand-primary" />
               <h2 className="mt-4 text-balance font-display text-2xl font-semibold text-txt-primary md:text-3xl">
                 Imagina abrir el día hablándote como mereces
               </h2>
