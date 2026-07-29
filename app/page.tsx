@@ -10,6 +10,7 @@ import {
   ShieldCheck,
   BookHeart,
   Moon,
+  ChevronRight,
 } from "lucide-react";
 import { IconChip } from "@/components/app/IconChip";
 import { Check } from "@/components/app/Check";
@@ -307,6 +308,24 @@ export default function Home() {
                 {CTA_LABEL}
               </Link>
             </div>
+
+            <div className="mx-auto mt-14 max-w-lg rounded-xl border border-border-default bg-surface-secondary p-5">
+              <p className="text-xs font-semibold uppercase tracking-wide text-txt-tertiary">
+                Lo que ya se dice de las apps de afirmaciones
+              </p>
+              <blockquote className="mt-3 border-l-2 border-brand-primary pl-3 text-sm italic leading-relaxed text-txt-secondary">
+                &ldquo;Todo lo que hace es mandar notificaciones. No me da
+                herramientas reales cuando de verdad me siento mal.&rdquo;
+                <footer className="mt-1 text-xs not-italic text-txt-tertiary">
+                  — reseña real de una app de afirmaciones en inglés
+                </footer>
+              </blockquote>
+              <p className="mt-4 text-sm leading-relaxed text-txt-secondary">
+                Por eso cada afirmación de AmorPropio &amp; SOS viene con un
+                ejercicio real de 2 minutos, y un botón que hace algo cuando
+                el pánico llega — no solo una frase en la pantalla.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -386,9 +405,10 @@ export default function Home() {
                     className="flex items-center gap-2.5 rounded-xl border border-border-default bg-surface-primary px-3 py-2.5 transition hover:border-border-strong"
                   >
                     <t.icon className="h-4 w-4 shrink-0 text-brand-secondary" />
-                    <span className="text-xs font-medium text-txt-secondary underline decoration-border-strong underline-offset-2">
+                    <span className="flex-1 text-xs font-medium text-brand-secondary underline decoration-brand-secondary/50 underline-offset-2">
                       {t.text}
                     </span>
+                    <ChevronRight className="h-3.5 w-3.5 shrink-0 text-brand-secondary" />
                   </Link>
                 ))}
               </div>
@@ -411,7 +431,7 @@ export default function Home() {
                     Se cobra $24.99/año · 2 meses gratis vs. el mensual
                   </p>
                   <Link
-                    href={CTA_HREF}
+                    href={`${CTA_HREF}?plan=annual`}
                     className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-lg bg-brand-primary text-base font-semibold text-txt-inverse transition hover:bg-brand-primary-hover active:scale-[0.98]"
                   >
                     {CTA_LABEL}
@@ -424,13 +444,14 @@ export default function Home() {
                     Plan mensual
                   </p>
                   <p className="mt-1 font-display text-3xl font-semibold text-txt-primary">
-                    $3.99<span className="text-lg text-txt-tertiary">/mes</span>
+                    <AnimatedNumber value={3.99} prefix="$" decimals={2} />
+                    <span className="text-lg text-txt-tertiary">/mes</span>
                   </p>
                   <p className="mt-1 text-xs text-txt-tertiary">
                     3 días gratis, luego $3.99/mes
                   </p>
                   <Link
-                    href={CTA_HREF}
+                    href={`${CTA_HREF}?plan=monthly`}
                     className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-lg border border-border-strong text-base font-semibold text-txt-primary transition hover:bg-surface-secondary active:scale-[0.98]"
                   >
                     {CTA_LABEL}
