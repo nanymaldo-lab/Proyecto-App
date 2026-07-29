@@ -105,7 +105,10 @@ export default function Home() {
                 <p className="mt-1 font-display text-xl font-semibold leading-snug text-txt-primary">
                   No soy el desastre que mi cabeza dice que soy.
                 </p>
-                <div className="mt-5 flex items-center gap-2 rounded-xl bg-brand-primary px-4 py-3 text-sm font-semibold text-txt-inverse">
+                <div
+                  aria-hidden
+                  className="pointer-events-none mt-5 flex items-center gap-2 rounded-xl bg-brand-primary px-4 py-3 text-sm font-semibold text-txt-inverse opacity-80"
+                >
                   <LifeBuoy className="h-4 w-4 shrink-0" />
                   SOS · Estoy en crisis, ayúdame ahora
                 </div>
@@ -401,9 +404,9 @@ export default function Home() {
                   <p className="mt-2 text-sm font-medium text-txt-secondary">
                     Plan anual
                   </p>
-                  <p className="mt-1 font-display text-3xl font-semibold text-txt-primary">
+                  <p className="mt-1 flex items-baseline font-display text-3xl font-semibold text-txt-primary">
                     <AnimatedNumber value={2.08} prefix="$" decimals={2} />
-                    <span className="text-lg text-txt-tertiary">/mes</span>
+                    <span className="ml-1 text-lg text-txt-tertiary">/mes</span>
                   </p>
                   <p className="mt-1 text-xs text-txt-tertiary">
                     Se cobra $24.99/año · 2 meses gratis vs. el mensual
@@ -412,7 +415,7 @@ export default function Home() {
                     href={`${CTA_HREF}?plan=annual`}
                     className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-lg bg-brand-primary text-base font-semibold text-txt-inverse transition hover:bg-brand-primary-hover active:scale-[0.98]"
                   >
-                    {CTA_LABEL}
+                    Empezar con el anual
                   </CTALink>
                 </div>
               </RevealItem>
@@ -421,9 +424,9 @@ export default function Home() {
                   <p className="text-sm font-medium text-txt-secondary">
                     Plan mensual
                   </p>
-                  <p className="mt-1 font-display text-3xl font-semibold text-txt-primary">
+                  <p className="mt-1 flex items-baseline font-display text-3xl font-semibold text-txt-primary">
                     <AnimatedNumber value={3.99} prefix="$" decimals={2} />
-                    <span className="text-lg text-txt-tertiary">/mes</span>
+                    <span className="ml-1 text-lg text-txt-tertiary">/mes</span>
                   </p>
                   <p className="mt-1 text-xs text-txt-tertiary">
                     3 días gratis, luego $3.99/mes
@@ -432,11 +435,16 @@ export default function Home() {
                     href={`${CTA_HREF}?plan=monthly`}
                     className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-lg border border-border-strong text-base font-semibold text-txt-primary transition hover:bg-surface-secondary active:scale-[0.98]"
                   >
-                    {CTA_LABEL}
+                    Empezar con el mensual
                   </CTALink>
                 </div>
               </RevealItem>
             </RevealStagger>
+            <p className="mt-4 text-center text-xs text-txt-tertiary">
+              El trial de 3 días pide tarjeta para reservar tu lugar; se
+              cobra recién el día 4, y puedes cancelar antes sin que te
+              cobren nada.
+            </p>
           </div>
         </section>
 
