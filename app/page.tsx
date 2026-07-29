@@ -15,6 +15,7 @@ import { IconChip } from "@/components/app/IconChip";
 import { Check } from "@/components/app/Check";
 import { Reveal, RevealStagger, RevealItem } from "@/components/app/Reveal";
 import { AccordionItem } from "@/components/app/Accordion";
+import { AnimatedNumber } from "@/components/app/AnimatedNumber";
 
 const CTA_LABEL = "Empezar mi ritual gratis";
 const CTA_HREF = "/onboarding";
@@ -72,8 +73,11 @@ export default function Home() {
             </Reveal>
 
             <Reveal delay={0.1}>
-              <div className="mx-auto w-full max-w-xs overflow-hidden rounded-xl border border-border-default bg-surface-primary p-5 shadow-lg">
-                <p className="text-xs font-semibold uppercase tracking-wide text-brand-secondary">
+              <div className="relative mx-auto w-full max-w-xs overflow-hidden rounded-xl border border-border-default bg-surface-primary p-5 shadow-lg">
+                <span className="absolute right-4 top-4 rounded-full bg-surface-tertiary px-2 py-0.5 text-xs font-medium text-txt-secondary">
+                  Vista previa
+                </span>
+                <p className="pr-24 text-xs font-semibold uppercase tracking-wide text-brand-secondary">
                   Tu afirmación de hoy
                 </p>
                 <p
@@ -292,9 +296,8 @@ export default function Home() {
               </RevealItem>
             </RevealStagger>
             <p className="mt-6 text-center text-xs text-txt-tertiary">
-              Mockups del mecanismo real de la app — estamos construyéndola;
-              estas pantallas se reemplazan por capturas reales antes del
-              lanzamiento.
+              Así se ve tu ritual todos los días — capturas reales de la app
+              muy pronto.
             </p>
             <div className="mt-8 flex justify-center">
               <Link
@@ -361,19 +364,32 @@ export default function Home() {
             <Reveal delay={0.08}>
               <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
                 {[
-                  { icon: ShieldCheck, text: "Precio siempre visible antes de pagar" },
-                  { icon: Heart, text: "Cero cargos escondidos, nunca" },
-                  { icon: LifeBuoy, text: "Cancelas cuando quieras, sin llamadas" },
+                  {
+                    icon: ShieldCheck,
+                    text: "Precio siempre visible antes de pagar",
+                    href: "/terminos",
+                  },
+                  {
+                    icon: Heart,
+                    text: "Cero cargos escondidos, nunca",
+                    href: "/disclaimer",
+                  },
+                  {
+                    icon: LifeBuoy,
+                    text: "Cancelas cuando quieras, sin llamadas",
+                    href: "/reembolso",
+                  },
                 ].map((t, i) => (
-                  <div
+                  <Link
                     key={i}
-                    className="flex items-center gap-2.5 rounded-xl border border-border-default bg-surface-primary px-3 py-2.5"
+                    href={t.href}
+                    className="flex items-center gap-2.5 rounded-xl border border-border-default bg-surface-primary px-3 py-2.5 transition hover:border-border-strong"
                   >
                     <t.icon className="h-4 w-4 shrink-0 text-brand-secondary" />
-                    <span className="text-xs font-medium text-txt-secondary">
+                    <span className="text-xs font-medium text-txt-secondary underline decoration-border-strong underline-offset-2">
                       {t.text}
                     </span>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </Reveal>
@@ -388,7 +404,8 @@ export default function Home() {
                     Plan anual
                   </p>
                   <p className="mt-1 font-display text-3xl font-semibold text-txt-primary">
-                    $2.08<span className="text-lg text-txt-tertiary">/mes</span>
+                    <AnimatedNumber value={2.08} prefix="$" decimals={2} />
+                    <span className="text-lg text-txt-tertiary">/mes</span>
                   </p>
                   <p className="mt-1 text-xs text-txt-tertiary">
                     Se cobra $24.99/año · 2 meses gratis vs. el mensual
