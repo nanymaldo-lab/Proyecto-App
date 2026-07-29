@@ -1,7 +1,7 @@
 # ESTADO — AmorPropio & SOS
 Última actualización: 2026-07-28 | Sesión actual: 1 (Constitución del Producto — completa, arrancando validación técnica)
 
-⏸️ CHECKPOINT — Última acción completada: Sesión 1 cerrada (FICHA-AVATAR.md creada, monetización, arquitectura y auth decididas) / Siguiente acción exacta: mostrar resumen simple al usuario, confirmar avatar, y esperar OK para arrancar Sesión 2 (identidad visual — FICHA-ARTE.md, 3 opciones A/B/C).
+⏸️ CHECKPOINT — Última acción completada: Sesión 2 cerrada (FICHA-ARTE.md creada y aprobada — dirección "Carta cálida", combinación A+C) / Siguiente acción exacta: cerrar Sesión 1 pendiente de aprobación explícita del avatar (mostrar resumen simple y confirmar FICHA-AVATAR.md) y luego arrancar Sesión 3 (página de ventas).
 
 ## Qué es esta app (3 líneas máximo)
 App web de bienestar emocional para mujeres hispanohablantes: botón SOS de auxilio inmediato en crisis de pánico + hábito diario de afirmaciones y ejercicios de amor propio. Modelo freemium por suscripción (Hotmart), pendiente de refinar en Sesión 1.
@@ -20,10 +20,13 @@ App web de bienestar emocional para mujeres hispanohablantes: botón SOS de auxi
 - **App WEB** (no nativa de tiendas) — decidido con el usuario el 2026-07-28.
 - Adaptaciones por ser web: "widgets nativos" → ícono en pantalla de inicio (PWA/atajo) + notificaciones push web; cobro por Hotmart (no Apple/Google, evita comisión de 15-30%).
 
-## Dirección de Arte (Sesión 2 — pendiente)
-- FICHA-ARTE.md: NO existe aún
+## Dirección de Arte (Sesión 2 — NO cambiar sin justificación)
+- FICHA-ARTE.md: existe y aprobada por el usuario — 2026-07-29
 - ¿Hubo referencia visual del usuario?: NO — usuario pidió usar criterio propio ("atractivo, llamativo")
-- Camino a seguir: REFERENCIA-INVESTIGACIÓN — derivar de líderes del nicho (I am, Rootd) + PASO 0 de 16-DIRECCION-DE-ARTE (tabla de líderes, fusión, NO clon del look oscuro+neón genérico)
+- Resumen: fondo #FBF3EC · acento #D9704F (2ª nota #B0473A) · Display "Zilla Slab" · Body "Plus Jakarta Sans" · radio 18px
+- Personalidad: Cálido (dominante) · Sereno · Minimal — voz: mentor sereno con calidez
+- Dirección: "Carta cálida" — combinación del usuario de Opción A (Abrazo diario: Headspace+Flo) + Opción C (Diario de mí: I am + editorial); Opción B (Refugio sereno: Calm+Rootd) descartada
+- REGISTRO ANTI-REPETICIÓN (29/54): paleta terracota/coral cálida + par Zilla Slab/Plus Jakarta Sans VETADOS para el próximo proyecto del SO. No se usó dirección exacta del banco 54 (dispositivo propio derivado del mundo del sujeto)
 
 ## Avatar y venta (Sesión 1 — NO cambiar sin validar)
 - FICHA-AVATAR.md: existe, creada 2026-07-28 con base en el informe de mercado del usuario (hace de Fuente 2) — pendiente de aprobación explícita del usuario
