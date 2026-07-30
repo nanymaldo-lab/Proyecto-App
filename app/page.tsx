@@ -162,9 +162,6 @@ export default function Home() {
           <div className="mx-auto max-w-2xl">
             <Reveal>
               <div className="rounded-xl border border-border-default bg-surface-primary p-6 shadow-sm md:p-8">
-                <p aria-hidden className="mb-1 text-center font-display text-3xl leading-none text-brand-secondary">
-                  &ldquo;
-                </p>
                 <h2 className="text-balance text-center font-display text-xl font-semibold text-txt-primary md:text-2xl">
                   Nada de esto se arregla solo
                 </h2>
@@ -212,10 +209,7 @@ export default function Home() {
               <p className="text-center text-sm font-semibold uppercase tracking-wide text-txt-secondary">
                 El mecanismo
               </p>
-              <p aria-hidden className="mt-2 text-center font-display text-3xl leading-none text-brand-secondary">
-                &ldquo;
-              </p>
-              <h2 className="mt-1 text-balance text-center font-display text-2xl font-semibold text-txt-primary md:text-3xl">
+              <h2 className="mt-2 text-balance text-center font-display text-2xl font-semibold text-txt-primary md:text-3xl">
                 Te falta el Ritual de 2 Minutos
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-center text-base leading-relaxed text-txt-secondary">
@@ -473,9 +467,6 @@ export default function Home() {
           <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
             <Reveal>
               <IconChip icon={ShieldCheck} />
-              <p aria-hidden className="mb-1 font-display text-3xl leading-none text-brand-secondary">
-                &ldquo;
-              </p>
               <h2 className="mt-4 text-balance font-display text-xl font-semibold text-txt-primary md:text-2xl">
                 La Garantía de tu Primera Semana Distinta
               </h2>
@@ -564,11 +555,10 @@ export default function Home() {
                 {CTA_LABEL}
               </CTALink>
               <p className="mx-auto mt-8 max-w-md text-left text-xs leading-relaxed text-txt-tertiary">
-                <strong className="text-txt-secondary">PD:</strong> tu{" "}
-                <strong className="text-txt-secondary">Ritual de 2 Minutos</strong>{" "}
-                cada día + botón SOS siempre gratis. Hoy: 3 días de prueba,{" "}
-                <strong className="text-txt-secondary">$2.08/mes</strong> en el
-                anual, y la Garantía de tu Primera Semana Distinta.
+                <strong className="text-txt-secondary">PD:</strong> hoy entras
+                desde <strong className="text-txt-secondary">$2.08/mes</strong>,
+                con 3 días de prueba y la Garantía de tu Primera Semana
+                Distinta.
               </p>
             </Reveal>
           </div>
