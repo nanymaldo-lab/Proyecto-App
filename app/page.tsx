@@ -161,24 +161,44 @@ export default function Home() {
         <section className="px-4 py-16 md:py-20">
           <div className="mx-auto max-w-2xl">
             <Reveal>
-              <div className="rounded-xl border border-border-default bg-surface-primary p-6 text-center shadow-sm md:p-8">
-                <p aria-hidden className="mb-1 font-display text-3xl leading-none text-brand-secondary">
+              <div className="rounded-xl border border-border-default bg-surface-primary p-6 shadow-sm md:p-8">
+                <p aria-hidden className="mb-1 text-center font-display text-3xl leading-none text-brand-secondary">
                   &ldquo;
                 </p>
-                <h2 className="text-balance font-display text-xl font-semibold text-txt-primary md:text-2xl">
+                <h2 className="text-balance text-center font-display text-xl font-semibold text-txt-primary md:text-2xl">
                   Nada de esto se arregla solo
                 </h2>
-                <p className="mt-5 text-base leading-relaxed text-txt-secondary md:text-lg">
-                  Cada día que sigues sin un ritual real, ese diálogo negativo
-                  se afianza un poco más — y la próxima crisis te va a
-                  encontrar exactamente igual de desprevenida que la última.
-                  En un año, ese patrón no se rompe solo: se vuelve más
-                  difícil de cambiar.
-                </p>
-                <p className="mt-4 text-base leading-relaxed text-txt-secondary md:text-lg">
-                  Las apps de afirmaciones que ya probaste fallan por lo
-                  mismo: mandan una notificación y ya. Ninguna te da algo que
-                  hacer cuando de verdad lo necesitas.
+
+                <div className="mt-6 space-y-3">
+                  <div className="flex items-start gap-3 rounded-lg bg-surface-secondary px-4 py-3">
+                    <Moon className="mt-0.5 h-4 w-4 shrink-0 text-txt-secondary" />
+                    <p className="text-sm leading-relaxed text-txt-secondary">
+                      <strong className="text-txt-primary">Hoy:</strong> el
+                      diálogo negativo se afianza un poco más.
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-3 rounded-lg bg-surface-secondary px-4 py-3">
+                    <RotateCcw className="mt-0.5 h-4 w-4 shrink-0 text-txt-secondary" />
+                    <p className="text-sm leading-relaxed text-txt-secondary">
+                      <strong className="text-txt-primary">En 1 año:</strong>{" "}
+                      el mismo patrón, pero más difícil de romper.
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-3 rounded-lg bg-surface-secondary px-4 py-3">
+                    <Siren className="mt-0.5 h-4 w-4 shrink-0 text-txt-secondary" />
+                    <p className="text-sm leading-relaxed text-txt-secondary">
+                      <strong className="text-txt-primary">
+                        En la próxima crisis:
+                      </strong>{" "}
+                      igual de desprevenida que la última vez.
+                    </p>
+                  </div>
+                </div>
+
+                <p className="mt-5 text-center text-sm leading-relaxed text-txt-secondary">
+                  Las apps que ya probaste solo mandan una notificación.
+                  Ninguna te da algo que <strong className="text-txt-primary">hacer</strong> cuando de
+                  verdad lo necesitas.
                 </p>
               </div>
             </Reveal>
@@ -197,10 +217,12 @@ export default function Home() {
                 Minutos
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-center text-base leading-relaxed text-txt-secondary">
-                No es que no lo intentes. Es que nunca tuviste algo hecho
-                para tu día real, solo frases sueltas. El Ritual de 2
-                Minutos te acompaña todos los días — y en el momento exacto
-                de una crisis, también.
+                No es que no lo intentes —{" "}
+                <strong className="text-txt-primary">
+                  nunca tuviste algo hecho para tu día real.
+                </strong>{" "}
+                El Ritual te acompaña cada día, y en el momento exacto de
+                una crisis.
               </p>
             </Reveal>
 
@@ -328,14 +350,22 @@ export default function Home() {
               <p className="text-xs font-semibold uppercase tracking-wide text-txt-tertiary">
                 Por qué es distinto
               </p>
-              <p className="mt-3 text-sm leading-relaxed text-txt-secondary">
-                La queja más común sobre las apps de afirmaciones es siempre
-                la misma: mandan una notificación y ya, sin nada real que
-                hacer cuando de verdad te sientes mal. Por eso cada
-                afirmación de AmorPropio &amp; SOS viene con un ejercicio
-                real de 2 minutos, y un botón que hace algo cuando el pánico
-                llega — no solo una frase en la pantalla.
-              </p>
+              <div className="mt-3 space-y-2.5">
+                <div className="flex items-start gap-2.5 rounded-lg bg-surface-primary px-3 py-2.5">
+                  <MessageSquareOff className="mt-0.5 h-4 w-4 shrink-0 text-txt-tertiary" />
+                  <p className="text-sm leading-relaxed text-txt-secondary">
+                    Las otras apps solo mandan una notificación y ya.
+                  </p>
+                </div>
+                <div className="flex items-start gap-2.5 rounded-lg bg-brand-primary-soft px-3 py-2.5">
+                  <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-brand-primary" />
+                  <p className="text-sm leading-relaxed text-txt-secondary">
+                    <strong className="text-txt-primary">La tuya:</strong> un
+                    ejercicio real de 2 min + un botón que hace algo cuando
+                    el pánico llega.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -457,10 +487,23 @@ export default function Home() {
               </h2>
               <p className="mt-4 max-w-lg text-base leading-relaxed text-txt-secondary">
                 Si en tus primeros 7 días sientes que nada cambió en cómo te
-                hablas a ti misma, escríbenos y te devolvemos todo. Un
-                correo, sin preguntas, sin formularios. Es la garantía de 7
-                días de Hotmart — la misma plataforma que procesa tu pago.
+                hablas a ti misma, te devolvemos todo.
               </p>
+              <div className="mt-5 flex w-full max-w-sm flex-col gap-2.5 text-left">
+                <div className="flex items-center gap-2.5">
+                  <Check />
+                  <span className="text-sm text-txt-secondary">
+                    Un correo, sin preguntas, sin formularios
+                  </span>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <Check />
+                  <span className="text-sm text-txt-secondary">
+                    Garantía de 7 días de Hotmart, la misma plataforma que
+                    procesa tu pago
+                  </span>
+                </div>
+              </div>
             </Reveal>
           </div>
         </section>
@@ -525,12 +568,11 @@ export default function Home() {
                 {CTA_LABEL}
               </CTALink>
               <p className="mx-auto mt-8 max-w-md text-left text-xs leading-relaxed text-txt-tertiary">
-                <strong className="text-txt-secondary">PD:</strong>{" "}
-                AmorPropio &amp; SOS te da tu Ritual de 2 Minutos cada día —
-                afirmación personalizada, ejercicio real y diario privado —
-                más un botón SOS que siempre es gratis. Hoy entras con 3
-                días de prueba, $2.08/mes en el plan anual, y la Garantía de
-                tu Primera Semana Distinta.
+                <strong className="text-txt-secondary">PD:</strong> tu{" "}
+                <strong className="text-txt-secondary">Ritual de 2 Minutos</strong>{" "}
+                cada día + botón SOS siempre gratis. Hoy: 3 días de prueba,{" "}
+                <strong className="text-txt-secondary">$2.08/mes</strong> en el
+                anual, y la Garantía de tu Primera Semana Distinta.
               </p>
             </Reveal>
           </div>
