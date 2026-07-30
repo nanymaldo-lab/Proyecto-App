@@ -212,9 +212,11 @@ export default function Home() {
               <p className="text-center text-sm font-semibold uppercase tracking-wide text-txt-secondary">
                 El mecanismo
               </p>
-              <h2 className="mt-2 text-balance text-center font-display text-2xl font-semibold text-txt-primary md:text-3xl">
-                No te falta fuerza de voluntad — te falta el Ritual de 2
-                Minutos
+              <p aria-hidden className="mt-2 text-center font-display text-3xl leading-none text-brand-secondary">
+                &ldquo;
+              </p>
+              <h2 className="mt-1 text-balance text-center font-display text-2xl font-semibold text-txt-primary md:text-3xl">
+                Te falta el Ritual de 2 Minutos
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-center text-base leading-relaxed text-txt-secondary">
                 No es que no lo intentes —{" "}
@@ -330,26 +332,18 @@ export default function Home() {
                 </div>
               </RevealItem>
             </RevealStagger>
-            <div className="mt-8 flex justify-center">
-              <CTALink
-                href={CTA_HREF}
-                className="inline-flex h-12 items-center justify-center rounded-lg bg-brand-primary px-7 text-base font-semibold text-txt-inverse shadow-md transition hover:bg-brand-primary-hover active:scale-[0.98]"
-              >
-                {CTA_LABEL}
-              </CTALink>
-            </div>
 
             <div
-              className="mx-auto mt-14 max-w-lg rounded-xl border border-border-default bg-surface-tertiary p-5"
+              className="mx-auto mt-10 max-w-lg rounded-xl border border-border-default bg-surface-tertiary p-5"
               style={{
                 backgroundImage:
                   "radial-gradient(color-mix(in oklab, var(--text-primary) 6%, transparent) 1px, transparent 1px)",
                 backgroundSize: "14px 14px",
               }}
             >
-              <p className="text-xs font-semibold uppercase tracking-wide text-txt-tertiary">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-txt-tertiary">
                 Por qué es distinto
-              </p>
+              </h3>
               <div className="mt-3 space-y-2.5">
                 <div className="flex items-start gap-2.5 rounded-lg bg-surface-primary px-3 py-2.5">
                   <MessageSquareOff className="mt-0.5 h-4 w-4 shrink-0 text-txt-tertiary" />
@@ -556,10 +550,12 @@ export default function Home() {
                 Imagina abrir el día hablándote como mereces
               </h2>
               <p className="mt-4 text-base leading-relaxed text-txt-secondary">
-                Sin ese peso del diálogo negativo, y con la tranquilidad de
-                saber que si el pánico llega, no vas a estar perdida. Esa es
-                la persona que se cuida y se habla bonito — y puede
-                empezar hoy, en 2 minutos.
+                Sin ese peso del diálogo negativo. Sin miedo a la próxima
+                crisis.
+              </p>
+              <p className="mt-2 text-base leading-relaxed text-txt-secondary">
+                Esa es <strong className="text-txt-primary">la persona que se
+                habla bonito</strong> — y puede empezar hoy, en 2 minutos.
               </p>
               <CTALink
                 href={CTA_HREF}
