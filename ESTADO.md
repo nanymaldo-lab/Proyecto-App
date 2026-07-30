@@ -30,7 +30,7 @@ App web de bienestar emocional para mujeres hispanohablantes: botón SOS de auxi
 
 ## Avatar y venta (Sesión 1 — NO cambiar sin validar)
 - FICHA-AVATAR.md: existe, creada 2026-07-28 con base en el informe de mercado del usuario (hace de Fuente 2) — pendiente de aprobación explícita del usuario
-- Resumen: "Vale", 18-38 años, LATAM/España, diálogo interno "no soy suficiente" + miedo a crisis de pánico en soledad · dolor #1: "no soy suficiente" · deseo #1: "que algo me hable a mí, no frases genéricas" · consciencia nivel 3 · sofisticación etapa 3
+- Resumen: "Vale", 18-60 años (rango amplio, confirmado por el usuario), LATAM/España, diálogo interno "no soy suficiente" + miedo a crisis de pánico en soledad · dolor #1: "no soy suficiente" · deseo #1: "que algo me hable a mí, no frases genéricas" · consciencia nivel 3 · sofisticación etapa 3
 - Landing: sigue la ESTRUCTURA CANÓNICA de 10 secciones del 19 — pendiente de construir (Sesión 3)
 
 ## Estrategia de monetización (Sesión 1 — NO cambiar sin validar)

@@ -1,7 +1,7 @@
 # FICHA DE AVATAR — AmorPropio & SOS
 
 ## El avatar (cliente ideal — UNA persona concreta)
-- Nombre/arquetipo: "Vale" · Edad: 18-38 (núcleo 22-32) · Situación: estudiante o profesional que se exige mucho · País(es): LATAM + España (hispanohablante)
+- Nombre/arquetipo: "Vale" · Edad: 18-60 (rango amplio, confirmado por el usuario — no asumir solo jóvenes) · Situación: estudiante, profesional o adulta que se exige mucho, en cualquier etapa de vida · País(es): LATAM + España (hispanohablante)
 - Poder adquisitivo: $3-8 USD/mes le duele poco si ve valor real (dato del informe de mercado) · Dispositivo: Android gama media (default LATAM)
 - IDENTIDAD (cómo se describe a sí misma — inferido del informe, validar con usuarias reales): "soy dura conmigo misma" / "se supone que debería tener esto resuelto a mi edad"
 - MOMENTO DEL DÍA en que el problema duele (escena — inferido, validar): de noche, sola en su cuarto, dando vueltas a algo que dijo o hizo mal ese día; o de golpe, en cualquier momento, cuando el corazón se acelera sin aviso
@@ -54,4 +54,4 @@
 
 ## Cierre
 - ¿Hubo entrevistas del 44?: NO — ficha construida con el informe de investigación de mercado del usuario (reseñas de competidores, keywords, foros) que cumple el rol de Fuente 2
-- Fecha de cierre: 2026-07-28 · Aprobada por el usuario: PENDIENTE (mostrar resumen y confirmar)
+- Fecha de cierre: 2026-07-28 · Aprobada por el usuario: SÍ — 2026-07-29 (corrección aplicada: rango de edad ampliado a 18-60)
