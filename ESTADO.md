@@ -1,7 +1,7 @@
 # ESTADO — AmorPropio & SOS
 Última actualización: 2026-08-02 | Sesión actual: 5 (App interna — en progreso)
 
-⏸️ CHECKPOINT — Sesión 5 EN PROGRESO. Se intentó conectar Vercel (guie al usuario a crear cuenta e importar el repo) pero el usuario pidió pausarlo para priorizar la app interna — RETOMAR VERCEL más adelante, quedó en "Paso 2: Import Project", no confirmado si terminó. Se construyeron las 4 secciones de la app interna sobre localStorage (Supabase real es Sesión 6): `/app` (Hoy: afirmación del día personalizada por foco + ejercicio + racha semanal de corazones + botón completar Ritual con celebración + accesos a SOS/diario), `/app/diario` (entradas con mood tag + formulario nuevo), `/app/progreso` (racha, semana, contadores, 3 logros), `/app/perfil` (estado de prueba gratis, ajustes, soporte, legal). Banco de ~25 afirmaciones/ejercicios reales por foco en `lib/afirmaciones.ts`. Datos semilla realistas en las 4 pantallas (nunca vacías). tsc+build limpios, probado end-to-end con Playwright (completar ritual, escribir en diario, navegar las 4 secciones), sin errores de consola. Mandada la pantalla "Hoy" al revisor-visual (única ronda planeada para esta sesión, según lo acordado con el usuario) — resultado pendiente. / Siguiente acción exacta: leer resultado del revisor-visual sobre "Hoy", corregir si hay defectos reales, luego decidir si construir más (ej. reusar /sos como destino del botón SOS ya está hecho) o cerrar Sesión 5 y retomar Vercel/proponer Sesión 6.
+⏸️ CHECKPOINT — Sesión 5 EN PROGRESO (app interna construida y corregida, ver detalle abajo). VERCEL QUEDÓ A MEDIAS: se guió al usuario a crear cuenta e importar el repo, pero pidió pausarlo en "Paso 2: Import Project" para priorizar la app interna — RETOMAR esto es tarea pendiente, no confirmado si el deploy llegó a completarse. Se construyeron las 4 secciones de la app interna sobre localStorage (Supabase real es Sesión 6): `/app` (Hoy), `/app/diario`, `/app/progreso`, `/app/perfil` — detalle de contenido en "Decisiones técnicas" abajo. Ronda única de revisor-visual sobre "Hoy" (27/40 usabilidad, 12/20 craft) con 5 defectos, TODOS corregidos: espacio vacío relleno con un bloque que enlaza a Progreso, `devIndicators` desactivado en next.config.ts, sombras consistentes entre cards SOS/diario, racha con `AnimatedNumber`, aviso si el localStorage está corrupto (`loadAppStateWithStatus`). Al aplicar el fix de `AnimatedNumber` se encontró y corrigió un bug propio: el componente usaba `useInView` pensado para scroll-reveal de la landing, y en elementos ya visibles al montar (como el badge de racha, pegado arriba) el observer nunca disparaba — quedaba congelado en "0". Se agregó la prop `scrollTriggered` (default true, no rompe la landing) para animar de inmediato en pantallas tipo dashboard. tsc+build limpios, reprobado con Playwright, sin errores de consola. No se mandó una 2da ronda de revisor-visual (se acordó con el usuario una sola ronda para esta sesión). / Siguiente acción exacta: reportar al usuario con evidencia, y preguntar si retomamos Vercel (quedó a medias) o seguimos profundizando la app interna antes de Sesión 6.
 
 ## Qué es esta app (3 líneas máximo)
 App web de bienestar emocional para mujeres hispanohablantes: botón SOS de auxilio inmediato en crisis de pánico + hábito diario de afirmaciones y ejercicios de amor propio ("el Ritual de 2 Minutos"). Modelo Onboarding+Paywall con trial de 3 días, venta por Hotmart.
@@ -46,17 +46,18 @@ Nunca reemplaza ayuda profesional ni diagnostica · nunca comparte el diario pri
 - Onboarding: CONSTRUIDO y CERRADO (4 pasos + loading personalizado)
 - Paywall: CONSTRUIDO y CERRADO tras 4 rondas de revisor-visual (ver checkpoint arriba)
 - Login/Auth: CONSTRUIDO (magic link + Google OAuth, ambos simulados con localStorage — auth real es Sesión 6), sin ronda de revisor-visual propia
-- App interna: pendiente (Sesión 5)
-- Servicios externos (Supabase/Hotmart/Vercel reales): pendiente (Sesión 6) — usuario preguntó por ver la landing "en vivo"; se le ofreció guiarlo a crear cuenta Vercel gratis, quedó pendiente de retomar
+- App interna: CONSTRUIDA (Sesión 5) — Hoy/Diario/Progreso/Perfil, sobre localStorage. Falta: 2da ronda opcional de revisor-visual y revisión de Diario/Progreso/Perfil (solo "Hoy" pasó por revisor-visual esta sesión)
+- Servicios externos (Supabase/Hotmart/Vercel reales): pendiente (Sesión 6) — Vercel se empezó a conectar en Sesión 5 y quedó a medias (ver checkpoint), retomar antes o al inicio de Sesión 6
 
 ## Decisiones técnicas (NO re-discutir sin pedirlo el usuario)
 - Framework: Next.js App Router — ya scaffoldeado en la raíz del repo, compila limpio (tsc + build verificados repetidas veces)
 - Stack instalado: React 19, Next 16, Tailwind v4, lucide-react, motion — Supabase/shadcn AÚN NO instalados (shadcn init falló por política de red del entorno; se construyó todo a mano con Tailwind, funciona bien)
-- Auth: Supabase Auth con magic link (passwordless) + Google OAuth opcional — se implementa en Sesión 4/6
+- Auth: Supabase Auth con magic link (passwordless) + Google OAuth opcional — se implementa en Sesión 6
 - Tipo de app (04): tracking/hábitos/bienestar → vista "Hoy" + histórico/racha + ≥2 logros + celebración en hitos reales
-- App interna (borrador): Hoy (afirmación + SOS) · Diario · Progreso/racha · Perfil
-- `/sos` YA EXISTE como pantalla standalone (respiración guiada, sin login) — en Sesión 5 el botón SOS de "Hoy" debe reusar/enlazar esta misma pantalla, no duplicarla
-- Contenido de afirmaciones: banco curado (~200-500 piezas) con selección algorítmica — NO LLM en tiempo real
+- App interna: Hoy (afirmación del día por foco + ejercicio + racha + SOS/diario) · Diario (entradas con mood tag) · Progreso (racha, semana, logros) · Perfil (trial, ajustes, soporte, legal) — todas con `components/app/BottomNav.tsx`, layout compartido en `app/app/layout.tsx`
+- Estado de la app: `lib/app-state.ts` (localStorage, `loadAppStateWithStatus` expone si hubo que recuperar datos corruptos) — cuando Supabase exista en Sesión 6, esta capa se reemplaza por tablas reales (no antes)
+- `/sos` reusado como destino real del botón SOS en "Hoy" (no se duplicó la pantalla)
+- Contenido de afirmaciones: banco curado en `lib/afirmaciones.ts` (~25 piezas por ahora, categorizadas por foco del onboarding) con selección algorítmica por día — NO LLM en tiempo real. Ampliar a 200-500 piezas es tarea de pulido, no bloqueante
 - Modelo de datos (borrador): profiles, entradas_diario (RLS user_id), afirmaciones_banco, user_progress (racha, RLS), suscripciones (estado Hotmart)
 - Componentes reutilizables ya creados en `components/app/`: Reveal/RevealStagger/RevealItem (motion scroll-reveal), IconChip, Check, Accordion, MotionProvider (reducedMotion), AnimatedNumber, RachaDots, CTALink (con timeout+reintento), LegalPage
 
@@ -67,7 +68,7 @@ Nunca reemplaza ayuda profesional ni diagnostica · nunca comparte el diario pri
 - Sesión 4 — Onboarding + paywall + login (4 rondas de revisor-visual sobre el paywall, ver checkpoint) — cerrada 2026-08-02
 
 ## Sesión en progreso 🔧
-- Ninguna — a la espera de que el usuario confirme avanzar a Sesión 5 (app interna)
+- Sesión 5 — App interna: construida y con su ronda de revisor-visual corregida (ver checkpoint). Pendiente decidir con el usuario: ¿retomar Vercel o seguir puliendo antes de Sesión 6?
 
 ## Próximas sesiones 📋
 - Sesión 5: app interna
