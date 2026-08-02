@@ -34,14 +34,22 @@ export function FunnelHeader({
         )}
         {typeof percent === "number" && <ProgressBar percent={percent} />}
       </div>
-      <Link href="/" className="mx-auto mt-3 flex max-w-sm items-center gap-2">
-        <span className="flex h-6 w-6 items-center justify-center rounded-md bg-brand-primary text-txt-inverse">
-          <Heart className="h-3 w-3" fill="currentColor" strokeWidth={0} />
-        </span>
-        <span className="font-display text-sm font-semibold text-txt-primary">
-          AmorPropio &amp; SOS
-        </span>
-      </Link>
+      <div className="mx-auto mt-3 flex max-w-sm items-center justify-between">
+        <Link href="/" className="flex items-center gap-2">
+          <span className="flex h-6 w-6 items-center justify-center rounded-md bg-brand-primary text-txt-inverse">
+            <Heart className="h-3 w-3" fill="currentColor" strokeWidth={0} />
+          </span>
+          <span className="font-display text-sm font-semibold text-txt-primary">
+            AmorPropio &amp; SOS
+          </span>
+        </Link>
+        <Link
+          href="/sos"
+          className="rounded-full bg-status-error-soft px-2.5 py-1 text-xs font-semibold text-status-error"
+        >
+          ¿Crisis ahora? Toca aquí
+        </Link>
+      </div>
     </div>
   );
 }

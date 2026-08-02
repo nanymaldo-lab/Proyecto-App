@@ -41,14 +41,22 @@ function LoginFlow() {
   return (
     <main className="flex flex-1 flex-col items-center justify-center px-4 py-12">
       <div className="mx-auto w-full max-w-sm">
-        <Link href="/" className="mb-8 flex items-center justify-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-primary text-txt-inverse">
-            <Heart className="h-4 w-4" fill="currentColor" strokeWidth={0} />
-          </span>
-          <span className="font-display text-lg font-semibold text-txt-primary">
-            AmorPropio &amp; SOS
-          </span>
-        </Link>
+        <div className="mb-8 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-primary text-txt-inverse">
+              <Heart className="h-4 w-4" fill="currentColor" strokeWidth={0} />
+            </span>
+            <span className="font-display text-lg font-semibold text-txt-primary">
+              AmorPropio &amp; SOS
+            </span>
+          </Link>
+          <Link
+            href="/sos"
+            className="rounded-full bg-status-error-soft px-2.5 py-1 text-xs font-semibold text-status-error"
+          >
+            ¿Crisis ahora?
+          </Link>
+        </div>
 
         {status !== "sent" ? (
           <>

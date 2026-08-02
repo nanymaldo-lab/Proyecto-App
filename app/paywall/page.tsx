@@ -57,6 +57,12 @@ function PaywallFlow() {
         >
           <X className="h-5 w-5" />
         </Link>
+        <Link
+          href="/sos"
+          className="rounded-full bg-status-error-soft px-2.5 py-1 text-xs font-semibold text-status-error"
+        >
+          ¿Crisis ahora? Toca aquí
+        </Link>
       </div>
 
       <div className="flex-1 overflow-y-auto px-4 pb-8">
