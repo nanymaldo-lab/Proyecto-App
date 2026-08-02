@@ -196,7 +196,7 @@ function PaywallFlow() {
             </div>
             <div className="ml-1 h-4 w-px bg-border-strong" />
             <div className="flex gap-3">
-              <span className="mt-0.5 h-3 w-3 shrink-0 rounded-full bg-brand-primary" />
+              <span className="mt-0.5 h-3 w-3 shrink-0 rounded-full border-2 border-border-strong bg-surface-tertiary" />
               <p className="text-sm text-txt-secondary">
                 <strong className="text-txt-primary">Día 2</strong> — te avisamos por
                 correo antes de cobrarte
