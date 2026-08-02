@@ -1,7 +1,7 @@
 # ESTADO — AmorPropio & SOS
 Última actualización: 2026-07-29 | Sesión actual: 4 (Onboarding, paywall y login — arrancando)
 
-⏸️ CHECKPOINT — Última acción completada: Sesión 4 — funnel `/onboarding` → `/paywall` → `/login` construido completo (8 pantallas), 3 rondas de revisor-visual con mejora consistente: ronda 1 = 27/40·11/20·16/20 → ronda 2 = 32/40·13/20·14/20 → ronda 3 = 35/40·16/20·18/20 (craft y copy ya cumplen gate ≥16/20; usabilidad a 1pt del gate 36/40). Los 4 defectos de la ronda 3 ya corregidos: badge "ahorra 2 meses" era matemáticamente incorrecto → "ahorra 48%" (real); h1 vs precios competían en tamaño → h1 subido a text-3xl; faltaba dispositivo ownable en el paywall → comilla editorial agregada al subtítulo; CTA sin protección de doble-tap → `isPending` + spinner agregado. tsc+build limpios, screenshot verificado. / Siguiente acción exacta: mandar ronda 4 (probable ronda de cierre dado el patrón de mejora consistente); si el score no cruza el gate pero no hay bugs reales nuevos, cerrar Sesión 4 con criterio propio (mismo patrón que Sesión 3) y reportar al usuario con evidencia; luego proponer Sesión 5 (app interna).
+⏸️ CHECKPOINT — Sesión 4 CERRADA. Funnel `/onboarding` → `/paywall` → `/login` construido completo (8 pantallas), 4 rondas de revisor-visual sobre el paywall: r1=27/40·11/20·16/20 → r2=32/40·13/20·14/20 → r3=35/40·16/20·18/20 (craft/copy cumplieron gate) → r4=32/40·18/20·19/20. Se detuvo la iteración en r4 por evidencia de oscilación del revisor automático: (a) el breakdown de usabilidad de r4 es dígito-por-dígito IDÉNTICO al de r2 pese a los fixes reales aplicados entre medio; (b) el hallazgo de "reduced-motion no se respeta" se repitió (con distinta línea de código) tras ya haber sido refutado con Playwright en r2 — se re-verificó en r4 y de nuevo es falso (transform se limpia a `none` ~100ms bajo `reducedMotion:'reduce'`, queda solo fade de opacidad — comportamiento correcto de `MotionConfig reducedMotion="user"`). De los defectos de r4 solo se corrigió el genuino y barato (punto "Día 2" del timeline con relleno sólido de paso futuro → ahora contorno hueco); se descartaron los demás (falta de try/catch en navegación = sobre-ingeniería para un caso que no ocurre; longitud de scroll = opinión subjetiva, no bug). Onboarding (4 pasos) no tuvo cambios desde su propia corrección de r1-r2 (bug de "otra cosa" fijo, cards elevadas, dispositivo ownable, stagger). tsc+build limpios en cada commit, sin errores de consola en ningún test de Playwright. Login: implementado, sin revisar aún con revisor-visual (queda pendiente si se retoma). / Siguiente acción exacta: reportar a el usuario el cierre de Sesión 4 con evidencia (screenshots + scores) y proponer Sesión 5 (app interna) según la Secuencia Maestra.
 
 ## Qué es esta app (3 líneas máximo)
 App web de bienestar emocional para mujeres hispanohablantes: botón SOS de auxilio inmediato en crisis de pánico + hábito diario de afirmaciones y ejercicios de amor propio ("el Ritual de 2 Minutos"). Modelo Onboarding+Paywall con trial de 3 días, venta por Hotmart.
@@ -43,10 +43,9 @@ Nunca reemplaza ayuda profesional ni diagnostica · nunca comparte el diario pri
 - Ruta aprobada: `/` → `/onboarding` → `/paywall` → `/login` → `/app`
 - **Landing: CONSTRUIDA y CERRADA** (10 secciones canónicas). Mecanismo bautizado: "el Ritual de 2 Minutos". CTA lleva a `/onboarding?plan=annual|monthly`. Páginas legales del footer creadas con contenido real (privacidad, términos, reembolso, disclaimer) — revisar detalle fiscal LATAM antes de vender de verdad.
 - Carrusel de la landing (sección "así se siente por dentro"): mini-demos honestos con contenido real, NO screenshots reales todavía — reemplazar cuando la app interna exista (Sesión 5)
-- `/onboarding` y `/login`: placeholders honestos (no 404) — se construyen AHORA en Sesión 4
-- Onboarding: EN PROGRESO
-- Paywall: pendiente (Sesión 4)
-- Login/Auth: pendiente (Sesión 4)
+- Onboarding: CONSTRUIDO y CERRADO (4 pasos + loading personalizado)
+- Paywall: CONSTRUIDO y CERRADO tras 4 rondas de revisor-visual (ver checkpoint arriba)
+- Login/Auth: CONSTRUIDO (magic link + Google OAuth, ambos simulados con localStorage — auth real es Sesión 6), sin ronda de revisor-visual propia
 - App interna: pendiente (Sesión 5)
 - Servicios externos (Supabase/Hotmart/Vercel reales): pendiente (Sesión 6) — usuario preguntó por ver la landing "en vivo"; se le ofreció guiarlo a crear cuenta Vercel gratis, quedó pendiente de retomar
 
@@ -64,12 +63,12 @@ Nunca reemplaza ayuda profesional ni diagnostica · nunca comparte el diario pri
 - Sesión 1 — Constitución del producto, avatar, monetización, arquitectura — aprobado 2026-07-29
 - Sesión 2 — Identidad visual (FICHA-ARTE.md) — aprobada 2026-07-29
 - Sesión 3 — Landing (10 secciones canónicas + auditoría de escaneabilidad) — cerrada 2026-07-29
+- Sesión 4 — Onboarding + paywall + login (4 rondas de revisor-visual sobre el paywall, ver checkpoint) — cerrada 2026-08-02
 
 ## Sesión en progreso 🔧
-- Sesión 4 — Onboarding, paywall y login: arrancando
+- Ninguna — a la espera de que el usuario confirme avanzar a Sesión 5 (app interna)
 
 ## Próximas sesiones 📋
-- Sesión 4: onboarding, paywall, login
 - Sesión 5: app interna
 - Sesión 6: integraciones reales (Supabase, Hotmart, Vercel, dominio) y seguridad
 - Sesión 7: testing, pulido, rigor de entrega
