@@ -6,7 +6,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "motion/react";
 import { X, ShieldCheck, Lock, Sparkles } from "lucide-react";
 import { Check } from "@/components/app/Check";
-import { AnimatedNumber } from "@/components/app/AnimatedNumber";
 import { loadOnboardingAnswers } from "@/lib/onboarding-storage";
 
 const MOMENTO_LABEL: Record<string, string> = {
@@ -68,7 +67,8 @@ function PaywallFlow() {
               Tu Ritual de 2 Minutos está listo
             </h1>
             <p className="mt-1.5 text-sm text-txt-secondary">
-              Hecho con tus 3 respuestas — {dias} días/semana, pensado para{" "}
+              Aquí alguien te habla como mereces que te hablen — {dias}{" "}
+              días/semana, pensado para{" "}
               {MOMENTO_LABEL[momento] ?? "cualquier momento"}.
             </p>
           </motion.div>
@@ -80,9 +80,9 @@ function PaywallFlow() {
             className="mt-6 space-y-3 rounded-xl border border-border-default bg-surface-primary p-5 shadow-sm"
           >
             {[
-              "Afirmaciones y ejercicios ilimitados, ajustados a ti",
-              "Diario privado con seguimiento de tu progreso",
-              "Audios para calmarte antes de una crisis",
+              "Afirmaciones y ejercicios ilimitados, ajustados a ti — no un texto genérico igual para todas",
+              "Diario privado para ver tu progreso real, no solo una notificación que se olvida",
+              "Audios que te guían paso a paso antes de una crisis, no una app que solo te dice \"cálmate\"",
             ].map((text, i) => (
               <div key={i} className="flex items-start gap-3">
                 <Check />
@@ -116,7 +116,7 @@ function PaywallFlow() {
                 <div>
                   <p className="text-sm font-medium text-txt-secondary">Plan anual</p>
                   <p className="flex items-baseline font-display text-2xl font-bold text-txt-primary">
-                    <AnimatedNumber value={2.08} prefix="$" decimals={2} />
+                    $2.08
                     <span className="ml-1 text-sm font-normal text-txt-tertiary">/mes</span>
                   </p>
                   <p className="text-xs text-txt-tertiary">Se cobra $24.99/año</p>
@@ -148,7 +148,7 @@ function PaywallFlow() {
                 <div>
                   <p className="text-sm font-medium text-txt-secondary">Plan mensual</p>
                   <p className="flex items-baseline font-display text-2xl font-bold text-txt-primary">
-                    <AnimatedNumber value={3.99} prefix="$" decimals={2} />
+                    $3.99
                     <span className="ml-1 text-sm font-normal text-txt-tertiary">/mes</span>
                   </p>
                 </div>
@@ -171,7 +171,12 @@ function PaywallFlow() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-5 rounded-xl border border-border-default bg-surface-secondary p-4"
+            className="mt-5 rounded-xl border border-border-default bg-surface-tertiary p-4 shadow-[inset_0_1px_3px_rgba(120,80,40,0.08)]"
+            style={{
+              backgroundImage:
+                "radial-gradient(rgba(120,80,40,0.08) 1px, transparent 1px)",
+              backgroundSize: "12px 12px",
+            }}
           >
             <div className="flex gap-3">
               <span className="mt-0.5 h-3 w-3 shrink-0 rounded-full bg-brand-primary" />
@@ -190,7 +195,7 @@ function PaywallFlow() {
             </div>
             <div className="ml-1 h-4 w-px bg-border-strong" />
             <div className="flex gap-3">
-              <span className="mt-0.5 h-3 w-3 shrink-0 rounded-full border-2 border-border-strong bg-surface-secondary" />
+              <span className="mt-0.5 h-3 w-3 shrink-0 rounded-full border-2 border-border-strong bg-surface-tertiary" />
               <p className="text-sm text-txt-secondary">
                 <strong className="text-txt-primary">Día 3</strong> — primer cobro:{" "}
                 {plan === "annual" ? "$24.99/año" : "$3.99/mes"}
