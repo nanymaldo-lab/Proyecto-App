@@ -1,26 +1,147 @@
-import Link from "next/link";
-import { Heart, ArrowLeft } from "lucide-react";
+"use client";
 
-export default function LoginPlaceholder() {
+import { Suspense, useState } from "react";
+import Link from "next/link";
+import { Heart, Lock, Mail, Loader2 } from "lucide-react";
+
+type Status = "idle" | "sending" | "sent" | "error";
+
+export default function LoginPage() {
   return (
-    <main className="flex flex-1 flex-col items-center justify-center px-4 py-16 text-center">
-      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-primary-soft text-brand-primary">
-        <Heart className="h-6 w-6" fill="currentColor" strokeWidth={0} />
+    <Suspense fallback={null}>
+      <LoginFlow />
+    </Suspense>
+  );
+}
+
+function LoginFlow() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<Status>("idle");
+  const [cooldown, setCooldown] = useState(0);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email.trim() || status === "sending") return;
+    setStatus("sending");
+    setTimeout(() => {
+      setStatus("sent");
+      setCooldown(60);
+      const tick = setInterval(() => {
+        setCooldown((c) => {
+          if (c <= 1) {
+            clearInterval(tick);
+            return 0;
+          }
+          return c - 1;
+        });
+      }, 1000);
+    }, 900);
+  }
+
+  return (
+    <main className="flex flex-1 flex-col items-center justify-center px-4 py-12">
+      <div className="mx-auto w-full max-w-sm">
+        <Link href="/" className="mb-8 flex items-center justify-center gap-2">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-primary text-txt-inverse">
+            <Heart className="h-4 w-4" fill="currentColor" strokeWidth={0} />
+          </span>
+          <span className="font-display text-lg font-semibold text-txt-primary">
+            AmorPropio &amp; SOS
+          </span>
+        </Link>
+
+        {status !== "sent" ? (
+          <>
+            <h1 className="text-balance text-center font-display text-2xl font-bold text-txt-primary">
+              Entra a tu Ritual
+            </h1>
+            <p className="mt-2 text-center text-sm leading-relaxed text-txt-secondary">
+              Para guardarlo y verlo en cualquier dispositivo. Si compraste por
+              Hotmart, usa el correo de tu compra.
+            </p>
+
+            <form onSubmit={handleSubmit} className="mt-7 space-y-3">
+              <input
+                type="email"
+                required
+                autoFocus
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="tu@correo.com"
+                className="h-12 w-full rounded-lg border border-border-default bg-surface-primary px-4 text-base text-txt-primary outline-none focus-visible:border-brand-primary"
+              />
+              {status === "error" && (
+                <p className="text-sm text-status-error">
+                  No pudimos enviar el enlace. Revisa el correo e intenta de
+                  nuevo.
+                </p>
+              )}
+              <button
+                type="submit"
+                disabled={status === "sending" || !email.trim()}
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-brand-primary text-base font-semibold text-txt-inverse shadow-md transition hover:bg-brand-primary-hover active:scale-[0.98] disabled:opacity-60"
+              >
+                {status === "sending" && (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                )}
+                Enviarme mi enlace de acceso
+              </button>
+              <button
+                type="button"
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-lg border border-border-default text-base font-semibold text-txt-primary transition hover:bg-surface-secondary"
+              >
+                <span className="font-display text-base font-bold text-brand-primary">
+                  G
+                </span>
+                Continuar con Google
+              </button>
+            </form>
+            <p className="mt-5 flex items-center justify-center gap-1.5 text-center text-xs text-txt-tertiary">
+              <Lock className="h-3.5 w-3.5" />
+              Sin contraseñas: te llegará un enlace de un solo uso
+            </p>
+          </>
+        ) : (
+          <div className="text-center">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-brand-primary-soft text-brand-primary">
+              <Mail className="h-7 w-7" />
+            </div>
+            <h1 className="mt-5 text-balance font-display text-xl font-bold text-txt-primary">
+              Revisa tu correo
+            </h1>
+            <p className="mt-2 text-sm leading-relaxed text-txt-secondary">
+              Te enviamos el enlace a <strong className="text-txt-primary">{email}</strong>.
+              Ábrelo desde tu celular para entrar directo.
+            </p>
+            <button
+              type="button"
+              disabled={cooldown > 0}
+              onClick={() => {
+                setCooldown(60);
+                const tick = setInterval(() => {
+                  setCooldown((c) => {
+                    if (c <= 1) {
+                      clearInterval(tick);
+                      return 0;
+                    }
+                    return c - 1;
+                  });
+                }, 1000);
+              }}
+              className="mt-6 text-sm font-medium text-brand-primary disabled:text-txt-tertiary"
+            >
+              {cooldown > 0 ? `Reenviar en ${cooldown}s` : "Reenviar enlace"}
+            </button>
+          </div>
+        )}
+
+        <Link
+          href="/"
+          className="mt-8 block text-center text-sm text-txt-tertiary hover:text-txt-secondary"
+        >
+          Volver al inicio
+        </Link>
       </div>
-      <h1 className="mt-5 max-w-sm text-balance font-display text-xl font-semibold text-txt-primary">
-        El acceso con cuenta llega en la Sesión 4
-      </h1>
-      <p className="mt-3 max-w-sm text-sm leading-relaxed text-txt-secondary">
-        Todavía no creamos el inicio de sesión. Si ya empezaste tu ritual,
-        vuelve al inicio y sigue desde ahí.
-      </p>
-      <Link
-        href="/"
-        className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-brand-secondary hover:underline"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        Volver al inicio
-      </Link>
     </main>
   );
 }
