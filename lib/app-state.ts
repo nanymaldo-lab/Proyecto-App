@@ -53,17 +53,23 @@ function seedState(): AppState {
 }
 
 export function loadAppState(): AppState {
-  if (typeof window === "undefined") return seedState();
+  return loadAppStateWithStatus().state;
+}
+
+export function loadAppStateWithStatus(): { state: AppState; recovered: boolean } {
+  if (typeof window === "undefined") return { state: seedState(), recovered: false };
   const raw = window.localStorage.getItem(KEY);
   if (!raw) {
     const seeded = seedState();
     window.localStorage.setItem(KEY, JSON.stringify(seeded));
-    return seeded;
+    return { state: seeded, recovered: false };
   }
   try {
-    return JSON.parse(raw) as AppState;
+    return { state: JSON.parse(raw) as AppState, recovered: false };
   } catch {
-    return seedState();
+    const seeded = seedState();
+    window.localStorage.setItem(KEY, JSON.stringify(seeded));
+    return { state: seeded, recovered: true };
   }
 }
 

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { Heart, Flame, Trophy, Star } from "lucide-react";
 import { loadAppState, type AppState } from "@/lib/app-state";
+import { AnimatedNumber } from "@/components/app/AnimatedNumber";
 
 const DIAS = ["L", "M", "M", "J", "V", "S", "D"];
 
@@ -44,7 +45,7 @@ export default function ProgresoPage() {
             <Heart className="h-8 w-8 text-brand-primary" fill="var(--brand-primary)" />
           </div>
           <p className="mt-3 font-display text-4xl font-bold tabular text-txt-primary">
-            {state.streakDays}
+            <AnimatedNumber value={state.streakDays} scrollTriggered={false} />
           </p>
           <p className="text-sm text-txt-secondary">días de racha</p>
         </motion.div>
@@ -79,13 +80,13 @@ export default function ProgresoPage() {
         >
           <div className="rounded-xl border border-border-default bg-surface-tertiary p-4 text-center shadow-[inset_0_1px_3px_rgba(120,80,40,0.08)]">
             <p className="font-display text-2xl font-bold tabular text-txt-primary">
-              {state.totalRituals}
+              <AnimatedNumber value={state.totalRituals} scrollTriggered={false} />
             </p>
             <p className="text-xs text-txt-secondary">Rituales completados</p>
           </div>
           <div className="rounded-xl border border-border-default bg-surface-tertiary p-4 text-center shadow-[inset_0_1px_3px_rgba(120,80,40,0.08)]">
             <p className="font-display text-2xl font-bold tabular text-txt-primary">
-              {state.diario.length}
+              <AnimatedNumber value={state.diario.length} scrollTriggered={false} />
             </p>
             <p className="text-xs text-txt-secondary">Entradas en tu diario</p>
           </div>

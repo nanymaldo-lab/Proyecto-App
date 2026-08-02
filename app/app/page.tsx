@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
-import { Siren, Heart, Sparkles, PenLine } from "lucide-react";
+import { Siren, Heart, Sparkles, PenLine, TrendingUp } from "lucide-react";
 import { loadOnboardingAnswers } from "@/lib/onboarding-storage";
-import { loadAppState, completeRitualToday, type AppState } from "@/lib/app-state";
+import { loadAppStateWithStatus, completeRitualToday, type AppState } from "@/lib/app-state";
 import { getAfirmacionDelDia, type Afirmacion } from "@/lib/afirmaciones";
+import { AnimatedNumber } from "@/components/app/AnimatedNumber";
 
 const DIAS = ["L", "M", "M", "J", "V", "S", "D"];
 
@@ -15,11 +16,14 @@ export default function HoyPage() {
   const [afirmacion, setAfirmacion] = useState<Afirmacion | null>(null);
   const [showEjercicio, setShowEjercicio] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
+  const [recovered, setRecovered] = useState(false);
 
   useEffect(() => {
     const answers = loadOnboardingAnswers();
     setAfirmacion(getAfirmacionDelDia(answers?.foco ?? "otra"));
-    setState(loadAppState());
+    const { state: loaded, recovered: wasRecovered } = loadAppStateWithStatus();
+    setState(loaded);
+    setRecovered(wasRecovered);
   }, []);
 
   function handleCompletar() {
@@ -41,6 +45,11 @@ export default function HoyPage() {
   return (
     <div className="px-4 pt-6">
       <div className="mx-auto w-full max-w-sm">
+        {recovered && (
+          <div className="mb-4 rounded-lg bg-status-warning-soft px-3 py-2.5 text-xs font-medium text-status-warning">
+            No pudimos recuperar tu progreso anterior en este dispositivo — empezamos de nuevo.
+          </div>
+        )}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -54,7 +63,7 @@ export default function HoyPage() {
           <div className="flex items-center gap-1.5 rounded-full bg-brand-primary-soft px-3 py-1.5">
             <Heart className="h-4 w-4 text-brand-primary" fill="var(--brand-primary)" />
             <span className="font-display text-sm font-bold text-brand-primary">
-              {state.streakDays}
+              <AnimatedNumber value={state.streakDays} scrollTriggered={false} />
             </span>
           </div>
         </motion.div>
@@ -164,7 +173,7 @@ export default function HoyPage() {
         >
           <Link
             href="/sos"
-            className="flex flex-col items-center justify-center gap-2 rounded-xl border border-status-error/20 bg-status-error-soft px-4 py-5 text-center"
+            className="flex flex-col items-center justify-center gap-2 rounded-xl border border-status-error/20 bg-status-error-soft px-4 py-5 text-center shadow-sm"
           >
             <Siren className="h-6 w-6 text-status-error" />
             <span className="text-sm font-semibold text-status-error">Botón SOS</span>
@@ -177,6 +186,28 @@ export default function HoyPage() {
             <PenLine className="h-6 w-6 text-brand-primary" />
             <span className="text-sm font-semibold text-txt-primary">Escribir hoy</span>
             <span className="text-xs text-txt-secondary">Tu diario privado</span>
+          </Link>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-4"
+        >
+          <Link
+            href="/app/progreso"
+            className="flex items-center gap-3 rounded-xl border border-border-default bg-surface-tertiary p-4 shadow-[inset_0_1px_3px_rgba(120,80,40,0.08)]"
+          >
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-primary-soft text-brand-primary">
+              <TrendingUp className="h-5 w-5" />
+            </span>
+            <div className="flex-1">
+              <p className="text-sm font-semibold text-txt-primary">
+                Llevas <AnimatedNumber value={state.totalRituals} scrollTriggered={false} /> Rituales completados
+              </p>
+              <p className="text-xs text-txt-secondary">Toca para ver todo tu progreso</p>
+            </div>
           </Link>
         </motion.div>
       </div>

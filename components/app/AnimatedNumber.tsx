@@ -8,14 +8,18 @@ export function AnimatedNumber({
   prefix = "",
   suffix = "",
   decimals = 0,
+  scrollTriggered = true,
 }: {
   value: number;
   prefix?: string;
   suffix?: string;
   decimals?: number;
+  /** false para elementos ya visibles al montar (dashboards), sin esperar scroll-into-view */
+  scrollTriggered?: boolean;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const inViewByScroll = useInView(ref, { once: true, margin: "-40px" });
+  const inView = scrollTriggered ? inViewByScroll : true;
   const prefersReducedMotion = useReducedMotion();
   const motionValue = useMotionValue(0);
   const spring = useSpring(motionValue, { duration: 700, bounce: 0 });
