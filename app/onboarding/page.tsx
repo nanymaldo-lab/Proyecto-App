@@ -115,6 +115,7 @@ function OnboardingFlow() {
 
   function selectFoco(value: string) {
     setFoco(value);
+    if (value === "otra") return;
     setTimeout(() => goNext(), 300);
   }
 
@@ -148,7 +149,13 @@ function OnboardingFlow() {
   const recognition = RECOGNITION_COPY[foco ?? "otra"];
 
   return (
-    <div className="flex min-h-dvh flex-col bg-surface-base">
+    <div
+      className="flex min-h-dvh flex-col bg-surface-base"
+      style={{
+        backgroundImage:
+          "radial-gradient(ellipse 640px 420px at 50% -8%, var(--brand-primary-soft), transparent)",
+      }}
+    >
       {step !== "loading" && (
         <FunnelHeader percent={percent} onBack={goBack} />
       )}
@@ -170,15 +177,25 @@ function OnboardingFlow() {
                 <p className="mt-2 text-sm text-txt-secondary">
                   Así arrancamos tu Ritual pensado para ti.
                 </p>
-                <div className="mt-7 space-y-3">
-                  {FOCO_OPTIONS.map((opt) => (
-                    <ChipOption
+                <div className="mt-7 space-y-3 rounded-xl border border-border-default bg-surface-primary p-4 shadow-sm">
+                  {FOCO_OPTIONS.map((opt, i) => (
+                    <motion.div
                       key={opt.value}
-                      label={opt.label}
-                      icon={opt.icon}
-                      selected={foco === opt.value}
-                      onClick={() => selectFoco(opt.value)}
-                    />
+                      initial={{ x: 16, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{
+                        duration: 0.3,
+                        delay: 0.1 + i * 0.06,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
+                    >
+                      <ChipOption
+                        label={opt.label}
+                        icon={opt.icon}
+                        selected={foco === opt.value}
+                        onClick={() => selectFoco(opt.value)}
+                      />
+                    </motion.div>
                   ))}
                   {foco === "otra" && (
                     <div className="space-y-2 pt-1">
@@ -213,14 +230,30 @@ function OnboardingFlow() {
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 className="text-center"
               >
-                <motion.div
-                  initial={{ scale: 0.7, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.35, ease: [0.34, 1.35, 0.64, 1] }}
-                  className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-brand-primary-soft text-brand-primary"
+                <motion.span
+                  initial={{ rotate: -8, y: -6, opacity: 0 }}
+                  animate={{ rotate: -2, y: 0, opacity: 1 }}
+                  transition={{ duration: 0.3, ease: [0.34, 1.35, 0.64, 1] }}
+                  className="mb-4 inline-block rounded-md bg-surface-secondary px-3 py-1.5 text-xs font-semibold text-[var(--brand-secondary)] shadow-sm"
                 >
-                  <Sparkles className="h-7 w-7" />
-                </motion.div>
+                  Para ti, hoy
+                </motion.span>
+                <div className="relative mx-auto flex h-16 w-16 items-center justify-center">
+                  <span
+                    aria-hidden="true"
+                    className="absolute -left-1 -top-3 font-display text-5xl font-bold leading-none text-[var(--brand-secondary)] opacity-40"
+                  >
+                    &ldquo;
+                  </span>
+                  <motion.div
+                    initial={{ scale: 0.7, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.35, delay: 0.1, ease: [0.34, 1.35, 0.64, 1] }}
+                    className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-primary-soft text-brand-primary"
+                  >
+                    <Sparkles className="h-7 w-7" />
+                  </motion.div>
+                </div>
                 <h1 className="mt-5 text-balance font-display text-2xl font-bold leading-tight text-txt-primary">
                   {recognition.title}
                 </h1>
@@ -251,15 +284,25 @@ function OnboardingFlow() {
                 <p className="mt-2 text-sm text-txt-secondary">
                   Así sabemos cuándo mandarte tu Ritual.
                 </p>
-                <div className="mt-7 space-y-3">
-                  {MOMENTO_OPTIONS.map((opt) => (
-                    <ChipOption
+                <div className="mt-7 space-y-3 rounded-xl border border-border-default bg-surface-primary p-4 shadow-sm">
+                  {MOMENTO_OPTIONS.map((opt, i) => (
+                    <motion.div
                       key={opt.value}
-                      label={opt.label}
-                      icon={opt.icon}
-                      selected={momento === opt.value}
-                      onClick={() => selectMomento(opt.value)}
-                    />
+                      initial={{ x: 16, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{
+                        duration: 0.3,
+                        delay: 0.1 + i * 0.06,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
+                    >
+                      <ChipOption
+                        label={opt.label}
+                        icon={opt.icon}
+                        selected={momento === opt.value}
+                        onClick={() => selectMomento(opt.value)}
+                      />
+                    </motion.div>
                   ))}
                 </div>
               </motion.div>
@@ -276,27 +319,29 @@ function OnboardingFlow() {
                 <h1 className="text-balance font-display text-2xl font-bold leading-tight tracking-tight text-txt-primary">
                   ¿Cuántos días quieres practicar tu Ritual por semana?
                 </h1>
-                <div className="mt-8 text-center">
-                  <span className="font-display text-5xl font-bold tabular text-txt-primary">
-                    {dias}
-                  </span>
-                  <p className="mt-1 text-sm text-txt-secondary">días/semana</p>
+                <div className="mt-7 rounded-xl border border-border-default bg-surface-primary p-5 shadow-sm">
+                  <div className="text-center">
+                    <span className="font-display text-5xl font-bold tabular text-txt-primary">
+                      {dias}
+                    </span>
+                    <p className="mt-1 text-sm text-txt-secondary">días/semana</p>
+                  </div>
+                  <input
+                    type="range"
+                    min={1}
+                    max={7}
+                    step={1}
+                    value={dias}
+                    onChange={(e) => setDias(Number(e.target.value))}
+                    className="mt-6 w-full accent-[var(--brand-primary)]"
+                    aria-label="Días por semana"
+                  />
+                  <div className="mt-1 flex justify-between text-xs text-txt-tertiary">
+                    <span>1</span>
+                    <span>7</span>
+                  </div>
                 </div>
-                <input
-                  type="range"
-                  min={1}
-                  max={7}
-                  step={1}
-                  value={dias}
-                  onChange={(e) => setDias(Number(e.target.value))}
-                  className="mt-6 w-full accent-[var(--brand-primary)]"
-                  aria-label="Días por semana"
-                />
-                <div className="mt-1 flex justify-between text-xs text-txt-tertiary">
-                  <span>1</span>
-                  <span>7</span>
-                </div>
-                <p className="mt-5 flex items-center gap-2 rounded-lg bg-surface-secondary px-4 py-3 text-sm text-txt-secondary">
+                <p className="mt-4 flex items-center gap-2 rounded-lg bg-surface-secondary px-4 py-3 text-sm text-txt-secondary">
                   <CheckIcon className="h-4 w-4 shrink-0 text-brand-primary" />
                   {dias <= 2
                     ? "Empezar suave está bien — lo importante es empezar."
