@@ -4,7 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "motion/react";
-import { X, ShieldCheck, Lock, Sparkles } from "lucide-react";
+import { X, ShieldCheck, Lock, Sparkles, Loader2 } from "lucide-react";
 import { Check } from "@/components/app/Check";
 import { loadOnboardingAnswers } from "@/lib/onboarding-storage";
 
@@ -31,6 +31,7 @@ function PaywallFlow() {
   const [plan, setPlan] = useState<"annual" | "monthly">(initialPlan);
   const [dias, setDias] = useState(4);
   const [momento, setMomento] = useState("sin_aviso");
+  const [isPending, setIsPending] = useState(false);
 
   useEffect(() => {
     const answers = loadOnboardingAnswers();
@@ -41,6 +42,8 @@ function PaywallFlow() {
   }, []);
 
   function handleStart() {
+    if (isPending) return;
+    setIsPending(true);
     router.push(`/login?plan=${plan}`);
   }
 
@@ -63,10 +66,16 @@ function PaywallFlow() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           >
-            <h1 className="text-balance font-display text-2xl font-bold leading-tight tracking-tight text-txt-primary">
+            <h1 className="text-balance font-display text-3xl font-bold leading-tight tracking-tight text-txt-primary">
               Tu Ritual de 2 Minutos está listo
             </h1>
-            <p className="mt-1.5 text-sm text-txt-secondary">
+            <p className="relative mt-2 pl-4 text-sm text-txt-secondary">
+              <span
+                aria-hidden="true"
+                className="absolute left-0 top-0 font-display text-2xl font-bold leading-none text-[var(--brand-secondary)] opacity-50"
+              >
+                &ldquo;
+              </span>
               Aquí alguien te habla como mereces que te hablen — {dias}{" "}
               días/semana, pensado para{" "}
               {MOMENTO_LABEL[momento] ?? "cualquier momento"}.
@@ -110,7 +119,7 @@ function PaywallFlow() {
               }`}
             >
               <span className="absolute -top-3 left-4 rounded-full bg-brand-primary px-2.5 py-0.5 text-xs font-semibold text-txt-inverse">
-                Más popular · ahorra 2 meses
+                Más popular · ahorra 48%
               </span>
               <div className="mt-1 flex items-center justify-between">
                 <div>
@@ -212,9 +221,14 @@ function PaywallFlow() {
             <button
               type="button"
               onClick={handleStart}
-              className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-brand-primary text-base font-semibold text-txt-inverse shadow-md transition hover:bg-brand-primary-hover active:scale-[0.98]"
+              disabled={isPending}
+              className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-brand-primary text-base font-semibold text-txt-inverse shadow-md transition hover:bg-brand-primary-hover active:scale-[0.98] disabled:opacity-70"
             >
-              <Sparkles className="h-4 w-4" />
+              {isPending ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Sparkles className="h-4 w-4" />
+              )}
               Empezar mis 3 días gratis
             </button>
             <p className="mt-3 text-center text-xs text-txt-tertiary">
