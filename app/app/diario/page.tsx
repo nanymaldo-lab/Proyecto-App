@@ -206,10 +206,10 @@ export default function DiarioPage() {
                         type="button"
                         onClick={() => handleEliminar(entry.id)}
                         aria-label={confirming ? "Confirmar eliminar" : "Eliminar entrada"}
-                        className={`flex h-7 items-center gap-1 rounded-full px-2 text-xs font-medium transition-colors ${
+                        className={`flex h-11 items-center justify-center gap-1 rounded-full text-xs font-medium transition-colors ${
                           confirming
-                            ? "bg-status-error text-txt-inverse"
-                            : "text-txt-tertiary hover:bg-surface-secondary"
+                            ? "min-w-11 bg-status-error px-3 text-txt-inverse"
+                            : "w-11 text-txt-tertiary hover:bg-surface-secondary"
                         }`}
                       >
                         <Trash2 className="h-3.5 w-3.5" />
