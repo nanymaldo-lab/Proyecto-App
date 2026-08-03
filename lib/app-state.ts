@@ -20,11 +20,12 @@ export type AppState = {
 
 const KEY = "aps_app_state";
 
-const MOOD_SEED: MoodTag[] = ["cansancio", "ansiedad", "orgullo"];
+const MOOD_SEED: MoodTag[] = ["cansancio", "ansiedad", "orgullo", "calma"];
 const TEXT_SEED = [
   "Hoy me costó salir de la cama, pero hice el Ritual y me sentí un poco más liviana.",
   "Tuve un pico de ansiedad en la tarde. Usé el botón SOS y logré calmarme en unos minutos.",
   "Me di cuenta de que hoy no me hablé tan duro como otros días. Pequeño avance.",
+  "Terminé el día en paz. No pasó nada especial, y eso también se siente bien.",
 ];
 
 function seedState(): AppState {
@@ -104,4 +105,16 @@ export function addDiaryEntry(state: AppState, mood: MoodTag, text: string): App
   const next: AppState = { ...state, diario: [entry, ...state.diario] };
   saveAppState(next);
   return next;
+}
+
+export function deleteDiaryEntry(state: AppState, id: string): AppState {
+  const next: AppState = { ...state, diario: state.diario.filter((e) => e.id !== id) };
+  saveAppState(next);
+  return next;
+}
+
+export function clearLocalSession() {
+  if (typeof window === "undefined") return;
+  window.localStorage.removeItem(KEY);
+  window.localStorage.removeItem("aps_onboarding");
 }

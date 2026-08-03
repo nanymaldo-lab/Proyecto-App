@@ -102,6 +102,7 @@ export default function ProgresoPage() {
           <div className="mt-2 space-y-2">
             {LOGROS.map((logro) => {
               const desbloqueado = state.streakDays >= logro.min;
+              const faltan = logro.min - state.streakDays;
               return (
                 <div
                   key={logro.id}
@@ -120,7 +121,11 @@ export default function ProgresoPage() {
                   </span>
                   <div>
                     <p className="text-sm font-semibold text-txt-primary">{logro.label}</p>
-                    <p className="text-xs text-txt-secondary">{logro.desc}</p>
+                    <p className="text-xs text-txt-secondary">
+                      {desbloqueado
+                        ? logro.desc
+                        : `Te falta${faltan === 1 ? "" : "n"} ${faltan} día${faltan === 1 ? "" : "s"} más`}
+                    </p>
                   </div>
                 </div>
               );

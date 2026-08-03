@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { CircleUser, Crown, Bell, Shield, FileText, LogOut, ChevronRight, LifeBuoy } from "lucide-react";
-import { loadAppState, type AppState } from "@/lib/app-state";
+import { loadAppState, clearLocalSession, type AppState } from "@/lib/app-state";
 
 function diasRestantes(iso: string) {
   const ms = new Date(iso).getTime() - Date.now();
@@ -12,11 +13,17 @@ function diasRestantes(iso: string) {
 }
 
 export default function PerfilPage() {
+  const router = useRouter();
   const [state, setState] = useState<AppState | null>(null);
 
   useEffect(() => {
     setState(loadAppState());
   }, []);
+
+  function handleCerrarSesion() {
+    clearLocalSession();
+    router.push("/");
+  }
 
   if (!state) {
     return (
@@ -78,12 +85,18 @@ export default function PerfilPage() {
               Próximamente
             </span>
           </div>
-          <Link href="/privacidad" className="flex items-center gap-3 px-4 py-3.5">
+          <Link
+            href="/privacidad"
+            className="flex items-center gap-3 px-4 py-3.5 transition-colors active:bg-surface-secondary"
+          >
             <Shield className="h-4 w-4 shrink-0 text-txt-secondary" />
             <span className="flex-1 text-sm text-txt-primary">Privacidad</span>
             <ChevronRight className="h-4 w-4 text-txt-tertiary" />
           </Link>
-          <Link href="/terminos" className="flex items-center gap-3 px-4 py-3.5">
+          <Link
+            href="/terminos"
+            className="flex items-center gap-3 px-4 py-3.5 transition-colors active:bg-surface-secondary"
+          >
             <FileText className="h-4 w-4 shrink-0 text-txt-secondary" />
             <span className="flex-1 text-sm text-txt-primary">Términos y condiciones</span>
             <ChevronRight className="h-4 w-4 text-txt-tertiary" />
@@ -111,13 +124,17 @@ export default function PerfilPage() {
           transition={{ duration: 0.3, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
           className="mt-5"
         >
-          <Link
-            href="/"
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-lg border border-border-default text-sm font-semibold text-txt-secondary"
+          <button
+            type="button"
+            onClick={handleCerrarSesion}
+            className="flex h-12 w-full items-center justify-center gap-2 rounded-lg border border-border-default text-sm font-semibold text-txt-secondary transition-colors active:bg-surface-secondary"
           >
             <LogOut className="h-4 w-4" />
             Cerrar sesión
-          </Link>
+          </button>
+          <p className="mt-4 text-center text-xs text-txt-tertiary">
+            AmorPropio &amp; SOS · v0.1 (en construcción)
+          </p>
         </motion.div>
       </div>
     </div>
