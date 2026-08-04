@@ -35,9 +35,11 @@ export default function Home() {
       <header className="sticky top-0 z-40 border-b border-border-default/70 bg-surface-base/90 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
           <Link href="/" className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-primary text-txt-inverse">
-              <Heart className="h-4 w-4" fill="currentColor" strokeWidth={0} />
-            </span>
+            <img
+              src="/brand/logo-mark.svg"
+              alt="AmorPropio & SOS"
+              className="h-8 w-8 rounded-lg"
+            />
             <span className="font-display text-lg font-semibold text-txt-primary">
               AmorPropio &amp; SOS
             </span>
@@ -569,9 +571,11 @@ export default function Home() {
       <footer className="border-t border-border-default/60 bg-surface-secondary/60 px-4 py-10 pb-28 md:pb-10">
         <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 text-center">
           <div className="flex items-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-brand-primary text-txt-inverse">
-              <Heart className="h-3 w-3" fill="currentColor" strokeWidth={0} />
-            </span>
+            <img
+              src="/brand/logo-mark.svg"
+              alt="AmorPropio & SOS"
+              className="h-6 w-6 rounded-md"
+            />
             <span className="font-display text-sm font-semibold text-txt-primary">
               AmorPropio &amp; SOS
             </span>

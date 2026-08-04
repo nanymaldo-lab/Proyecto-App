@@ -2,7 +2,7 @@
 
 import { Suspense, useState } from "react";
 import Link from "next/link";
-import { Heart, Lock, Mail, Loader2 } from "lucide-react";
+import { Lock, Mail, Loader2 } from "lucide-react";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -43,9 +43,11 @@ function LoginFlow() {
       <div className="mx-auto w-full max-w-sm">
         <div className="mb-8 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-primary text-txt-inverse">
-              <Heart className="h-4 w-4" fill="currentColor" strokeWidth={0} />
-            </span>
+            <img
+              src="/brand/logo-mark.svg"
+              alt="AmorPropio & SOS"
+              className="h-8 w-8 rounded-lg"
+            />
             <span className="font-display text-lg font-semibold text-txt-primary">
               AmorPropio &amp; SOS
             </span>

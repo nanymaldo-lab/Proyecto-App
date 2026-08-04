@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { Heart } from "lucide-react";
 
 const PHASES = [
   { label: "Inhala", seconds: 4 },
@@ -28,9 +27,11 @@ export default function SosPage() {
   return (
     <div className="flex min-h-dvh flex-col bg-surface-base px-4 py-6">
       <div className="mx-auto flex w-full max-w-sm items-center gap-2">
-        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-primary text-txt-inverse">
-          <Heart className="h-4 w-4" fill="currentColor" strokeWidth={0} />
-        </span>
+        <img
+          src="/brand/logo-mark.svg"
+          alt="AmorPropio & SOS"
+          className="h-8 w-8 rounded-lg"
+        />
         <span className="font-display text-sm font-semibold text-txt-primary">
           AmorPropio &amp; SOS
         </span>

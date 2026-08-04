@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Zilla_Slab, Plus_Jakarta_Sans } from "next/font/google";
 import { MotionProvider } from "@/components/app/MotionProvider";
+import { THEME_COLOR } from "./theme-color";
 import "./globals.css";
 
 const zillaSlab = Zilla_Slab({
@@ -19,6 +20,23 @@ export const metadata: Metadata = {
   title: "AmorPropio & SOS — Tu botón de auxilio y tu ritual de amor propio",
   description:
     "Calma una crisis de pánico en segundos y construye tu amor propio día a día, con un botón de auxilio inmediato y afirmaciones que sí se sienten personales.",
+  manifest: "/manifest.json",
+  icons: {
+    icon: [
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "AmorPropio & SOS",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: THEME_COLOR,
 };
 
 export default function RootLayout({

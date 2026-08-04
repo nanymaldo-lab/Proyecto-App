@@ -30,6 +30,14 @@
 - Dispositivo ownable: comilla editorial grande como firma de la afirmación del día + chip "post-it" rotado -2° en el diario (receta propia, derivada del mundo del sujeto — ver arriba)
 - Motion signature: ease-out 300ms cálido · stagger 60-80ms · firma: la card/frase del día entra con fade + translateY(10px); cada corazón de racha hace un pop de 150ms al completarse el día
 
+## Logo / marca (2026-08-03 — provisto por el usuario, NO generado por IA)
+- Origen: el usuario compartió el ícono de la app como imagen en el chat — el archivo real nunca quedó accesible en disco de este entorno (solo se vio en el mensaje), así que se reconstruyó a mano como SVG matemático (curva de corazón paramétrica) replicando la composición: corazón de línea continua con dos colitas onduladas saliendo del punto inferior. El usuario aprobó recrearlo así en vez de subir el archivo original.
+- Archivo fuente: `public/brand/logo-mark.svg` (240×240, fondo #FBF3EC, trazo #A85434 grosor 9, `stroke-linecap`/`linejoin` "round")
+- Variantes derivadas del mismo trazo: `logo-mark-transparent.svg` (sin fondo, para superficies de color), `logo-mark-inverse.svg` (trazo crema, para fondos oscuros/acento), `logo-maskable.svg` (fondo acento sólido borde a borde, ícono al 62% para zona segura de Android)
+- Reemplazó el placeholder anterior (ícono Lucide `Heart` sobre cuadrado de color) en: header y footer de la landing, header del onboarding (`FunnelHeader.tsx`), login, `/sos`
+- Assets de plataforma generados desde el mismo trazo: `app/favicon.ico`, `public/icons/{icon-192,icon-512,maskable-192,maskable-512,apple-touch-icon}.png`, `public/manifest.json` (PWA, theme/background `#FBF3EC` vía `app/theme-color.ts`)
+- Si el usuario consigue el archivo original más adelante, reemplazar `logo-mark.svg` (y regenerar las variantes/PNGs desde ahí) es la única actualización necesaria — el resto de los usos ya apuntan a esta ruta única, no hay que tocar cada pantalla de nuevo.
+
 ## Trazabilidad y vetos
 - Protocolo A/B/C: opción elegida = COMBINACIÓN de A ("Abrazo diario") + C ("Diario de mí") → "Opción D — Carta cálida", confirmada por el usuario el 2026-07-29 · descartadas: B "Refugio sereno" (oscuro, círculo de respiración protagonista — no se usó) · página comparativa: `direcciones-abc.html` (raíz del proyecto, NO se sube al repo — está en .gitignore) · screenshots verificados: comparativa A/B/C y A/B/C/D con fuentes cargadas correctamente clase por clase
 - Paleta derivada de: fusión de líderes (16 PASO 0.2bis) — Headspace + Flo + I am — con acento perturbado hacia terracota (no el coral genérico de Flo, ni el naranja puro de Headspace)

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronLeft, Heart } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { ProgressBar } from "./ProgressBar";
 
 export function FunnelHeader({
@@ -36,9 +36,11 @@ export function FunnelHeader({
       </div>
       <div className="mx-auto mt-3 flex max-w-sm items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <span className="flex h-6 w-6 items-center justify-center rounded-md bg-brand-primary text-txt-inverse">
-            <Heart className="h-3 w-3" fill="currentColor" strokeWidth={0} />
-          </span>
+          <img
+            src="/brand/logo-mark.svg"
+            alt="AmorPropio & SOS"
+            className="h-6 w-6 rounded-md"
+          />
           <span className="font-display text-sm font-semibold text-txt-primary">
             AmorPropio &amp; SOS
           </span>
