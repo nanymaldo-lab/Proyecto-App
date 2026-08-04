@@ -43,6 +43,20 @@ function todayISO() {
   return new Date().toISOString().slice(0, 10);
 }
 
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/** Reintenta una vez tras una breve espera: justo después del redirect de
+ *  login, la sesión del cliente a veces tarda un instante en sincronizarse
+ *  y una lectura RLS puede fallar en el primer intento. */
+async function withRetry<T>(fn: () => Promise<T | null>): Promise<T | null> {
+  const first = await fn();
+  if (first !== null) return first;
+  await sleep(500);
+  return fn();
+}
+
 function dayIndexMonday0() {
   return (new Date().getDay() + 6) % 7;
 }
@@ -72,22 +86,27 @@ export async function syncOnboardingToProfile(userId: string) {
 }
 
 export async function loadProfile(userId: string): Promise<Profile | null> {
-  const supabase = createClient();
-  const { data } = await supabase
-    .from("profiles")
-    .select("id, foco, momento, dias_semana")
-    .eq("id", userId)
-    .single();
-  return data;
+  return withRetry(async () => {
+    const supabase = createClient();
+    const { data } = await supabase
+      .from("profiles")
+      .select("id, foco, momento, dias_semana")
+      .eq("id", userId)
+      .single();
+    return data;
+  });
 }
 
 export async function loadProgress(userId: string): Promise<Progress | null> {
-  const supabase = createClient();
-  const { data } = await supabase
-    .from("user_progress")
-    .select("streak_days, week_completed, total_rituals, ritual_done_today, last_ritual_date, joined_at")
-    .eq("user_id", userId)
-    .single();
+  const data = await withRetry(async () => {
+    const supabase = createClient();
+    const { data } = await supabase
+      .from("user_progress")
+      .select("streak_days, week_completed, total_rituals, ritual_done_today, last_ritual_date, joined_at")
+      .eq("user_id", userId)
+      .single();
+    return data;
+  });
   if (!data) return null;
   // Si el último ritual no fue hoy, la marca de "hecho hoy" ya no aplica.
   if (data.last_ritual_date !== todayISO()) {
@@ -97,13 +116,15 @@ export async function loadProgress(userId: string): Promise<Progress | null> {
 }
 
 export async function loadSuscripcion(userId: string): Promise<Suscripcion | null> {
-  const supabase = createClient();
-  const { data } = await supabase
-    .from("suscripciones")
-    .select("plan, status, trial_ends_at")
-    .eq("user_id", userId)
-    .single();
-  return data;
+  return withRetry(async () => {
+    const supabase = createClient();
+    const { data } = await supabase
+      .from("suscripciones")
+      .select("plan, status, trial_ends_at")
+      .eq("user_id", userId)
+      .single();
+    return data;
+  });
 }
 
 export async function loadDiario(userId: string): Promise<DiaryEntry[]> {
