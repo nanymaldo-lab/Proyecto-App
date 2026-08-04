@@ -8,7 +8,6 @@ import {
   LifeBuoy,
   Heart,
   ShieldCheck,
-  BookHeart,
   Moon,
 } from "lucide-react";
 import { IconChip } from "@/components/app/IconChip";
@@ -538,8 +537,19 @@ export default function Home() {
         <section className="px-4 py-16 md:py-24">
           <div className="mx-auto max-w-xl text-center">
             <Reveal>
-              <BookHeart className="mx-auto h-8 w-8 text-brand-primary" />
-              <h2 className="mt-4 text-balance font-display text-2xl font-semibold text-txt-primary md:text-3xl">
+              <video
+                className="mx-auto h-52 w-40 rounded-2xl object-cover shadow-lg md:h-60 md:w-44"
+                poster="/videos/hero-abrir-app-poster.jpg"
+                autoPlay
+                muted
+                loop
+                playsInline
+                aria-hidden="true"
+              >
+                <source src="/videos/hero-abrir-app.webm" type="video/webm" />
+                <source src="/videos/hero-abrir-app.mp4" type="video/mp4" />
+              </video>
+              <h2 className="mt-6 text-balance font-display text-2xl font-semibold text-txt-primary md:text-3xl">
                 Imagina abrir el día hablándote como mereces
               </h2>
               <p className="mt-4 text-base leading-relaxed text-txt-secondary">
