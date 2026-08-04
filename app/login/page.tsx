@@ -36,19 +36,23 @@ function LoginFlow() {
   async function sendMagicLink() {
     if (!email.trim() || status === "sending") return;
     setStatus("sending");
-    const supabase = createClient();
-    const { error } = await supabase.auth.signInWithOtp({
-      email: email.trim(),
-      options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=/app`,
-      },
-    });
-    if (error) {
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.auth.signInWithOtp({
+        email: email.trim(),
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback?next=/app`,
+        },
+      });
+      if (error) {
+        setStatus("error");
+        return;
+      }
+      setStatus("sent");
+      startCooldown();
+    } catch {
       setStatus("error");
-      return;
     }
-    setStatus("sent");
-    startCooldown();
   }
 
   function handleSubmit(e: React.FormEvent) {
