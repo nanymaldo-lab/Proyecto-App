@@ -19,6 +19,7 @@ function LoginFlow() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [cooldown, setCooldown] = useState(0);
+  const [errorDetail, setErrorDetail] = useState("");
 
   function startCooldown() {
     setCooldown(60);
@@ -45,12 +46,14 @@ function LoginFlow() {
         },
       });
       if (error) {
+        setErrorDetail(error.message);
         setStatus("error");
         return;
       }
       setStatus("sent");
       startCooldown();
-    } catch {
+    } catch (err) {
+      setErrorDetail(err instanceof Error ? err.message : "Error desconocido");
       setStatus("error");
     }
   }
@@ -106,6 +109,11 @@ function LoginFlow() {
                 <p className="text-sm text-status-error">
                   No pudimos enviar el enlace. Revisa el correo e intenta de
                   nuevo.
+                  {errorDetail && (
+                    <span className="mt-1 block text-xs text-txt-tertiary">
+                      Detalle técnico: {errorDetail}
+                    </span>
+                  )}
                 </p>
               )}
               <button
