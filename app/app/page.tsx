@@ -4,37 +4,70 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { Siren, Heart, Sparkles, PenLine, TrendingUp } from "lucide-react";
-import { loadOnboardingAnswers } from "@/lib/onboarding-storage";
-import { loadAppStateWithStatus, completeRitualToday, type AppState } from "@/lib/app-state";
-import { getAfirmacionDelDia, type Afirmacion } from "@/lib/afirmaciones";
+import {
+  getCurrentUser,
+  syncOnboardingToProfile,
+  loadProfile,
+  loadProgress,
+  completeRitualToday,
+  getAfirmacionDelDia,
+  type Progress,
+  type Afirmacion,
+} from "@/lib/supabase-data";
 import { AnimatedNumber } from "@/components/app/AnimatedNumber";
 
 const DIAS = ["L", "M", "M", "J", "V", "S", "D"];
 
 export default function HoyPage() {
-  const [state, setState] = useState<AppState | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [progress, setProgress] = useState<Progress | null>(null);
   const [afirmacion, setAfirmacion] = useState<Afirmacion | null>(null);
   const [showEjercicio, setShowEjercicio] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
-  const [recovered, setRecovered] = useState(false);
+  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
-    const answers = loadOnboardingAnswers();
-    setAfirmacion(getAfirmacionDelDia(answers?.foco ?? "otra"));
-    const { state: loaded, recovered: wasRecovered } = loadAppStateWithStatus();
-    setState(loaded);
-    setRecovered(wasRecovered);
+    (async () => {
+      const user = await getCurrentUser();
+      if (!user) {
+        setLoadError(true);
+        return;
+      }
+      setUserId(user.id);
+      await syncOnboardingToProfile(user.id);
+      const [profile, prog] = await Promise.all([loadProfile(user.id), loadProgress(user.id)]);
+      if (!profile || !prog) {
+        setLoadError(true);
+        return;
+      }
+      const [af] = await Promise.all([getAfirmacionDelDia(profile.foco ?? "otra")]);
+      setAfirmacion(af);
+      setProgress(prog);
+    })();
   }, []);
 
-  function handleCompletar() {
-    if (!state || state.ritualDoneToday) return;
-    const next = completeRitualToday(state);
-    setState(next);
+  async function handleCompletar() {
+    if (!userId || !progress || progress.ritual_done_today) return;
+    const next = await completeRitualToday(userId, progress);
+    setProgress(next);
     setCelebrating(true);
     setTimeout(() => setCelebrating(false), 1600);
   }
 
-  if (!state || !afirmacion) {
+  if (loadError) {
+    return (
+      <div className="flex min-h-[60dvh] flex-col items-center justify-center px-4 text-center">
+        <p className="text-sm font-medium text-txt-primary">
+          No pudimos cargar tu Ritual de hoy.
+        </p>
+        <p className="mt-1 text-xs text-txt-secondary">
+          Revisa tu conexión y vuelve a intentar en unos segundos.
+        </p>
+      </div>
+    );
+  }
+
+  if (!progress || !afirmacion) {
     return (
       <div className="flex min-h-[60dvh] items-center justify-center px-4">
         <div className="h-40 w-full max-w-sm animate-pulse rounded-xl bg-surface-tertiary" />
@@ -45,11 +78,6 @@ export default function HoyPage() {
   return (
     <div className="px-4 pt-6">
       <div className="mx-auto w-full max-w-sm">
-        {recovered && (
-          <div className="mb-4 rounded-lg bg-status-warning-soft px-3 py-2.5 text-xs font-medium text-status-warning">
-            No pudimos recuperar tu progreso anterior en este dispositivo — empezamos de nuevo.
-          </div>
-        )}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -63,7 +91,7 @@ export default function HoyPage() {
           <div className="flex items-center gap-1.5 rounded-full bg-brand-primary-soft px-3 py-1.5">
             <Heart className="h-4 w-4 text-brand-primary" fill="var(--brand-primary)" />
             <span className="font-display text-sm font-bold text-brand-primary">
-              <AnimatedNumber value={state.streakDays} scrollTriggered={false} />
+              <AnimatedNumber value={progress.streak_days} scrollTriggered={false} />
             </span>
           </div>
         </motion.div>
@@ -79,8 +107,8 @@ export default function HoyPage() {
               <span className="text-xs text-txt-tertiary">{d}</span>
               <Heart
                 className="h-4 w-4"
-                fill={state.weekCompleted[i] ? "var(--brand-primary)" : "var(--surface-tertiary)"}
-                color={state.weekCompleted[i] ? "var(--brand-primary)" : "var(--border-strong)"}
+                fill={progress.week_completed[i] ? "var(--brand-primary)" : "var(--surface-tertiary)"}
+                color={progress.week_completed[i] ? "var(--brand-primary)" : "var(--border-strong)"}
                 strokeWidth={1.5}
               />
             </div>
@@ -135,11 +163,11 @@ export default function HoyPage() {
           <motion.button
             type="button"
             onClick={handleCompletar}
-            disabled={state.ritualDoneToday}
-            whileTap={{ scale: state.ritualDoneToday ? 1 : 0.98 }}
+            disabled={progress.ritual_done_today}
+            whileTap={{ scale: progress.ritual_done_today ? 1 : 0.98 }}
             className="mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-brand-primary text-base font-semibold text-txt-inverse shadow-md transition hover:bg-brand-primary-hover disabled:bg-status-success disabled:opacity-100"
           >
-            {state.ritualDoneToday ? "Ritual de hoy completado" : "Completé mi Ritual de hoy"}
+            {progress.ritual_done_today ? "Ritual de hoy completado" : "Completé mi Ritual de hoy"}
           </motion.button>
 
           <AnimatePresence>
@@ -204,7 +232,7 @@ export default function HoyPage() {
             </span>
             <div className="flex-1">
               <p className="text-sm font-semibold text-txt-primary">
-                Llevas <AnimatedNumber value={state.totalRituals} scrollTriggered={false} /> Rituales completados
+                Llevas <AnimatedNumber value={progress.total_rituals} scrollTriggered={false} /> Rituales completados
               </p>
               <p className="text-xs text-txt-secondary">Toca para ver todo tu progreso</p>
             </div>

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { Heart, Flame, Trophy, Star } from "lucide-react";
-import { loadAppState, type AppState } from "@/lib/app-state";
+import { getCurrentUser, loadProgress, loadDiario, type Progress } from "@/lib/supabase-data";
 import { AnimatedNumber } from "@/components/app/AnimatedNumber";
 
 const DIAS = ["L", "M", "M", "J", "V", "S", "D"];
@@ -15,13 +15,20 @@ const LOGROS = [
 ];
 
 export default function ProgresoPage() {
-  const [state, setState] = useState<AppState | null>(null);
+  const [progress, setProgress] = useState<Progress | null>(null);
+  const [diarioCount, setDiarioCount] = useState(0);
 
   useEffect(() => {
-    setState(loadAppState());
+    (async () => {
+      const user = await getCurrentUser();
+      if (!user) return;
+      const [prog, diario] = await Promise.all([loadProgress(user.id), loadDiario(user.id)]);
+      setProgress(prog);
+      setDiarioCount(diario.length);
+    })();
   }, []);
 
-  if (!state) {
+  if (!progress) {
     return (
       <div className="px-4 pt-6">
         <div className="mx-auto h-40 w-full max-w-sm animate-pulse rounded-xl bg-surface-tertiary" />
@@ -45,7 +52,7 @@ export default function ProgresoPage() {
             <Heart className="h-8 w-8 text-brand-primary" fill="var(--brand-primary)" />
           </div>
           <p className="mt-3 font-display text-4xl font-bold tabular text-txt-primary">
-            <AnimatedNumber value={state.streakDays} scrollTriggered={false} />
+            <AnimatedNumber value={progress.streak_days} scrollTriggered={false} />
           </p>
           <p className="text-sm text-txt-secondary">días de racha</p>
         </motion.div>
@@ -62,8 +69,8 @@ export default function ProgresoPage() {
               <div key={i} className="flex flex-1 flex-col items-center gap-1.5">
                 <Heart
                   className="h-5 w-5"
-                  fill={state.weekCompleted[i] ? "var(--brand-primary)" : "var(--surface-tertiary)"}
-                  color={state.weekCompleted[i] ? "var(--brand-primary)" : "var(--border-strong)"}
+                  fill={progress.week_completed[i] ? "var(--brand-primary)" : "var(--surface-tertiary)"}
+                  color={progress.week_completed[i] ? "var(--brand-primary)" : "var(--border-strong)"}
                   strokeWidth={1.5}
                 />
                 <span className="text-xs text-txt-tertiary">{d}</span>
@@ -80,13 +87,13 @@ export default function ProgresoPage() {
         >
           <div className="rounded-xl border border-border-default bg-surface-tertiary p-4 text-center shadow-[inset_0_1px_3px_rgba(120,80,40,0.08)]">
             <p className="font-display text-2xl font-bold tabular text-txt-primary">
-              <AnimatedNumber value={state.totalRituals} scrollTriggered={false} />
+              <AnimatedNumber value={progress.total_rituals} scrollTriggered={false} />
             </p>
             <p className="text-xs text-txt-secondary">Rituales completados</p>
           </div>
           <div className="rounded-xl border border-border-default bg-surface-tertiary p-4 text-center shadow-[inset_0_1px_3px_rgba(120,80,40,0.08)]">
             <p className="font-display text-2xl font-bold tabular text-txt-primary">
-              <AnimatedNumber value={state.diario.length} scrollTriggered={false} />
+              <AnimatedNumber value={diarioCount} scrollTriggered={false} />
             </p>
             <p className="text-xs text-txt-secondary">Entradas en tu diario</p>
           </div>
@@ -101,8 +108,8 @@ export default function ProgresoPage() {
           <p className="text-sm font-medium text-txt-secondary">Logros</p>
           <div className="mt-2 space-y-2">
             {LOGROS.map((logro) => {
-              const desbloqueado = state.streakDays >= logro.min;
-              const faltan = logro.min - state.streakDays;
+              const desbloqueado = progress.streak_days >= logro.min;
+              const faltan = logro.min - progress.streak_days;
               return (
                 <div
                   key={logro.id}

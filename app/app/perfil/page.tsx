@@ -5,7 +5,19 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { CircleUser, Crown, Bell, Shield, FileText, LogOut, ChevronRight, LifeBuoy } from "lucide-react";
-import { loadAppState, clearLocalSession, type AppState } from "@/lib/app-state";
+import {
+  getCurrentUser,
+  loadProgress,
+  loadSuscripcion,
+  type Progress,
+  type Suscripcion,
+} from "@/lib/supabase-data";
+import { createClient } from "@/lib/supabase/client";
+
+function diasDesde(iso: string) {
+  const ms = Date.now() - new Date(iso).getTime();
+  return Math.max(0, Math.floor(ms / 86400000));
+}
 
 function diasRestantes(iso: string) {
   const ms = new Date(iso).getTime() - Date.now();
@@ -14,18 +26,26 @@ function diasRestantes(iso: string) {
 
 export default function PerfilPage() {
   const router = useRouter();
-  const [state, setState] = useState<AppState | null>(null);
+  const [progress, setProgress] = useState<Progress | null>(null);
+  const [suscripcion, setSuscripcion] = useState<Suscripcion | null>(null);
 
   useEffect(() => {
-    setState(loadAppState());
+    (async () => {
+      const user = await getCurrentUser();
+      if (!user) return;
+      const [prog, susc] = await Promise.all([loadProgress(user.id), loadSuscripcion(user.id)]);
+      setProgress(prog);
+      setSuscripcion(susc);
+    })();
   }, []);
 
-  function handleCerrarSesion() {
-    clearLocalSession();
+  async function handleCerrarSesion() {
+    const supabase = createClient();
+    await supabase.auth.signOut();
     router.push("/");
   }
 
-  if (!state) {
+  if (!progress || !suscripcion) {
     return (
       <div className="px-4 pt-6">
         <div className="mx-auto h-40 w-full max-w-sm animate-pulse rounded-xl bg-surface-tertiary" />
@@ -33,7 +53,8 @@ export default function PerfilPage() {
     );
   }
 
-  const restantes = diasRestantes(state.trialEndsAt);
+  const miembroDesde = diasDesde(progress.joined_at);
+  const restantes = suscripcion.trial_ends_at ? diasRestantes(suscripcion.trial_ends_at) : 0;
 
   return (
     <div className="px-4 pt-6">
@@ -49,7 +70,9 @@ export default function PerfilPage() {
           </span>
           <div>
             <h1 className="font-display text-xl font-bold text-txt-primary">Tu cuenta</h1>
-            <p className="text-sm text-txt-secondary">Miembro desde hace 6 días</p>
+            <p className="text-sm text-txt-secondary">
+              {miembroDesde === 0 ? "Te uniste hoy" : `Miembro desde hace ${miembroDesde} día${miembroDesde === 1 ? "" : "s"}`}
+            </p>
           </div>
         </motion.div>
 
@@ -62,11 +85,11 @@ export default function PerfilPage() {
           <div className="flex items-center gap-2">
             <Crown className="h-4 w-4 text-brand-primary" />
             <p className="text-sm font-semibold text-brand-primary">
-              {state.plan === "trial" ? "Prueba gratis activa" : "Plan Premium"}
+              {suscripcion.status === "trialing" ? "Prueba gratis activa" : "Plan Premium"}
             </p>
           </div>
           <p className="mt-1 text-xs text-txt-secondary">
-            {state.plan === "trial"
+            {suscripcion.status === "trialing"
               ? `Tu prueba termina en ${restantes} día${restantes === 1 ? "" : "s"}. Te avisamos antes de cobrarte.`
               : "Gracias por confiar en tu Ritual diario."}
           </p>

@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { PenLine, Heart, CloudRain, Wind, Sparkles, BatteryLow, Trash2, Check, BookHeart } from "lucide-react";
 import {
-  loadAppState,
+  getCurrentUser,
+  loadDiario,
   addDiaryEntry,
   deleteDiaryEntry,
-  type AppState,
+  type DiaryEntry,
   type MoodTag,
-} from "@/lib/app-state";
+} from "@/lib/supabase-data";
 
 const MOODS: { value: MoodTag; label: string; icon: typeof Heart }[] = [
   { value: "calma", label: "Calma", icon: Heart },
@@ -25,7 +26,8 @@ function formatDate(iso: string) {
 }
 
 export default function DiarioPage() {
-  const [state, setState] = useState<AppState | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [diario, setDiario] = useState<DiaryEntry[] | null>(null);
   const [writing, setWriting] = useState(false);
   const [mood, setMood] = useState<MoodTag>("calma");
   const [text, setText] = useState("");
@@ -33,32 +35,36 @@ export default function DiarioPage() {
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
   useEffect(() => {
-    setState(loadAppState());
+    (async () => {
+      const user = await getCurrentUser();
+      if (!user) return;
+      setUserId(user.id);
+      setDiario(await loadDiario(user.id));
+    })();
   }, []);
 
-  function handleGuardar() {
-    if (!state || !text.trim()) return;
-    const next = addDiaryEntry(state, mood, text.trim());
-    setState(next);
+  async function handleGuardar() {
+    if (!userId || !text.trim()) return;
+    const entry = await addDiaryEntry(userId, mood, text.trim());
+    if (entry) setDiario((cur) => [entry, ...(cur ?? [])]);
     setText("");
     setWriting(false);
     setShowSaved(true);
     setTimeout(() => setShowSaved(false), 2200);
   }
 
-  function handleEliminar(id: string) {
-    if (!state) return;
+  async function handleEliminar(id: string) {
     if (confirmDeleteId !== id) {
       setConfirmDeleteId(id);
       setTimeout(() => setConfirmDeleteId((cur) => (cur === id ? null : cur)), 3000);
       return;
     }
-    const next = deleteDiaryEntry(state, id);
-    setState(next);
+    await deleteDiaryEntry(id);
+    setDiario((cur) => (cur ?? []).filter((e) => e.id !== id));
     setConfirmDeleteId(null);
   }
 
-  if (!state) {
+  if (!diario) {
     return (
       <div className="px-4 pt-6">
         <div className="mx-auto h-40 w-full max-w-sm animate-pulse rounded-xl bg-surface-tertiary" />
@@ -163,7 +169,7 @@ export default function DiarioPage() {
           </motion.div>
         )}
 
-        {state.diario.length === 0 ? (
+        {diario.length === 0 ? (
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -180,7 +186,7 @@ export default function DiarioPage() {
           </motion.div>
         ) : (
           <div className="mt-6 space-y-3">
-            {state.diario.map((entry, i) => {
+            {diario.map((entry, i) => {
               const moodInfo = MOODS.find((m) => m.value === entry.mood) ?? MOODS[0];
               const confirming = confirmDeleteId === entry.id;
               return (
@@ -201,7 +207,7 @@ export default function DiarioPage() {
                       {moodInfo.label}
                     </span>
                     <div className="flex shrink-0 items-center gap-2">
-                      <span className="text-xs text-txt-tertiary">{formatDate(entry.date)}</span>
+                      <span className="text-xs text-txt-tertiary">{formatDate(entry.created_at)}</span>
                       <button
                         type="button"
                         onClick={() => handleEliminar(entry.id)}
@@ -217,7 +223,7 @@ export default function DiarioPage() {
                       </button>
                     </div>
                   </div>
-                  <p className="mt-2 text-sm leading-relaxed text-txt-primary">{entry.text}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-txt-primary">{entry.texto}</p>
                 </motion.div>
               );
             })}

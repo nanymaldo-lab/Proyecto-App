@@ -3,6 +3,7 @@
 import { Suspense, useState } from "react";
 import Link from "next/link";
 import { Lock, Mail, Loader2 } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -19,23 +20,40 @@ function LoginFlow() {
   const [status, setStatus] = useState<Status>("idle");
   const [cooldown, setCooldown] = useState(0);
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  function startCooldown() {
+    setCooldown(60);
+    const tick = setInterval(() => {
+      setCooldown((c) => {
+        if (c <= 1) {
+          clearInterval(tick);
+          return 0;
+        }
+        return c - 1;
+      });
+    }, 1000);
+  }
+
+  async function sendMagicLink() {
     if (!email.trim() || status === "sending") return;
     setStatus("sending");
-    setTimeout(() => {
-      setStatus("sent");
-      setCooldown(60);
-      const tick = setInterval(() => {
-        setCooldown((c) => {
-          if (c <= 1) {
-            clearInterval(tick);
-            return 0;
-          }
-          return c - 1;
-        });
-      }, 1000);
-    }, 900);
+    const supabase = createClient();
+    const { error } = await supabase.auth.signInWithOtp({
+      email: email.trim(),
+      options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=/app`,
+      },
+    });
+    if (error) {
+      setStatus("error");
+      return;
+    }
+    setStatus("sent");
+    startCooldown();
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    sendMagicLink();
   }
 
   return (
@@ -96,15 +114,6 @@ function LoginFlow() {
                 )}
                 Enviarme mi enlace de acceso
               </button>
-              <button
-                type="button"
-                className="flex h-12 w-full items-center justify-center gap-2 rounded-lg border border-border-default text-base font-semibold text-txt-primary transition hover:bg-surface-secondary"
-              >
-                <span className="font-display text-base font-bold text-brand-primary">
-                  G
-                </span>
-                Continuar con Google
-              </button>
             </form>
             <p className="mt-5 flex items-center justify-center gap-1.5 text-center text-xs text-txt-tertiary">
               <Lock className="h-3.5 w-3.5" />
@@ -126,18 +135,7 @@ function LoginFlow() {
             <button
               type="button"
               disabled={cooldown > 0}
-              onClick={() => {
-                setCooldown(60);
-                const tick = setInterval(() => {
-                  setCooldown((c) => {
-                    if (c <= 1) {
-                      clearInterval(tick);
-                      return 0;
-                    }
-                    return c - 1;
-                  });
-                }, 1000);
-              }}
+              onClick={sendMagicLink}
               className="mt-6 text-sm font-medium text-brand-primary disabled:text-txt-tertiary"
             >
               {cooldown > 0 ? `Reenviar en ${cooldown}s` : "Reenviar enlace"}
