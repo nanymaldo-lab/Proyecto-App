@@ -22,10 +22,27 @@ export async function POST(request: Request) {
   const body = await request.json();
 
   const hottokRecibido: string | undefined =
-    body?.hottok ?? request.headers.get("x-hotmart-hottok") ?? undefined;
+    body?.hottok ??
+    body?.data?.hottok ??
+    request.headers.get("x-hotmart-hottok") ??
+    new URL(request.url).searchParams.get("hottok") ??
+    undefined;
 
   if (!hottokRecibido || hottokRecibido !== process.env.HOTMART_HOTTOK) {
-    return NextResponse.json({ error: "hottok inválido" }, { status: 401 });
+    // DEBUG temporal (sin exponer valores reales) — quitar una vez que funcione.
+    return NextResponse.json(
+      {
+        error: "hottok inválido",
+        debug: {
+          envConfigured: Boolean(process.env.HOTMART_HOTTOK),
+          envLength: process.env.HOTMART_HOTTOK?.length ?? 0,
+          recibidoLength: hottokRecibido?.length ?? 0,
+          bodyTopLevelKeys: Object.keys(body ?? {}),
+          bodyDataKeys: Object.keys(body?.data ?? {}),
+        },
+      },
+      { status: 401 }
+    );
   }
 
   const event: string | undefined = body?.event;
