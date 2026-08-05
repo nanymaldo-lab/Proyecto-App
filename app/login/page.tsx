@@ -2,6 +2,7 @@
 
 import { Suspense, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Lock, Mail, Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -16,6 +17,8 @@ export default function LoginPage() {
 }
 
 function LoginFlow() {
+  const searchParams = useSearchParams();
+  const plan = searchParams.get("plan");
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [cooldown, setCooldown] = useState(0);
@@ -37,11 +40,13 @@ function LoginFlow() {
     if (!email.trim() || status === "sending") return;
     setStatus("sending");
     try {
+      const next = plan === "monthly" || plan === "annual" ? `/pagar?plan=${plan}` : "/app";
+      const redirectParams = new URLSearchParams({ next });
       const supabase = createClient();
       const { error } = await supabase.auth.signInWithOtp({
         email: email.trim(),
         options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback?next=/app`,
+          emailRedirectTo: `${window.location.origin}/auth/callback?${redirectParams.toString()}`,
         },
       });
       if (error) {
