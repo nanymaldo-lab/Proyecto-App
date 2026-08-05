@@ -29,16 +29,7 @@ export async function POST(request: Request) {
     undefined;
 
   if (!hottokRecibido || hottokRecibido !== process.env.HOTMART_HOTTOK) {
-    // DEBUG temporal (sin exponer valores reales) — quitar una vez que funcione.
-    const debug = {
-      envConfigured: Boolean(process.env.HOTMART_HOTTOK),
-      envLength: process.env.HOTMART_HOTTOK?.length ?? 0,
-      recibidoLength: hottokRecibido?.length ?? 0,
-      bodyTopLevelKeys: Object.keys(body ?? {}),
-      bodyDataKeys: Object.keys(body?.data ?? {}),
-    };
-    console.log("hotmart webhook hottok mismatch", JSON.stringify(debug));
-    return NextResponse.json({ error: "hottok inválido", debug }, { status: 401 });
+    return NextResponse.json({ error: "hottok inválido" }, { status: 401 });
   }
 
   const event: string | undefined = body?.event;
