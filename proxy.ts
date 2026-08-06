@@ -4,10 +4,18 @@ import { NextResponse, type NextRequest } from "next/server";
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
 
+  const host = request.headers.get("host") ?? "";
+  // Comparte la cookie entre amorpropiosos.com y www.amorpropiosos.com para
+  // que el enlace mágico funcione sin importar por cuál de las dos entró la usuaria.
+  const cookieOptions = host.endsWith("amorpropiosos.com")
+    ? { domain: ".amorpropiosos.com" }
+    : undefined;
+
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
+      cookieOptions,
       cookies: {
         getAll() {
           return request.cookies.getAll();
