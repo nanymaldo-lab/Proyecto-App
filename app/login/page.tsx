@@ -139,7 +139,7 @@ function LoginFlow() {
             </h1>
             <p className="mt-2 text-sm leading-relaxed text-txt-secondary">
               Te enviamos el enlace a <strong className="text-txt-primary">{email}</strong>.
-              Ábrelo desde tu celular para entrar directo.
+              Ábrelo en este mismo navegador para entrar directo.
             </p>
             <button
               type="button"
