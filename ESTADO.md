@@ -82,7 +82,14 @@ Nunca reemplaza ayuda profesional ni diagnostica · nunca comparte el diario pri
 - Sesión 4 — Onboarding + paywall + login (4 rondas de revisor-visual sobre el paywall, ver checkpoint) — cerrada 2026-08-02
 - Sesión 5 — App interna (Hoy/Diario/Progreso/Perfil) + Vercel conectado — cerrada 2026-08-03. "Hoy": 1 ronda (27/40·12/20 → 5 defectos corregidos, incluye bug propio de `AnimatedNumber` con `useInView`). Diario/Progreso/Perfil: 1 ronda (27/40·12/20 · 30/40·15/20 · 27/40·12/20) con 10 defectos reales corregidos (borrado de entradas, estado vacío, cerrar sesión real, feedback de tap, dispositivo ownable del diario, nivel hundido, texto de progreso en logros) + 1 ronda de verificación que confirmó los 10 resueltos y encontró 1 nuevo (botón eliminar por debajo del mínimo táctil de 44px) ya corregido. El revisor-visual recomendó explícitamente parar de iterar por bugs (ya no quedaban reales) — se siguió esa recomendación. Banco de afirmaciones ampliado de ~25 a 39 piezas.
 
+## Sesiones completadas ✅ (cont.)
+- Sesión 6 — Servicios reales (Supabase, Hotmart, Resend, dominio propio) — cerrada 2026-08-06. Ver detalle abajo.
+- Sesión 7 — Testing — cerrada 2026-08-06. Ver detalle abajo.
+
 ## Sesión en progreso 🔧
+- Ninguna — sesión cerrada 2026-08-06. Próxima sesión: revisión visual real por parte de la usuaria (celular/navegador) y, cuando quiera, arrancar Sesión 8 (adquisición, lanzamiento, backoffice).
+
+## Detalle Sesión 6 (servicios reales)
 - Sesión 6, servicios reales — Supabase (login+datos reales) y Resend (correos) YA VERIFICADOS de punta a punta en producción. Hotmart: producto creado, 2 planes ($3.99/mes y $24.99/año), foto de producto puesta, webhook v2.0.0 registrado — **YA FUNCIONA end-to-end**: pruebas de Hotmart (Compra aprobada, Compra reembolsada, Chargeback) devuelven "200 - Procesado". Código de debug temporal ya retirado de `app/api/webhooks/hotmart/route.ts` (tsc+build verificados limpios).
 - Causas reales encontradas y corregidas en el camino (dejar como referencia si se repite algo parecido): (1) las variables `HOTMART_HOTTOK` y `SUPABASE_SERVICE_ROLE_KEY` nunca se habían guardado de verdad en Vercel; (2) el botón "Redeploy" del toast de Vercel reconstruyó la rama `main` (vacía, sin Next.js) en vez de la rama de trabajo — hay que forzar el redeploy con un commit a la rama correcta; (3) la `SUPABASE_SERVICE_ROLE_KEY` se había copiado mal (arrastró un carácter de flecha "→" de la interfaz) causando `TypeError: Cannot convert argument to a ByteString` — se corrigió recopiando con el botón de copiar (ícono, no selección manual).
 - El evento "Cancelación de Suscripción" da 400 en las pruebas de Hotmart porque ese payload de prueba no trae el correo del comprador — es esperado, no es un bug (una cancelación real si trae el correo funcionará).
@@ -96,10 +103,13 @@ Nunca reemplaza ayuda profesional ni diagnostica · nunca comparte el diario pri
 3. El correo de contacto en landing, Privacidad, Términos y Reembolso decía `hola@amorpropiosos.app` (dominio `.app` que no existe) en vez de `.com` — corregido en los 4 archivos. También se agregó el enlace `mailto:` que faltaba en la sección "¿Necesitas ayuda?" de Perfil (antes solo era texto sin acción).
 4. El enlace mágico seguía fallando en celular (probablemente por apps de correo que abren los links en su propio navegador interno, distinto al del sistema). Se agregó una alternativa robusta: la app ahora también manda un **código de 8 dígitos** en el mismo correo (plantilla "Magic link or OTP" de Supabase editada para incluir `{{ .Token }}`), que la usuaria puede escribir directo en `app/login/page.tsx` sin depender de en qué navegador se abra el correo — usa `supabase.auth.verifyOtp()`. **Confirmado funcionando en celular real de la usuaria de punta a punta hasta la pantalla de pago de Hotmart.**
 
-## Sesión 7 — Testing (empezada 2026-08-06)
-- Revisión estática hecha (sin navegador real, el entorno de esta sesión no tiene salida a internet): tsc/build limpios, sin secretos hardcodeados, botones críticos con protección anti doble-clic, imágenes con `alt`, `lang="es"` + viewport + manifest correctos, RLS+políticas confirmadas en las 4 tablas.
-- Revisión de código de Diario/Progreso/Perfil: sin bugs de lógica encontrados, salvo el del correo de contacto ya corregido arriba.
-- Pendiente: verificación visual real a 375px/768px/1440px (necesita que la usuaria abra la app en su celular/navegador, o un mecanismo de preview que este entorno no tiene), accesibilidad con teclado/lector de pantalla, prueba de compra real end-to-end en Hotmart una vez que el producto quede aprobado.
+## Sesión 7 — Testing (empezada y cerrada 2026-08-06)
+- Revisión estática completa (sin navegador real, el entorno de esta sesión no tiene salida a internet): tsc/build limpios, sin secretos hardcodeados, botones críticos con protección anti doble-clic, imágenes con `alt`, `lang="es"` + viewport + manifest correctos, RLS+políticas confirmadas en las 4 tablas.
+- Revisión de código completa: Hoy, Diario, Progreso, Perfil, Onboarding, SOS, landing completa (`app/page.tsx`), footer, CTALink — sin bugs de lógica adicionales.
+- Bug real encontrado y corregido: las páginas de Reembolso y Términos prometían un botón "Suscripción → Cancelar" dentro del Perfil que **no existe en la app** — corregido para explicar la cancelación real (vía el enlace que manda Hotmart al comprar, o escribiendo a soporte).
+- Precios de la landing verificados contra Hotmart: coinciden exactamente ($3.99/mes, $24.99/año).
+- Pendiente (no bloqueante, para cuando la usuaria tenga tiempo): verificación visual real a 375px/768px/1440px abriendo la app en su celular/navegador (este entorno no tiene forma de renderizarla), accesibilidad con teclado/lector de pantalla, y hacer una compra real (no solo llegar al checkout) para confirmar que el webhook marca la suscripción como activa de verdad.
+- Nota aparte (no de código): la usuaria reportó problemas subiendo su identificación/pasaporte en la verificación KYC de Hotmart para poder retirar sus ganancias — es un proceso 100% de Hotmart, no del código; se le dieron recomendaciones generales (foto sin reflejos, nombre exacto, documento vigente) y se le sugirió contactar soporte de Hotmart directamente si persiste.
 
 ## Próximas sesiones 📋
 - Sesión 5: app interna
