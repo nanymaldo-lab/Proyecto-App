@@ -93,6 +93,12 @@ Nunca reemplaza ayuda profesional ni diagnostica · nunca comparte el diario pri
 **Bugs reales encontrados y corregidos probando el flujo real de punta a punta** (usuaria hizo la prueba ella misma, no fue solo revisión de código):
 1. El login con enlace mágico fallaba (`otp_expired`) cuando se abría el enlace en un navegador/dispositivo distinto al que pidió el acceso, o cuando el sitio se visitaba a veces por `amorpropiosos.com` y a veces por `www.amorpropiosos.com` (cookies de sesión no compartidas entre ambos). Corregido: `lib/supabase/client.ts`, `lib/supabase/server.ts` y `proxy.ts` ahora comparten la cookie con `cookieOptions: { domain: ".amorpropiosos.com" }` cuando el host es de ese dominio. Copy del login corregido (ya no dice "ábrelo desde tu celular", que era engañoso).
 2. El checkout de Hotmart daba "Product unavailable" (error 005) porque el producto seguía en estado "Borrador" — Hotmart exige al menos 1 módulo de contenido publicado en su "Área de Miembros" antes de aprobar el producto para venta, aunque el contenido real viva fuera de Hotmart (nuestra app). Se creó un módulo "Bienvenida" con el link a `/app` y se envió el producto a aprobación (Hotmart tarda hasta 15 min en aprobar). **Pendiente confirmar que el checkout ya funciona una vez que Hotmart apruebe el producto.**
+3. El correo de contacto en landing, Privacidad, Términos y Reembolso decía `hola@amorpropiosos.app` (dominio `.app` que no existe) en vez de `.com` — corregido en los 4 archivos. También se agregó el enlace `mailto:` que faltaba en la sección "¿Necesitas ayuda?" de Perfil (antes solo era texto sin acción).
+
+## Sesión 7 — Testing (empezada 2026-08-06)
+- Revisión estática hecha (sin navegador real, el entorno de esta sesión no tiene salida a internet): tsc/build limpios, sin secretos hardcodeados, botones críticos con protección anti doble-clic, imágenes con `alt`, `lang="es"` + viewport + manifest correctos, RLS+políticas confirmadas en las 4 tablas.
+- Revisión de código de Diario/Progreso/Perfil: sin bugs de lógica encontrados, salvo el del correo de contacto ya corregido arriba.
+- Pendiente: verificación visual real a 375px/768px/1440px (necesita que la usuaria abra la app en su celular/navegador, o un mecanismo de preview que este entorno no tiene), accesibilidad con teclado/lector de pantalla, prueba de compra real end-to-end en Hotmart una vez que el producto quede aprobado.
 
 ## Próximas sesiones 📋
 - Sesión 5: app interna
