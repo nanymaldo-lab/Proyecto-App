@@ -2,11 +2,12 @@
 
 import { Suspense, useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Lock, Mail, Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
 type Status = "idle" | "sending" | "sent" | "error";
+type CodeStatus = "idle" | "verifying" | "error";
 
 export default function LoginPage() {
   return (
@@ -17,11 +18,15 @@ export default function LoginPage() {
 }
 
 function LoginFlow() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const plan = searchParams.get("plan");
+  const next = plan === "monthly" || plan === "annual" ? `/pagar?plan=${plan}` : "/app";
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [cooldown, setCooldown] = useState(0);
+  const [code, setCode] = useState("");
+  const [codeStatus, setCodeStatus] = useState<CodeStatus>("idle");
 
   function startCooldown() {
     setCooldown(60);
@@ -40,7 +45,6 @@ function LoginFlow() {
     if (!email.trim() || status === "sending") return;
     setStatus("sending");
     try {
-      const next = plan === "monthly" || plan === "annual" ? `/pagar?plan=${plan}` : "/app";
       const redirectParams = new URLSearchParams({ next });
       const supabase = createClient();
       const { error } = await supabase.auth.signInWithOtp({
@@ -60,9 +64,34 @@ function LoginFlow() {
     }
   }
 
+  async function verifyCode() {
+    if (!code.trim() || codeStatus === "verifying") return;
+    setCodeStatus("verifying");
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.auth.verifyOtp({
+        email: email.trim(),
+        token: code.trim(),
+        type: "email",
+      });
+      if (error) {
+        setCodeStatus("error");
+        return;
+      }
+      router.push(next);
+    } catch {
+      setCodeStatus("error");
+    }
+  }
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     sendMagicLink();
+  }
+
+  function handleCodeSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    verifyCode();
   }
 
   return (
@@ -138,16 +167,46 @@ function LoginFlow() {
               Revisa tu correo
             </h1>
             <p className="mt-2 text-sm leading-relaxed text-txt-secondary">
-              Te enviamos el enlace a <strong className="text-txt-primary">{email}</strong>.
-              Ábrelo en este mismo navegador para entrar directo.
+              Te enviamos un enlace y un código a <strong className="text-txt-primary">{email}</strong>.
+              Puedes tocar el enlace, o escribir aquí el código de 6 dígitos del correo.
             </p>
+
+            <form onSubmit={handleCodeSubmit} className="mt-5 space-y-3 text-left">
+              <input
+                type="text"
+                inputMode="numeric"
+                autoComplete="one-time-code"
+                maxLength={6}
+                value={code}
+                onChange={(e) => {
+                  setCode(e.target.value.replace(/\D/g, ""));
+                  setCodeStatus("idle");
+                }}
+                placeholder="Código de 6 dígitos"
+                className="h-12 w-full rounded-lg border border-border-default bg-surface-primary px-4 text-center text-lg tracking-[0.3em] text-txt-primary outline-none focus-visible:border-brand-primary"
+              />
+              {codeStatus === "error" && (
+                <p className="text-center text-sm text-status-error">
+                  Ese código no es válido o ya venció. Pide uno nuevo.
+                </p>
+              )}
+              <button
+                type="submit"
+                disabled={codeStatus === "verifying" || code.trim().length < 6}
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-brand-primary text-base font-semibold text-txt-inverse shadow-md transition hover:bg-brand-primary-hover active:scale-[0.98] disabled:opacity-60"
+              >
+                {codeStatus === "verifying" && <Loader2 className="h-4 w-4 animate-spin" />}
+                Entrar con el código
+              </button>
+            </form>
+
             <button
               type="button"
               disabled={cooldown > 0}
               onClick={sendMagicLink}
-              className="mt-6 text-sm font-medium text-brand-primary disabled:text-txt-tertiary"
+              className="mt-4 text-sm font-medium text-brand-primary disabled:text-txt-tertiary"
             >
-              {cooldown > 0 ? `Reenviar en ${cooldown}s` : "Reenviar enlace"}
+              {cooldown > 0 ? `Reenviar en ${cooldown}s` : "Reenviar enlace y código"}
             </button>
           </div>
         )}
