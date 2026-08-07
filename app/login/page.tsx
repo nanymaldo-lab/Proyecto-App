@@ -168,7 +168,7 @@ function LoginFlow() {
             </h1>
             <p className="mt-2 text-sm leading-relaxed text-txt-secondary">
               Te enviamos un enlace y un código a <strong className="text-txt-primary">{email}</strong>.
-              Puedes tocar el enlace, o escribir aquí el código de 6 dígitos del correo.
+              Puedes tocar el enlace, o escribir aquí el código del correo.
             </p>
 
             <form onSubmit={handleCodeSubmit} className="mt-5 space-y-3 text-left">
@@ -176,13 +176,13 @@ function LoginFlow() {
                 type="text"
                 inputMode="numeric"
                 autoComplete="one-time-code"
-                maxLength={6}
+                maxLength={8}
                 value={code}
                 onChange={(e) => {
                   setCode(e.target.value.replace(/\D/g, ""));
                   setCodeStatus("idle");
                 }}
-                placeholder="Código de 6 dígitos"
+                placeholder="Código del correo"
                 className="h-12 w-full rounded-lg border border-border-default bg-surface-primary px-4 text-center text-lg tracking-[0.3em] text-txt-primary outline-none focus-visible:border-brand-primary"
               />
               {codeStatus === "error" && (
