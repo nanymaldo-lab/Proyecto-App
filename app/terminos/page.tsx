@@ -29,14 +29,23 @@ export default function TerminosPage() {
       <ul>
         <li>Debes tener al menos 18 años para crear una cuenta.</li>
         <li>Eres responsable de mantener tu acceso seguro.</li>
-        <li>Puedes cerrar tu cuenta cuando quieras desde tu perfil.</li>
+        <li>
+          Puedes cerrar sesión cuando quieras desde tu perfil, o pedirnos que
+          eliminemos tu cuenta por completo escribiéndonos a{" "}
+          <a href="mailto:hola@amorpropiosos.com" className="underline">
+            hola@amorpropiosos.com
+          </a>
+          .
+        </li>
       </ul>
 
       <h2>Suscripción y pagos</h2>
       <p>
         La suscripción se cobra a través de Hotmart, mensual o anual según
-        el plan que elijas. Puedes cancelar cuando quieras y seguirás
-        teniendo acceso hasta el final del período ya pagado. Ver nuestra{" "}
+        el plan que elijas. Puedes cancelarla cuando quieras (desde el enlace
+        de gestión que Hotmart te manda al comprar, o escribiéndonos) y
+        seguirás teniendo acceso hasta el final del período ya pagado. Ver
+        nuestra{" "}
         <a href="/reembolso" className="underline">
           Política de Reembolsos
         </a>

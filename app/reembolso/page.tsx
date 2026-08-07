@@ -36,8 +36,14 @@ export default function ReembolsoPage() {
 
       <h2>Cómo cancelar</h2>
       <p>
-        Entra a tu perfil dentro de la app → Suscripción → Cancelar. También
-        puedes escribirnos y lo hacemos por ti.
+        Tu pago lo procesa Hotmart, así que la cancelación se hace ahí: en el
+        correo de confirmación de tu compra vas a encontrar un enlace para
+        gestionar o cancelar tu suscripción directamente. Si no lo encuentras
+        o prefieres que lo hagamos por ti, escríbenos a{" "}
+        <a href="mailto:hola@amorpropiosos.com" className="underline">
+          hola@amorpropiosos.com
+        </a>{" "}
+        y la cancelamos nosotras.
       </p>
     </LegalPage>
   );
