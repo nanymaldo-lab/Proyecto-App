@@ -603,8 +603,8 @@ export default function Home() {
             <Link href="/disclaimer" className="hover:text-txt-primary">
               Aviso importante
             </Link>
-            <a href="mailto:hola@amorpropiosos.app" className="hover:text-txt-primary">
-              hola@amorpropiosos.app
+            <a href="mailto:hola@amorpropiosos.com" className="hover:text-txt-primary">
+              hola@amorpropiosos.com
             </a>
           </nav>
           <p className="flex items-center gap-1.5 text-xs text-txt-tertiary">

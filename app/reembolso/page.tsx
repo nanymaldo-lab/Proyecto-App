@@ -12,8 +12,8 @@ export default function ReembolsoPage() {
       <p>
         Si dentro de los primeros 7 días desde tu compra sientes que la app
         no te está ayudando en nada, escríbenos a{" "}
-        <a href="mailto:hola@amorpropiosos.app" className="underline">
-          hola@amorpropiosos.app
+        <a href="mailto:hola@amorpropiosos.com" className="underline">
+          hola@amorpropiosos.com
         </a>{" "}
         y te devolvemos el 100% de tu pago. Sin preguntas, sin formularios
         largos: solo cuéntanos que quieres el reembolso.

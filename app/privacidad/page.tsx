@@ -46,8 +46,8 @@ export default function PrivacidadPage() {
       <p>
         Puedes pedirnos en cualquier momento una copia de tus datos o que
         los eliminemos por completo, escribiendo a{" "}
-        <a href="mailto:hola@amorpropiosos.app" className="underline">
-          hola@amorpropiosos.app
+        <a href="mailto:hola@amorpropiosos.com" className="underline">
+          hola@amorpropiosos.com
         </a>
         . Respondemos en un plazo máximo de 10 días hábiles.
       </p>

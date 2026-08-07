@@ -68,8 +68,8 @@ export default function TerminosPage() {
       <h2>Contacto</h2>
       <p>
         Cualquier duda, escríbenos a{" "}
-        <a href="mailto:hola@amorpropiosos.app" className="underline">
-          hola@amorpropiosos.app
+        <a href="mailto:hola@amorpropiosos.com" className="underline">
+          hola@amorpropiosos.com
         </a>
         .
       </p>

@@ -126,20 +126,21 @@ export default function PerfilPage() {
           </Link>
         </motion.div>
 
-        <motion.div
+        <motion.a
+          href="mailto:hola@amorpropiosos.com"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-5 rounded-xl border border-border-default bg-surface-tertiary p-4 shadow-[inset_0_1px_3px_rgba(120,80,40,0.08)]"
+          className="mt-5 block rounded-xl border border-border-default bg-surface-tertiary p-4 shadow-[inset_0_1px_3px_rgba(120,80,40,0.08)] transition-colors active:bg-surface-secondary"
         >
           <div className="flex items-center gap-2">
             <LifeBuoy className="h-4 w-4 text-brand-primary" />
             <p className="text-sm font-semibold text-txt-primary">¿Necesitas ayuda?</p>
           </div>
           <p className="mt-1 text-xs leading-relaxed text-txt-secondary">
-            Escríbenos y te respondemos en menos de 24 horas — nunca estás sola con esto.
+            Escríbenos a hola@amorpropiosos.com y te respondemos en menos de 24 horas — nunca estás sola con esto.
           </p>
-        </motion.div>
+        </motion.a>
 
         <motion.div
           initial={{ opacity: 0, y: 10 }}
