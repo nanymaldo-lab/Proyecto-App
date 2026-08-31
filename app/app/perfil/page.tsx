@@ -103,9 +103,12 @@ export default function PerfilPage() {
         >
           <div className="flex items-center gap-3 px-4 py-3.5">
             <Bell className="h-4 w-4 shrink-0 text-txt-secondary" />
-            <span className="flex-1 text-sm text-txt-primary">Recordatorio diario</span>
-            <span className="rounded-full bg-surface-tertiary px-2.5 py-1 text-xs font-medium text-txt-tertiary">
-              Próximamente
+            <div className="flex-1">
+              <p className="text-sm text-txt-primary">Recordatorio diario</p>
+              <p className="text-xs text-txt-tertiary">Un correo al día con tu afirmación</p>
+            </div>
+            <span className="rounded-full bg-status-success/15 px-2.5 py-1 text-xs font-medium text-status-success">
+              Activo
             </span>
           </div>
           <Link
